@@ -1,68 +1,68 @@
-// Viral Ray E-Commerce - Complete JavaScript Functionality
+// Viral Ray E-Commerce - Funcionalidad Completa de JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initGalleryHoverEffect();
-    initMobileMenu();
-    initSearch();
-    initCart();
-    initAccountSystem();
-    initCarousel();
-    initHeaderScroll();
-    initAnimations();
-    initNotificationSystem();
+    // Inicializar todos los componentes
+    inicializarEfectoGaleria();
+    inicializarMenuMovil();
+    inicializarBusqueda();
+    inicializarCarrito();
+    inicializarSistemaCuenta();
+    inicializarCarrusel();
+    inicializarDesplazamientoEncabezado();
+    inicializarAnimaciones();
+    inicializarSistemaNotificaciones();
 });
 
-// ==================== Dynamic Gallery Hover & Scroll Effect ====================
-function initGalleryHoverEffect() {
-    const gallery = document.getElementById('heroGallery');
-    if (!gallery) return;
+// ==================== Efecto Hover de Galería y Efecto de Desplazamiento ====================
+function inicializarEfectoGaleria() {
+    const galeria = document.getElementById('galeriaHeroe');
+    if (!galeria) return;
 
-    const items = gallery.querySelectorAll('.gallery-item');
-    const videoItem = gallery.querySelector('.video-item');
+    const elementos = galeria.querySelectorAll('.elemento-galeria');
+    const elementoVideo = galeria.querySelector('.elemento-video');
 
-    // Scroll-based effect for video
-    let scrollTimeout;
+    // Efecto basado en desplazamiento para video
+    let tiempoExcedidoDesplazamiento;
     window.addEventListener('scroll', () => {
-        if (scrollTimeout) return;
+        if (tiempoExcedidoDesplazamiento) return;
         
-        scrollTimeout = setTimeout(() => {
-            const galleryRect = gallery.getBoundingClientRect();
-            const galleryCenter = galleryRect.top + galleryRect.height / 2;
-            const viewportCenter = window.innerHeight / 2;
+        tiempoExcedidoDesplazamiento = setTimeout(() => {
+            const rectanguloGaleria = galeria.getBoundingClientRect();
+            const centroGaleria = rectanguloGaleria.top + rectanguloGaleria.height / 2;
+            const centroVentana = window.innerHeight / 2;
             
-            // If gallery is visible and user scrolls
-            if (galleryRect.top < window.innerHeight && galleryRect.bottom > 0) {
-                gallery.classList.add('video-focused');
+            // Si la galería es visible y el usuario desplaza
+            if (rectanguloGaleria.top < window.innerHeight && rectanguloGaleria.bottom > 0) {
+                galeria.classList.add('video-enfocado');
             } else {
-                gallery.classList.remove('video-focused');
+                galeria.classList.remove('video-enfocado');
             }
             
-            scrollTimeout = null;
+            tiempoExcedidoDesplazamiento = null;
         }, 20);
     });
 
-    // Hover-based effect (mouse takes priority over scroll)
-    items.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            // Remove scroll-based effect when hovering
-            gallery.classList.remove('video-focused');
+    // Efecto basado en hover (mouse tiene prioridad sobre desplazamiento)
+    elementos.forEach(elemento => {
+        elemento.addEventListener('mouseenter', function() {
+            // Eliminar efecto basado en desplazamiento al hacer hover
+            galeria.classList.remove('video-enfocado');
             
-            const isVideo = this.classList.contains('video-item');
+            const esVideo = this.classList.contains('elemento-video');
 
-            items.forEach(i => {
+            elementos.forEach(i => {
                 if (i === this) {
-                    i.classList.add('active');
-                    i.classList.remove('dimmed');
-                    if (isVideo) {
+                    i.classList.add('activo');
+                    i.classList.remove('atenuado');
+                    if (esVideo) {
                         i.style.transform = 'scale(1.5)';
                     } else {
                         i.style.transform = 'scale(1.15)';
                     }
                 } else {
-                    i.classList.remove('active');
-                    i.classList.add('dimmed');
-                    if (i.classList.contains('video-item')) {
+                    i.classList.remove('activo');
+                    i.classList.add('atenuado');
+                    if (i.classList.contains('elemento-video')) {
                         i.style.transform = 'scale(0.7)';
                     } else {
                         i.style.transform = 'scale(0.95)';
@@ -71,447 +71,447 @@ function initGalleryHoverEffect() {
             });
         });
 
-        item.addEventListener('mouseleave', function() {
-            items.forEach(i => {
-                i.classList.remove('active', 'dimmed');
+        elemento.addEventListener('mouseleave', function() {
+            elementos.forEach(i => {
+                i.classList.remove('activo', 'atenuado');
                 i.style.transform = '';
             });
         });
     });
 }
 
-// ==================== Mobile Menu ====================
-function initMobileMenu() {
-    const menuHamburger = document.querySelector('.menu-hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+// ==================== Menú Móvil ====================
+function inicializarMenuMovil() {
+    const menuHamburguesa = document.querySelector('.menu-hamburguesa');
+    const menuNavegacion = document.querySelector('.menu-navegacion');
 
-    if (!menuHamburger || !navMenu) return;
+    if (!menuHamburguesa || !menuNavegacion) return;
 
-    menuHamburger.addEventListener('click', () => {
-        menuHamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+    menuHamburguesa.addEventListener('click', () => {
+        menuHamburguesa.classList.toggle('activo');
+        menuNavegacion.classList.toggle('activo');
     });
 
-    // Close menu when clicking on a link
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            menuHamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+    // Cerrar menú al hacer clic en un enlace
+    menuNavegacion.querySelectorAll('.enlace-navegacion').forEach(enlace => {
+        enlace.addEventListener('click', () => {
+            menuHamburguesa.classList.remove('activo');
+            menuNavegacion.classList.remove('activo');
         });
     });
 }
 
-// ==================== Search Functionality ====================
-function initSearch() {
-    const searchInput = document.querySelector('.search-input');
-    const searchButton = document.querySelector('.search-button');
+// ==================== Funcionalidad de Búsqueda ====================
+function inicializarBusqueda() {
+    const entradaBusqueda = document.querySelector('.entrada-busqueda');
+    const botonBusqueda = document.querySelector('.boton-busqueda');
 
-    if (!searchInput || !searchButton) return;
+    if (!entradaBusqueda || !botonBusqueda) return;
 
-    searchButton.addEventListener('click', () => {
-        const query = searchInput.value.trim();
-        if (query) {
-            showToast(`Buscando: "${query}"`);
+    botonBusqueda.addEventListener('click', () => {
+        const consulta = entradaBusqueda.value.trim();
+        if (consulta) {
+            mostrarNotificacion(`Buscando: "${consulta}"`);
         } else {
-            showToast('Por favor ingresa un término de búsqueda', true);
+            mostrarNotificacion('Por favor ingresa un término de búsqueda', true);
         }
     });
 
-    searchInput.addEventListener('keypress', (e) => {
+    entradaBusqueda.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            searchButton.click();
+            botonBusqueda.click();
         }
     });
 }
 
-// ==================== Cart Functionality ====================
-let cartItems = [];
-let cartTotal = 0;
+// ==================== Funcionalidad del Carrito ====================
+let articulosCarrito = [];
+let totalCarrito = 0;
 
-function initCart() {
-    const cartIcon = document.querySelector('.cart-icon');
-    const cartModal = document.getElementById('cartModal');
-    const closeCartBtn = document.getElementById('closeCartModal');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+function inicializarCarrito() {
+    const iconoCarrito = document.querySelector('.icono-carrito');
+    const modalCarrito = document.getElementById('modalCarrito');
+    const botonCerrarCarrito = document.getElementById('cerrarModalCarrito');
+    const botonFinalizarCompra = document.getElementById('botonFinalizarCompra');
 
-    if (!cartIcon || !cartModal) return;
+    if (!iconoCarrito || !modalCarrito) return;
 
-    // Open cart modal
-    cartIcon.addEventListener('click', () => {
-        cartModal.classList.add('active');
+    // Abrir modal del carrito
+    iconoCarrito.addEventListener('click', () => {
+        modalCarrito.classList.add('activo');
     });
 
-    // Close cart modal
-    closeCartBtn.addEventListener('click', () => {
-        cartModal.classList.remove('active');
+    // Cerrar modal del carrito
+    botonCerrarCarrito.addEventListener('click', () => {
+        modalCarrito.classList.remove('activo');
     });
 
-    // Close when clicking outside
-    cartModal.addEventListener('click', (e) => {
-        if (e.target === cartModal) {
-            cartModal.classList.remove('active');
+    // Cerrar al hacer clic fuera
+    modalCarrito.addEventListener('click', (e) => {
+        if (e.target === modalCarrito) {
+            modalCarrito.classList.remove('activo');
         }
     });
 
-    // Checkout button
-    checkoutBtn.addEventListener('click', () => {
-        if (cartItems.length > 0) {
-            showToast('Redirigiendo al pago...');
-            // Simulate checkout
+    // Botón de finalizar compra
+    botonFinalizarCompra.addEventListener('click', () => {
+        if (articulosCarrito.length > 0) {
+            mostrarNotificacion('Redirigiendo al pago...');
+            // Simular checkout
             setTimeout(() => {
-                cartModal.classList.remove('active');
-                showToast('¡Gracias por tu compra!');
+                modalCarrito.classList.remove('activo');
+                mostrarNotificacion('¡Gracias por tu compra!');
             }, 1500);
         } else {
-            showToast('Tu carrito está vacío', true);
+            mostrarNotificacion('Tu carrito está vacío', true);
         }
     });
 
-    // Add to cart buttons
-    document.querySelectorAll('.add-to-cart-btn').forEach((btn, index) => {
+    // Botones de agregar al carrito
+    document.querySelectorAll('.boton-agregar-carrito').forEach((btn, indice) => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const card = btn.closest('.product-card');
-            const productId = card.dataset.product;
-            const productName = card.dataset.name;
-            const productPrice = parseFloat(card.dataset.price);
-            const productImage = card.querySelector('.product-image img').src;
+            const tarjeta = btn.closest('.tarjeta-producto');
+            const idProducto = tarjeta.dataset.producto;
+            const nombreProducto = tarjeta.dataset.nombre;
+            const precioProducto = parseFloat(tarjeta.dataset.precio);
+            const imagenProducto = tarjeta.querySelector('.imagen-producto img').src;
 
-            addToCart({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
+            agregarAlCarrito({
+                id: idProducto,
+                nombre: nombreProducto,
+                precio: precioProducto,
+                imagen: imagenProducto
             });
         });
     });
 }
 
-function addToCart(product) {
-    // Check if product already exists
-    const existingItem = cartItems.find(item => item.id === product.id);
+function agregarAlCarrito(producto) {
+    // Verificar si el producto ya existe
+    const articuloExistente = articulosCarrito.find(articulo => articulo.id === producto.id);
 
-    if (existingItem) {
-        existingItem.quantity++;
+    if (articuloExistente) {
+        articuloExistente.cantidad++;
     } else {
-        product.quantity = 1;
-        cartItems.push(product);
+        producto.cantidad = 1;
+        articulosCarrito.push(producto);
     }
 
-    updateCartUI();
-    showToast(`"${product.name}" añadido al carrito`);
+    actualizarInterfazCarrito();
+    mostrarNotificacion(`"${producto.nombre}" añadido al carrito`);
 
-    // Animate cart count
-    const cartCount = document.querySelector('.cart-count');
-    cartCount.classList.add('bounce');
-    setTimeout(() => cartCount.classList.remove('bounce'), 500);
+    // Animar contador del carrito
+    const contadorCarrito = document.querySelector('.contador-carrito');
+    contadorCarrito.classList.add('rebote');
+    setTimeout(() => contadorCarrito.classList.remove('rebote'), 500);
 }
 
-function removeFromCart(productId) {
-    const index = cartItems.findIndex(item => item.id === productId);
-    if (index > -1) {
-        const item = cartItems[index];
-        cartItems.splice(index, 1);
-        updateCartUI();
-        showToast(`"${item.name}" eliminado del carrito`);
+function eliminarDelCarrito(idProducto) {
+    const indice = articulosCarrito.findIndex(articulo => articulo.id === idProducto);
+    if (indice > -1) {
+        const articulo = articulosCarrito[indice];
+        articulosCarrito.splice(indice, 1);
+        actualizarInterfazCarrito();
+        mostrarNotificacion(`"${articulo.nombre}" eliminado del carrito`);
     }
 }
 
-function updateCartUI() {
-    const cartCount = document.querySelector('.cart-count');
-    const cartBody = document.getElementById('cartModalBody');
-    const cartTotalEl = document.getElementById('cartTotal');
+function actualizarInterfazCarrito() {
+    const contadorCarrito = document.querySelector('.contador-carrito');
+    const cuerpoCarrito = document.getElementById('cuerpoModalCarrito');
+    const elementoTotalCarrito = document.getElementById('totalCarrito');
 
-    // Update count
-    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
+    // Actualizar contador
+    const totalArticulos = articulosCarrito.reduce((suma, articulo) => suma + articulo.cantidad, 0);
+    contadorCarrito.textContent = totalArticulos;
 
-    // Update cart body
-    if (cartItems.length === 0) {
-        cartBody.innerHTML = `
-            <div class="cart-empty">
+    // Actualizar cuerpo del carrito
+    if (articulosCarrito.length === 0) {
+        cuerpoCarrito.innerHTML = `
+            <div class="carrito-vacio">
                 <p>Tu carrito está vacío</p>
                 <p style="margin-top: 10px; font-size: 12px; color: var(--neon-yellow);">¡Añade productos para comenzar!</p>
             </div>
         `;
     } else {
-        cartBody.innerHTML = cartItems.map(item => `
-            <div class="cart-item" data-id="${item.id}">
-                <div class="cart-item-image">
-                    <img src="${item.image}" alt="${item.name}">
+        cuerpoCarrito.innerHTML = articulosCarrito.map(articulo => `
+            <div class="articulo-carrito" data-id="${articulo.id}">
+                <div class="imagen-articulo-carrito">
+                    <img src="${articulo.imagen}" alt="${articulo.nombre}">
                 </div>
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p class="price">${item.price.toFixed(2)}€ x ${item.quantity}</p>
+                <div class="detalles-articulo-carrito">
+                    <h4>${articulo.nombre}</h4>
+                    <p class="precio">${articulo.precio.toFixed(2)}€ x ${articulo.cantidad}</p>
                 </div>
-                <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">&times;</button>
+                <button class="boton-eliminar-articulo" onclick="eliminarDelCarrito('${articulo.id}')">&times;</button>
             </div>
         `).join('');
     }
 
-    // Update total
-    cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotalEl.textContent = cartTotal.toFixed(2) + '€';
+    // Actualizar total
+    totalCarrito = articulosCarrito.reduce((suma, articulo) => suma + (articulo.precio * articulo.cantidad), 0);
+    elementoTotalCarrito.textContent = totalCarrito.toFixed(2) + '€';
 }
 
-// ==================== Account System ====================
-let isLoggedIn = false;
-let currentUser = null;
+// ==================== Sistema de Cuenta ====================
+let sesionIniciada = false;
+let usuarioActual = null;
 
-function initAccountSystem() {
-    const userIcon = document.querySelector('.user-icon');
-    const accountModal = document.getElementById('accountModal');
-    const closeAccountBtn = document.getElementById('closeAccountModal');
-    const userDashboard = document.getElementById('userDashboard');
-    const closeDashboardBtn = document.getElementById('closeDashboard');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const accountTabs = document.querySelectorAll('.account-tab');
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+function inicializarSistemaCuenta() {
+    const iconoUsuario = document.querySelector('.icono-usuario');
+    const modalCuenta = document.getElementById('modalCuenta');
+    const botonCerrarCuenta = document.getElementById('cerrarModalCuenta');
+    const panelUsuario = document.getElementById('panelUsuario');
+    const botonCerrarPanel = document.getElementById('cerrarPanel');
+    const botonCerrarSesion = document.getElementById('botonCerrarSesion');
+    const pestanasCuenta = document.querySelectorAll('.pestana-cuenta');
+    const formularioInicioSesion = document.getElementById('formularioInicioSesion');
+    const formularioRegistro = document.getElementById('formularioRegistro');
 
-    if (!userIcon || !accountModal) return;
+    if (!iconoUsuario || !modalCuenta) return;
 
-    // Open account modal
-    userIcon.addEventListener('click', () => {
-        if (isLoggedIn) {
-            userDashboard.classList.add('active');
+    // Abrir modal de cuenta
+    iconoUsuario.addEventListener('click', () => {
+        if (sesionIniciada) {
+            panelUsuario.classList.add('activo');
         } else {
-            accountModal.classList.add('active');
+            modalCuenta.classList.add('activo');
         }
     });
 
-    // Close account modal
-    closeAccountBtn.addEventListener('click', () => {
-        accountModal.classList.remove('active');
+    // Cerrar modal de cuenta
+    botonCerrarCuenta.addEventListener('click', () => {
+        modalCuenta.classList.remove('activo');
     });
 
-    // Close dashboard
-    closeDashboardBtn.addEventListener('click', () => {
-        userDashboard.classList.remove('active');
+    // Cerrar panel de usuario
+    botonCerrarPanel.addEventListener('click', () => {
+        panelUsuario.classList.remove('activo');
     });
 
-    // Account tabs
-    accountTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            accountTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+    // Pestañas de cuenta
+    pestanasCuenta.forEach(pestana => {
+        pestana.addEventListener('click', () => {
+            pestanasCuenta.forEach(t => t.classList.remove('activo'));
+            pestana.classList.add('activo');
 
-            if (tab.dataset.tab === 'login') {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
+            if (pestana.dataset.pestana === 'inicioSesion') {
+                formularioInicioSesion.classList.remove('oculto');
+                formularioRegistro.classList.add('oculto');
             } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
+                formularioInicioSesion.classList.add('oculto');
+                formularioRegistro.classList.remove('oculto');
             }
         });
     });
 
-    // Login form
-    loginForm.addEventListener('submit', (e) => {
+    // Formulario de inicio de sesión
+    formularioInicioSesion.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
+        const correo = document.getElementById('correoInicioSesion').value;
+        const contrasena = document.getElementById('contrasenaInicioSesion').value;
 
-        // Simulate login
-        if (email && password) {
-            loginUser({
-                name: email.split('@')[0],
-                email: email
+        // Simular inicio de sesión
+        if (correo && contrasena) {
+            iniciarSesionUsuario({
+                nombre: correo.split('@')[0],
+                correo: correo
             });
-            accountModal.classList.remove('active');
-            showToast('¡Bienvenido de nuevo!');
+            modalCuenta.classList.remove('activo');
+            mostrarNotificacion('¡Bienvenido de nuevo!');
         }
     });
 
-    // Register form
-    registerForm.addEventListener('submit', (e) => {
+    // Formulario de registro
+    formularioRegistro.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('registerName').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('registerConfirmPassword').value;
-        const acceptTerms = document.getElementById('acceptTerms').checked;
+        const nombre = document.getElementById('nombreRegistro').value;
+        const correo = document.getElementById('correoRegistro').value;
+        const contrasena = document.getElementById('contrasenaRegistro').value;
+        const confirmarContrasena = document.getElementById('confirmarContrasenaRegistro').value;
+        const aceptarTerminos = document.getElementById('aceptarTerminos').checked;
 
-        if (password !== confirmPassword) {
-            showToast('Las contraseñas no coinciden', true);
+        if (contrasena !== confirmarContrasena) {
+            mostrarNotificacion('Las contraseñas no coinciden', true);
             return;
         }
 
-        if (!acceptTerms) {
-            showToast('Debes aceptar los términos y condiciones', true);
+        if (!aceptarTerminos) {
+            mostrarNotificacion('Debes aceptar los términos y condiciones', true);
             return;
         }
 
-        // Simulate registration
-        if (name && email && password) {
-            loginUser({
-                name: name,
-                email: email
+        // Simular registro
+        if (nombre && correo && contrasena) {
+            iniciarSesionUsuario({
+                nombre: nombre,
+                correo: correo
             });
-            accountModal.classList.remove('active');
-            showToast('¡Cuenta creada exitosamente!');
+            modalCuenta.classList.remove('activo');
+            mostrarNotificacion('¡Cuenta creada exitosamente!');
         }
     });
 
-    // Logout
-    logoutBtn.addEventListener('click', () => {
-        logoutUser();
+    // Cerrar sesión
+    botonCerrarSesion.addEventListener('click', () => {
+        cerrarSesionUsuario();
     });
 
-    // Close modals when clicking outside
-    accountModal.addEventListener('click', (e) => {
-        if (e.target === accountModal) {
-            accountModal.classList.remove('active');
+    // Cerrar modales al hacer clic fuera
+    modalCuenta.addEventListener('click', (e) => {
+        if (e.target === modalCuenta) {
+            modalCuenta.classList.remove('activo');
         }
     });
 
-    userDashboard.addEventListener('click', (e) => {
-        if (e.target === userDashboard) {
-            userDashboard.classList.remove('active');
+    panelUsuario.addEventListener('click', (e) => {
+        if (e.target === panelUsuario) {
+            panelUsuario.classList.remove('activo');
         }
     });
 }
 
-function loginUser(user) {
-    isLoggedIn = true;
-    currentUser = user;
+function iniciarSesionUsuario(usuario) {
+    sesionIniciada = true;
+    usuarioActual = usuario;
 
-    // Update dashboard
-    document.getElementById('userName').textContent = user.name;
-    document.getElementById('userEmail').textContent = user.email;
+    // Actualizar panel de usuario
+    document.getElementById('nombreUsuario').textContent = usuario.nombre;
+    document.getElementById('correoUsuario').textContent = usuario.correo;
 
-    // Change user icon to logged state
-    const userIcon = document.querySelector('.user-icon');
-    userIcon.innerHTML = `
+    // Cambiar icono de usuario a estado conectado
+    const iconoUsuario = document.querySelector('.icono-usuario');
+    iconoUsuario.innerHTML = `
         <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--neon-green);">
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
         </svg>
     `;
 }
 
-function logoutUser() {
-    isLoggedIn = false;
-    currentUser = null;
+function cerrarSesionUsuario() {
+    sesionIniciada = false;
+    usuarioActual = null;
 
-    // Reset user icon
-    const userIcon = document.querySelector('.user-icon');
-    userIcon.innerHTML = `
+    // Restablecer icono de usuario
+    const iconoUsuario = document.querySelector('.icono-usuario');
+    iconoUsuario.innerHTML = `
         <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
         </svg>
     `;
 
-    document.getElementById('userDashboard').classList.remove('active');
-    showToast('Sesión cerrada');
+    document.getElementById('panelUsuario').classList.remove('activo');
+    mostrarNotificacion('Sesión cerrada');
 }
 
-// ==================== Carousel Functionality ====================
-function initCarousel() {
-    const track = document.getElementById('productsTrack');
-    const leftArrow = document.querySelector('.carousel-arrow.left');
-    const rightArrow = document.querySelector('.carousel-arrow.right');
+// ==================== Funcionalidad del Carrusel ====================
+function inicializarCarrusel() {
+    const pista = document.getElementById('pistaProductos');
+    const flechaIzquierda = document.querySelector('.flecha-carrusel.izquierda');
+    const flechaDerecha = document.querySelector('.flecha-carrusel.derecha');
 
-    if (!track || !leftArrow || !rightArrow) return;
+    if(!pista || !flechaIzquierda || !flechaDerecha) return;
 
-    const scrollAmount = 305;
+    const cantidadDesplazamiento = 305;
 
-    rightArrow.addEventListener('click', () => {
-        track.scrollBy({
-            left: scrollAmount,
+    flechaDerecha.addEventListener('click', () => {
+        pista.scrollBy({
+            left: cantidadDesplazamiento,
             behavior: 'smooth'
         });
     });
 
-    leftArrow.addEventListener('click', () => {
-        track.scrollBy({
-            left: -scrollAmount,
+    flechaIzquierda.addEventListener('click', () => {
+        pista.scrollBy({
+            left: -cantidadDesplazamiento,
             behavior: 'smooth'
         });
     });
 
-    // Auto-scroll
-    let autoScrollInterval;
-    const startAutoScroll = () => {
-        autoScrollInterval = setInterval(() => {
-            if (track.scrollLeft + track.offsetWidth >= track.scrollWidth) {
-                track.scrollTo({ left: 0, behavior: 'smooth' });
+    // Desplazamiento automático
+    let intervaloDesplazamientoAutomatico;
+    const iniciarDesplazamientoAutomatico = () => {
+        intervaloDesplazamientoAutomatico = setInterval(() => {
+            if (pista.scrollLeft + pista.offsetWidth >= pista.scrollWidth) {
+                pista.scrollTo({ left: 0, behavior: 'smooth' });
             } else {
-                track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                pista.scrollBy({ left: cantidadDesplazamiento, behavior: 'smooth' });
             }
         }, 5000);
     };
 
-    const stopAutoScroll = () => {
-        clearInterval(autoScrollInterval);
+    const detenerDesplazamientoAutomatico = () => {
+        clearInterval(intervaloDesplazamientoAutomatico);
     };
 
-    track.addEventListener('mouseenter', stopAutoScroll);
-    track.addEventListener('mouseleave', startAutoScroll);
+    pista.addEventListener('mouseenter', detenerDesplazamientoAutomatico);
+    pista.addEventListener('mouseleave', iniciarDesplazamientoAutomatico);
 
-    startAutoScroll();
+    iniciarDesplazamientoAutomatico();
 }
 
-// ==================== Header Scroll Effect ====================
-function initHeaderScroll() {
-    const header = document.querySelector('.header');
+// ==================== Efecto de Desplazamiento del Encabezado ====================
+function inicializarDesplazamientoEncabezado() {
+    const encabezado = document.querySelector('.encabezado');
 
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 50) {
-            header.classList.add('scrolled');
+            encabezado.classList.add('desplazado');
         } else {
-            header.classList.remove('scrolled');
+            encabezado.classList.remove('desplazado');
         }
     });
 }
 
-// ==================== Animations ====================
-function initAnimations() {
-    // Intersection Observer for scroll animations
-    const observerOptions = {
+// ==================== Animaciones ====================
+function inicializarAnimaciones() {
+    // Intersection Observer para animaciones de desplazamiento
+    const opcionesObservador = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
+    const observador = new IntersectionObserver((entradas) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add('animar-entrada');
             }
         });
-    }, observerOptions);
+    }, opcionesObservador);
 
-    // Observe sections
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
+    // Observar secciones
+    document.querySelectorAll('section').forEach(seccion => {
+        seccion.style.opacity = '0';
+        seccion.style.transform = 'translateY(30px)';
+        seccion.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observador.observe(seccion);
     });
 
-    // Add animation styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .animate-in {
+    // Agregar estilos de animación
+    const estilo = document.createElement('style');
+    estilo.textContent = `
+        .animar-entrada {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(estilo);
 
-    // Add ripple effect to buttons
-    document.querySelectorAll('.cta-button, .submit-btn, .checkout-btn').forEach(btn => {
+    // Agregar efecto ripple a los botones
+    document.querySelectorAll('.boton-cta, .boton-enviar, .boton-finalizar').forEach(btn => {
         btn.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
             ripple.className = 'ripple';
             this.appendChild(ripple);
 
             const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
+            const tamano = Math.max(rect.width, rect.height);
 
             ripple.style.cssText = `
                 position: absolute;
-                width: ${size}px;
-                height: ${size}px;
+                width: ${tamano}px;
+                height: ${tamano}px;
                 background: rgba(255, 255, 255, 0.3);
                 border-radius: 50%;
                 transform: translate(-50%, -50%) scale(0);
@@ -519,8 +519,8 @@ function initAnimations() {
                 pointer-events: none;
             `;
 
-            const rippleKeyframes = document.createElement('style');
-            rippleKeyframes.textContent = `
+            const keyframesRipple = document.createElement('style');
+            keyframesRipple.textContent = `
                 @keyframes ripple {
                     to {
                         transform: translate(-50%, -50%) scale(4);
@@ -528,74 +528,74 @@ function initAnimations() {
                     }
                 }
             `;
-            document.head.appendChild(rippleKeyframes);
+            document.head.appendChild(keyframesRipple);
 
             setTimeout(() => {
                 ripple.remove();
-                rippleKeyframes.remove();
+                keyframesRipple.remove();
             }, 600);
         });
     });
 
-    // Social icon hover effects
-    document.querySelectorAll('.social-icon').forEach(icon => {
-        icon.addEventListener('mouseenter', function() {
+    // Efectos hover de iconos sociales
+    document.querySelectorAll('.icono-social').forEach(icono => {
+        icono.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.15) rotate(5deg)';
         });
 
-        icon.addEventListener('mouseleave', function() {
+        icono.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1) rotate(0)';
         });
     });
 
-    // Contact floating items animation
-    document.querySelectorAll('.contact-item').forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
+    // Animación de elementos flotantes de contacto
+    document.querySelectorAll('.elemento-contacto').forEach((elemento, indice) => {
+        elemento.style.animationDelay = `${indice * 0.2}s`;
     });
 
-    // Trust elements animation
-    document.querySelectorAll('.element-card').forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
+    // Animación de elementos de confianza
+    document.querySelectorAll('.tarjeta-elemento').forEach((tarjeta, indice) => {
+        tarjeta.style.animationDelay = `${indice * 0.1}s`;
     });
 }
 
-// ==================== Notification System ====================
-let notificationTimeout;
+// ==================== Sistema de Notificaciones ====================
+let tiempoExcedidoNotificacion;
 
-function initNotificationSystem() {
-    // Styles are in CSS
+function inicializarSistemaNotificaciones() {
+    // Los estilos están en CSS
 }
 
-function showToast(message, isError = false) {
-    const toast = document.getElementById('notificationToast');
-    const messageEl = toast.querySelector('.notification-message');
+function mostrarNotificacion(mensaje, esError = false) {
+    const toast = document.getElementById('notificacionToast');
+    const elementoMensaje = toast.querySelector('.mensaje-notificacion');
 
-    // Clear previous timeout
-    if (notificationTimeout) {
-        clearTimeout(notificationTimeout);
+    // Limpiar tiempo excedido anterior
+    if (tiempoExcedidoNotificacion) {
+        clearTimeout(tiempoExcedidoNotificacion);
     }
 
-    // Set message
-    messageEl.textContent = message;
+    // Establecer mensaje
+    elementoMensaje.textContent = mensaje;
 
-    // Set error style if needed
-    if (isError) {
+    // Establecer estilo de error si es necesario
+    if (esError) {
         toast.classList.add('error');
     } else {
         toast.classList.remove('error');
     }
 
-    // Show toast
-    toast.classList.add('show');
+    // Mostrar toast
+    toast.classList.add('mostrar');
 
-    // Hide after 3 seconds
-    notificationTimeout = setTimeout(() => {
-        toast.classList.remove('show');
+    // Ocultar después de 3 segundos
+    tiempoExcedidoNotificacion = setTimeout(() => {
+        toast.classList.remove('mostrar');
     }, 3000);
 }
 
-// Make functions globally accessible for onclick handlers
-window.removeFromCart = removeFromCart;
+// Hacer funciones globalmente accesibles para manejadores onclick
+window.eliminarDelCarrito = eliminarDelCarrito;
 
-// Console log
-console.log('Viral Ray E-Commerce loaded successfully!');
+// Registro en consola
+console.log('¡Viral Ray E-Commerce cargado correctamente!');
