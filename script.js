@@ -175,24 +175,7 @@ function inicializarCarrito() {
         }
     });
 
-    // Botones de agregar al carrito
-    document.querySelectorAll('.boton-agregar-carrito').forEach((btn, indice) => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const tarjeta = btn.closest('.tarjeta-producto');
-            const idProducto = tarjeta.dataset.producto;
-            const nombreProducto = tarjeta.dataset.nombre;
-            const precioProducto = parseFloat(tarjeta.dataset.precio);
-            const imagenProducto = tarjeta.querySelector('.imagen-producto img').src;
-
-            agregarAlCarrito({
-                id: idProducto,
-                nombre: nombreProducto,
-                precio: precioProducto,
-                imagen: imagenProducto
-            });
-        });
-    });
+    // Botones de agregar al carrito (eliminados - ahora se usan desde onclick en HTML)
 }
 
 function agregarAlCarrito(producto) {
