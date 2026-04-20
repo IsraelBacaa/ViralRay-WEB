@@ -1,0 +1,201 @@
+/* ==================== ESTILOS PÁGINAS LEGALES ==================== */
+
+body.pagina-legal {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.pagina-legal .encabezado {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.seccion-legal {
+    flex: 1;
+    padding: 140px 20px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.contenedor-legal {
+    background: rgba(10, 10, 26, 0.95);
+    border-radius: 25px;
+    padding: 50px 40px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.titulo-legal {
+    font-family: var(--font-title);
+    font-size: 36px;
+    color: var(--neon-yellow);
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.fecha-legal {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.contenido-legal {
+    text-align: left;
+}
+
+.seccion-contenido {
+    margin-bottom: 35px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.seccion-contenido:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.seccion-contenido h2 {
+    font-family: var(--font-title);
+    font-size: 16px;
+    color: var(--neon-magenta);
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+.seccion-contenido p {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--text-white);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.seccion-contenido p:last-child {
+    margin-bottom: 0;
+}
+
+.lista-legal {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.lista-legal li {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--text-white);
+    line-height: 1.7;
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.lista-legal li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--neon-yellow);
+}
+
+.lista-legal li strong {
+    color: var(--neon-yellow);
+}
+
+.enlaces-legales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    flex-wrap: wrap;
+}
+
+.enlace-legal {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--neon-yellow);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.enlace-legal:hover {
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--text-white);
+}
+
+.separador {
+    color: rgba(255, 215, 0, 0.3);
+}
+
+.pie-pagina-legal {
+    padding: 25px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.boton-volver-legal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid var(--neon-yellow);
+    border-radius: 30px;
+    color: var(--neon-yellow);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.boton-volver-legal:hover {
+    background: var(--neon-yellow);
+    color: var(--bg-black);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-legal {
+        padding: 35px 25px;
+        border-radius: 20px;
+    }
+
+    .titulo-legal {
+        font-size: 28px;
+    }
+
+    .seccion-legal {
+        padding: 120px 15px 40px;
+    }
+
+    .enlaces-legales {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .separador {
+        display: none;
+    }
+}

@@ -1,0 +1,739 @@
+/* Reset CSS y Estilos Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Definición de Fuentes Personalizadas */
+@font-face {
+    font-family: 'Audiowide';
+    src: url('fonts/Audiowide-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'BigShoulders';
+    src: url('fonts/BigShouldersDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --neon-yellow: #FFD700;
+    --neon-magenta: #FF00FF;
+    --neon-cyan: #00FFFF;
+    --neon-purple: #8B00FF;
+    --neon-green: #00FF00;
+    --neon-pink: #FF1493;
+    --neon-red: #FF0000;
+    --bg-black: #000000;
+    --bg-dark: #0a0a0a;
+    --text-white: #FFFFFF;
+    --text-gray: #AAAAAA;
+
+    --font-title: 'Audiowide', cursive;
+    --font-body: 'BigShoulders', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.pagina-perfil {
+    background-color: var(--bg-black);
+    background-image: url('images/rayos.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    cursor: url('images/custom-cursor.png') 0 0, auto;
+    min-height: 100vh;
+}
+
+/* Efecto de viñeta - muy sutil */
+body.pagina-perfil::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Cursor personalizado para hover */
+*:hover {
+    cursor: url('images/custom-cursor.png') 0 0, auto;
+}
+
+/* ==================== ENCABEZADO ==================== */
+.encabezado {
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.contenedor-encabezado {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logotipo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.imagen-logotipo {
+    height: 55px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.imagen-logotipo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+}
+
+/* ==================== SECCIÓN CUENTA ==================== */
+.seccion-cuenta {
+    min-height: 100vh;
+    padding: 120px 20px 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contenido-cuenta {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 40px 35px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo en la cuenta */
+.logo-cuenta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 10px 0 20px;
+}
+
+.logo-cuenta img {
+    height: 90px;
+    width: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+
+
+/* Línea divisoria */
+.linea-divisora {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-yellow), transparent);
+    margin: 15px 0 25px;
+}
+
+/* Título de la cuenta */
+.titulo-cuenta {
+    font-family: var(--font-title);
+    font-size: 24px;
+    font-weight: normal;
+    color: var(--neon-magenta);
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+/* ==================== FORMULARIOS ==================== */
+.formulario-cuenta {
+    width: 100%;
+}
+
+.formulario-cuenta.oculto {
+    display: none;
+}
+
+/* Inicio con Google */
+.inicio-social {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.boton-google {
+    width: 100%;
+    padding: 16px 20px;
+    background: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    color: #000000;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.boton-google:hover {
+    background: #F5F5F5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* reCAPTCHA */
+.recaptcha-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Divisor con texto */
+.divisor-texto {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.divisor-texto::before,
+.divisor-texto::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--neon-yellow);
+}
+
+.divisor-texto span {
+    padding: 0 15px;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-gray);
+    text-transform: lowercase;
+}
+
+/* Formularios */
+.form-login,
+.form-registro,
+.form-recuperacion,
+.form-edicion {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grupo-entrada {
+    width: 100%;
+}
+
+.grupo-entrada label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--neon-yellow);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.grupo-entrada input[type="text"],
+.grupo-entrada input[type="email"],
+.grupo-entrada input[type="password"],
+.grupo-entrada input[type="tel"],
+.grupo-entrada input[type="date"] {
+    width: 100%;
+    padding: 16px 20px;
+    background: #FFFFFF;
+    border: none;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    color: #000000;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.grupo-entrada input::placeholder {
+    color: #999999;
+}
+
+.grupo-entrada input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+}
+
+.grupo-entrada input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Enlace olvidar contraseña */
+.enlace-olvido {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--neon-yellow);
+    text-decoration: underline;
+    text-align: right;
+    transition: color 0.3s ease;
+}
+
+.enlace-olvido:hover {
+    color: var(--neon-magenta);
+}
+
+/* Términos de aceptación */
+.terminos-aceptacion {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.terminos-aceptacion label {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+.terminos-aceptacion a {
+    color: var(--neon-yellow);
+    text-decoration: underline;
+}
+
+/* Línea mini */
+.linea-mini {
+    height: 1px;
+    background: var(--neon-yellow);
+    margin: 15px 0;
+}
+
+/* Enlace nuevo cliente */
+.enlace-nuevo-cliente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:15px;
+}
+
+.enlace-nuevo-cliente span {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--neon-yellow);
+}
+
+/* ==================== BOTONES ==================== */
+.boton-principal {
+    width: 100%;
+    padding: 18px;
+    background: #000000;
+    border: 2px solid var(--neon-yellow);
+    color: var(--neon-yellow);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    background: var(--neon-yellow);
+    color: #000000;
+}
+
+.boton-principal:active {
+    transform: translateY(0);
+}
+
+.boton-secundario {
+    width: 100%;
+    padding: 18px;
+    background: #E0E0E0;
+    border: none;
+    color: #000000;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-secundario:hover {
+    background: #CCCCCC;
+    transform: translateY(-2px);
+}
+
+.boton-volver {
+    background: transparent;
+    border: none;
+    color: var(--neon-yellow);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.boton-volver:hover {
+    text-decoration: underline;
+}
+
+/* Descripción recuperación */
+.descripcion-recuperacion {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* ==================== PANEL DE USUARIO ==================== */
+.panel-usuario {
+    width: 100%;
+}
+
+.panel-usuario.oculto {
+    display: none;
+}
+
+.encabezado-panel {
+    display: flex;
+    justify-content: space-between;
+align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo-panel {
+    height: 35px;
+    width: auto;
+}
+
+.btn-cerrar {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid var(--text-gray);
+    color: var(--text-white);
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-cerrar:hover {
+    border-color: var(--neon-red);
+    color: var(--neon-red);
+}
+
+/* Info del usuario */
+.info-usuario {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.avatar-usuario {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--neon-yellow), var(--neon-magenta));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-usuario svg {
+    width: 40px;
+    height: 40px;
+    color: var(--bg-black);
+}
+
+.detalles-usuario h4 {
+    font-family: var(--font-title);
+    font-size: 16px;
+    color: var(--neon-yellow);
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.detalles-usuario p {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+/* Menú de opciones */
+.menu-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.opcion-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: var(--text-white);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.opcion-menu:hover {
+    background: rgba(255, 215, 0, 0.15);
+    transform: translateX(5px);
+}
+
+.opcion-menu.activa {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: var(--neon-yellow);
+}
+
+.icono-opcion {
+    font-size: 20px;
+}
+
+.texto-opcion {
+    flex: 1;
+}
+
+/* Botón cerrar sesión */
+.boton-cerrar-sesion {
+    width: 100%;
+    padding: 18px;
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    border-radius: 30px;
+    color: var(--neon-red);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+}
+
+.boton-cerrar-sesion:hover {
+    background: var(--neon-red);
+    color: var(--text-white);
+}
+
+/* ==================== SECCIONES DE DATOS ==================== */
+.seccion-datos {
+    width: 100%;
+}
+
+.seccion-datos.oculto {
+    display: none;
+}
+
+.titulo-seccion {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--neon-yellow);
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.subtitulo-seccion {
+    font-family: var(--font-title);
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--neon-magenta);
+    letter-spacing: 2px;
+    margin: 25px 0 15px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Contenido vacío */
+.contenido-pedidos,
+.contenido-direcciones,
+.contenido-deseos {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.pedido-vacio,
+.direccion-vacia,
+.deseos-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.icono-vacio {
+    font-size: 50px;
+    opacity: 0.5;
+}
+
+.pedido-vacio p,
+.direccion-vacia p,
+.deseos-vacio p {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+.pedido-vacio a {
+    text-decoration: none;
+}
+
+/* Formulario dirección */
+.form-edicion {
+    margin-top: 20px;
+}
+
+.fila-doble {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.fila-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.fila-botones .boton-secundario {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    border: 1px solid var(--text-gray);
+}
+
+.fila-botones .boton-secundario:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==================== TOAST DE NOTIFICACIÓN ==================== */
+.notificacion-toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--neon-green), #006400);
+    color: var(--text-white);
+    padding: 18px 35px;
+    border-radius: 15px;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    z-index: 10000;
+    transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(0, 255, 0, 0.5);
+    border: 2px solid var(--neon-green);
+}
+
+.notificacion-toast.mostrar {
+    bottom: 30px;
+}
+
+.notificacion-toast.error {
+    background: linear-gradient(135deg, var(--neon-red), #8B0000);
+    box-shadow: 0 10px 40px rgba(255, 0, 0, 0.3);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 480px) {
+    .contenido-cuenta {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+
+    .titulo-cuenta {
+        font-size: 20px;
+    }
+
+    .logo-cuenta img {
+        height: 40px;
+    }
+
+    .fila-doble {
+        grid-template-columns: 1fr;
+    }
+
+    .fila-botones {
+        grid-template-columns: 1fr;
+    }
+
+    .info-usuario {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .avatar-usuario {
+        width: 60px;
+        height: 60px;
+    }
+
+    .avatar-usuario svg {
+        width: 35px;
+        height: 35px;
+    }
+}

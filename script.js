@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     inicializarBusqueda();
     inicializarCarrito();
     inicializarSistemaCuenta();
-    inicializarCarrusel();
     inicializarDesplazamientoEncabezado();
+    inicializarNavegacionActiva();
     inicializarAnimaciones();
     inicializarSistemaNotificaciones();
 });
@@ -82,8 +82,9 @@ function inicializarEfectoGaleria() {
 
 // ==================== Menú Móvil ====================
 function inicializarMenuMovil() {
-    const menuHamburguesa = document.querySelector('.menu-hamburguesa');
+    const menuHamburguesa = document.querySelector('.menu-desplegable');
     const menuNavegacion = document.querySelector('.menu-navegacion');
+    const enlacesNavegacion = document.querySelectorAll('.enlace-navegacion');
 
     if (!menuHamburguesa || !menuNavegacion) return;
 
@@ -92,9 +93,18 @@ function inicializarMenuMovil() {
         menuNavegacion.classList.toggle('activo');
     });
 
-    // Cerrar menú al hacer clic en un enlace
-    menuNavegacion.querySelectorAll('.enlace-navegacion').forEach(enlace => {
-        enlace.addEventListener('click', () => {
+    // Marcar como activo al hacer clic en un enlace
+    enlacesNavegacion.forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+            // Remover clase activo de todos los enlaces
+            enlacesNavegacion.forEach(enlace => {
+                enlace.classList.remove('activo');
+            });
+            
+            // Agregar clase activo al enlace clickeado
+            this.classList.add('activo');
+            
+            // Cerrar menú móvil si está abierto
             menuHamburguesa.classList.remove('activo');
             menuNavegacion.classList.remove('activo');
         });
@@ -132,7 +142,7 @@ function inicializarCarrito() {
     const iconoCarrito = document.querySelector('.icono-carrito');
     const modalCarrito = document.getElementById('modalCarrito');
     const botonCerrarCarrito = document.getElementById('cerrarModalCarrito');
-    const botonFinalizarCompra = document.getElementById('botonFinalizarCompra');
+    const botonFinalizarCompra = document.getElementById('botonPagar');
 
     if (!iconoCarrito || !modalCarrito) return;
 
@@ -153,15 +163,13 @@ function inicializarCarrito() {
         }
     });
 
-    // Botón de finalizar compra
+    // Botón de finalizar compra - ahora redirige a pago.html
     botonFinalizarCompra.addEventListener('click', () => {
         if (articulosCarrito.length > 0) {
-            mostrarNotificacion('Redirigiendo al pago...');
-            // Simular checkout
-            setTimeout(() => {
-                modalCarrito.classList.remove('activo');
-                mostrarNotificacion('¡Gracias por tu compra!');
-            }, 1500);
+            // Guardar carrito en sessionStorage
+            sessionStorage.setItem('carrito', JSON.stringify(articulosCarrito));
+            // Redirigir a la página de pago
+            window.location.href = 'pago.html';
         } else {
             mostrarNotificacion('Tu carrito está vacío', true);
         }
@@ -231,7 +239,7 @@ function actualizarInterfazCarrito() {
         cuerpoCarrito.innerHTML = `
             <div class="carrito-vacio">
                 <p>Tu carrito está vacío</p>
-                <p style="margin-top: 10px; font-size: 12px; color: var(--neon-yellow);">¡Añade productos para comenzar!</p>
+                <p style="margin-top: 10px; font-size: 12px; color: #FF6600;">¡Añade productos para comenzar!</p>
             </div>
         `;
     } else {
@@ -242,7 +250,12 @@ function actualizarInterfazCarrito() {
                 </div>
                 <div class="detalles-articulo-carrito">
                     <h4>${articulo.nombre}</h4>
-                    <p class="precio">${articulo.precio.toFixed(2)}€ x ${articulo.cantidad}</p>
+                    <div class="cantidad-container">
+                        <button class="boton-cantidad menos" onclick="cambiarCantidad('${articulo.id}', -1)">−</button>
+                        <span class="cantidad-valor">${articulo.cantidad}</span>
+                        <button class="boton-cantidad mas" onclick="cambiarCantidad('${articulo.id}', 1)">+</button>
+                    </div>
+                    <p class="precio">${(articulo.precio * articulo.cantidad).toFixed(2)}€</p>
                 </div>
                 <button class="boton-eliminar-articulo" onclick="eliminarDelCarrito('${articulo.id}')">&times;</button>
             </div>
@@ -254,9 +267,54 @@ function actualizarInterfazCarrito() {
     elementoTotalCarrito.textContent = totalCarrito.toFixed(2) + '€';
 }
 
+// Función para cambiar la cantidad de un artículo
+function cambiarCantidad(idProducto, cambio) {
+    const articulo = articulosCarrito.find(a => a.id === idProducto);
+    if (articulo) {
+        articulo.cantidad += cambio;
+        if (articulo.cantidad <= 0) {
+            eliminarDelCarrito(idProducto);
+        } else {
+            actualizarInterfazCarrito();
+        }
+    }
+}
+
 // ==================== Sistema de Cuenta ====================
 let sesionIniciada = false;
 let usuarioActual = null;
+
+// Cargar sesión desde localStorage al iniciar
+function cargarSesion() {
+    const sesionGuardada = localStorage.getItem('viralRayUsuario');
+    if (sesionGuardada) {
+        const datos = JSON.parse(sesionGuardada);
+        sesionIniciada = true;
+        usuarioActual = datos;
+
+        // Actualizar icono
+        actualizarIconoUsuario(true, datos);
+
+        // Actualizar panel de usuario si existe
+        const nombreUsuario = document.getElementById('nombreUsuario');
+        const correoUsuario = document.getElementById('correoUsuario');
+        if (nombreUsuario) nombreUsuario.textContent = datos.nombre;
+        if (correoUsuario) correoUsuario.textContent = datos.correo;
+
+        return true;
+    }
+    return false;
+}
+
+// Guardar sesión en localStorage
+function guardarSesion() {
+    localStorage.setItem('viralRayUsuario', JSON.stringify(usuarioActual));
+}
+
+// Eliminar sesión de localStorage
+function eliminarSesion() {
+    localStorage.removeItem('viralRayUsuario');
+}
 
 function inicializarSistemaCuenta() {
     const iconoUsuario = document.querySelector('.icono-usuario');
@@ -271,13 +329,31 @@ function inicializarSistemaCuenta() {
 
     if (!iconoUsuario || !modalCuenta) return;
 
-    // Abrir modal de cuenta
+    // Cargar sesión guardada
+    cargarSesion();
+
+    // Abrir modal de cuenta desde icono de usuario
     iconoUsuario.addEventListener('click', () => {
         if (sesionIniciada) {
             panelUsuario.classList.add('activo');
         } else {
             modalCuenta.classList.add('activo');
         }
+    });
+
+    // Abrir modal de cuenta desde enlaces del footer
+    const enlacesCuenta = document.querySelectorAll('.enlace-cuenta');
+    enlacesCuenta.forEach(enlace => {
+        enlace.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (sesionIniciada) {
+                // Si ya hay sesión, abrir panel de usuario
+                panelUsuario.classList.add('activo');
+            } else {
+                // Si no hay sesión, abrir modal de inicio de sesión
+                modalCuenta.classList.add('activo');
+            }
+        });
     });
 
     // Cerrar modal de cuenta
@@ -376,79 +452,58 @@ function iniciarSesionUsuario(usuario) {
     sesionIniciada = true;
     usuarioActual = usuario;
 
+    // Guardar sesión en localStorage
+    guardarSesion();
+
     // Actualizar panel de usuario
-    document.getElementById('nombreUsuario').textContent = usuario.nombre;
-    document.getElementById('correoUsuario').textContent = usuario.correo;
+    if (document.getElementById('nombreUsuario')) {
+        document.getElementById('nombreUsuario').textContent = usuario.nombre;
+    }
+    if (document.getElementById('correoUsuario')) {
+        document.getElementById('correoUsuario').textContent = usuario.correo;
+    }
 
     // Cambiar icono de usuario a estado conectado
-    const iconoUsuario = document.querySelector('.icono-usuario');
-    iconoUsuario.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--neon-green);">
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-        </svg>
-    `;
+    actualizarIconoUsuario(true, usuario);
 }
 
 function cerrarSesionUsuario() {
     sesionIniciada = false;
     usuarioActual = null;
 
-    // Restablecer icono de usuario
-    const iconoUsuario = document.querySelector('.icono-usuario');
-    iconoUsuario.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-        </svg>
-    `;
+    // Eliminar sesión de localStorage
+    eliminarSesion();
 
-    document.getElementById('panelUsuario').classList.remove('activo');
+    // Restablecer icono de usuario
+    actualizarIconoUsuario(false);
+
+    // Cerrar panel de usuario si existe
+    const panelUsuario = document.getElementById('panelUsuario');
+    if (panelUsuario) {
+        panelUsuario.classList.remove('activo');
+    }
+
     mostrarNotificacion('Sesión cerrada');
 }
 
-// ==================== Funcionalidad del Carrusel ====================
-function inicializarCarrusel() {
-    const pista = document.getElementById('pistaProductos');
-    const flechaIzquierda = document.querySelector('.flecha-carrusel.izquierda');
-    const flechaDerecha = document.querySelector('.flecha-carrusel.derecha');
+// Actualizar icono de usuario según estado de sesión
+function actualizarIconoUsuario(sesionActiva, usuario = null) {
+    const iconoUsuario = document.querySelector('.icono-usuario');
+    if (!iconoUsuario) return;
 
-    if(!pista || !flechaIzquierda || !flechaDerecha) return;
-
-    const cantidadDesplazamiento = 305;
-
-    flechaDerecha.addEventListener('click', () => {
-        pista.scrollBy({
-            left: cantidadDesplazamiento,
-            behavior: 'smooth'
-        });
-    });
-
-    flechaIzquierda.addEventListener('click', () => {
-        pista.scrollBy({
-            left: -cantidadDesplazamiento,
-            behavior: 'smooth'
-        });
-    });
-
-    // Desplazamiento automático
-    let intervaloDesplazamientoAutomatico;
-    const iniciarDesplazamientoAutomatico = () => {
-        intervaloDesplazamientoAutomatico = setInterval(() => {
-            if (pista.scrollLeft + pista.offsetWidth >= pista.scrollWidth) {
-                pista.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                pista.scrollBy({ left: cantidadDesplazamiento, behavior: 'smooth' });
-            }
-        }, 5000);
-    };
-
-    const detenerDesplazamientoAutomatico = () => {
-        clearInterval(intervaloDesplazamientoAutomatico);
-    };
-
-    pista.addEventListener('mouseenter', detenerDesplazamientoAutomatico);
-    pista.addEventListener('mouseleave', iniciarDesplazamientoAutomatico);
-
-    iniciarDesplazamientoAutomatico();
+    if (sesionActiva && usuario) {
+        iconoUsuario.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--neon-green);">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        `;
+    } else {
+        iconoUsuario.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        `;
+    }
 }
 
 // ==================== Efecto de Desplazamiento del Encabezado ====================
@@ -461,6 +516,41 @@ function inicializarDesplazamientoEncabezado() {
         } else {
             encabezado.classList.remove('desplazado');
         }
+    });
+}
+
+// ==================== Navegación Activa según Sección Visible ====================
+function inicializarNavegacionActiva() {
+    const secciones = document.querySelectorAll('section[id]');
+    const enlacesNavegacion = document.querySelectorAll('.enlace-navegacion');
+
+    const opcionesObservador = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    };
+
+    const observador = new IntersectionObserver((entradas) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                const idSeccion = entrada.target.getAttribute('id');
+                
+                // Remover clase activo de todos los enlaces
+                enlacesNavegacion.forEach(enlace => {
+                    enlace.classList.remove('activo');
+                });
+                
+                // Agregar clase activo al enlace correspondiente
+                const enlaceActivo = document.querySelector(`.enlace-navegacion[href="#${idSeccion}"]`);
+                if (enlaceActivo) {
+                    enlaceActivo.classList.add('activo');
+                }
+            }
+        });
+    }, opcionesObservador);
+
+    secciones.forEach(seccion => {
+        observador.observe(seccion);
     });
 }
 
@@ -596,6 +686,41 @@ function mostrarNotificacion(mensaje, esError = false) {
 
 // Hacer funciones globalmente accesibles para manejadores onclick
 window.eliminarDelCarrito = eliminarDelCarrito;
+window.moverCarrusel = moverCarrusel;
+window.agregarAlCarritoDesdeBoton = agregarAlCarritoDesdeBoton;
+window.mostrarNotificacion = mostrarNotificacion;
+window.cambiarCantidad = cambiarCantidad;
+
+// Función global para agregar al carrito desde botón HTML
+function agregarAlCarritoDesdeBoton(boton) {
+    const tarjeta = boton.closest('.tarjeta-producto');
+    const idProducto = tarjeta.dataset.producto;
+    const nombreProducto = tarjeta.dataset.nombre;
+    const precioProducto = parseFloat(tarjeta.dataset.precio);
+    const imagenProducto = tarjeta.querySelector('.imagen-producto img').src;
+
+    agregarAlCarrito({
+        id: idProducto,
+        nombre: nombreProducto,
+        precio: precioProducto,
+        imagen: imagenProducto
+    });
+}
+
+// Función global para mover el carrusel
+function moverCarrusel(direccion) {
+    const pista = document.getElementById('pistaProductos');
+    if (!pista) return;
+    
+    const tarjeta = pista.querySelector('.tarjeta-producto');
+    if (!tarjeta) return;
+    
+    const anchoTarjeta = tarjeta.offsetWidth + 25; // ancho + gap
+    pista.scrollBy({
+        left: anchoTarjeta * direccion,
+        behavior: 'smooth'
+    });
+}
 
 // Registro en consola
 console.log('¡Viral Ray E-Commerce cargado correctamente!');

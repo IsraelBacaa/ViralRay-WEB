@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles-perfil.css">
+    <!-- Favicon ViralRAY -->
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body class="pagina-perfil">
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <a href="index.html" class="logotipo">
+                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Sección de Cuenta -->
+    <main class="seccion-cuenta">
+        <div class="contenido-cuenta">
+            <!-- Logo en la cuenta -->
+            <div class="logo-cuenta">
+                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY">
+            </div>
+
+            <div class="linea-divisora"></div>
+
+            <!-- Formulario de Inicio de Sesión -->
+            <section class="formulario-cuenta" id="seccionIniciarSesion">
+                <h2 class="titulo-cuenta">INICIAR SESIÓN</h2>
+                
+                <div class="inicio-social">
+                    <button type="button" class="boton-google" id="btnGoogleLogin">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Iniciar sesión con Google
+                    </button>
+                </div>
+
+                <div class="recaptcha-contenedor">
+                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                </div>
+
+                <div class="divisor-texto">
+                    <span>o bien</span>
+                </div>
+
+                <form class="form-login" id="formLogin">
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailLogin" placeholder="e-mail *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="passwordLogin" placeholder="contraseña *" required>
+                    </div>
+                    
+                    <a href="#" class="enlace-olvido" id="btnOlvidoContrasena">He olvidado mi contraseña</a>
+                    
+                    <button type="submit" class="boton-principal">INICIAR SESIÓN</button>
+                </form>
+
+                <div class="linea-mini"></div>
+
+                <div class="enlace-nuevo-cliente">
+                    <span>¿Eres nuevo cliente?</span>
+                    <button type="button" class="boton-secundario" id="btnCrearCuenta">CREAR CUENTA</button>
+                </div>
+            </section>
+
+            <!-- Formulario de Registro -->
+            <section class="formulario-cuenta oculto" id="seccionRegistro">
+                <h2 class="titulo-cuenta">CREAR CUENTA</h2>
+
+                <form class="form-registro" id="formRegistro">
+                    <div class="grupo-entrada">
+                        <input type="text" id="nombreRegistro" placeholder="nombre completo *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailRegistro" placeholder="e-mail *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="passwordRegistro" placeholder="contraseña *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="confirmarPassword" placeholder="repetir contraseña *" required>
+                    </div>
+                    
+                    <div class="terminos-aceptacion">
+                        <input type="checkbox" id="checkTerminos" required>
+                        <label for="checkTerminos">Acepto los <a href="aviso-legal.html" target="_blank">términos y condiciones</a></label>
+                    </div>
+
+                    <button type="submit" class="boton-principal">CREAR CUENTA</button>
+                </form>
+
+                <button type="button" class="boton-volver" id="btnVolverLogin">&larr; Volver</button>
+            </section>
+
+            <!-- Formulario de Recuperación de Contraseña -->
+            <section class="formulario-cuenta oculto" id="seccionRecuperar">
+                <h2 class="titulo-cuenta">RECUPERAR CONTRASEÑA</h2>
+                <p class="descripcion-recuperacion">Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+
+                <form class="form-recuperacion" id="formRecuperar">
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailRecuperar" placeholder="e-mail *" required>
+                    </div>
+
+                    <button type="submit" class="boton-principal">ENVIAR ENLACE</button>
+                </form>
+
+                <button type="button" class="boton-volver" id="btnVolverLoginRecuperar">&larr; Volver al inicio de sesión</button>
+            </section>
+
+            <!-- Panel de Usuario (después de iniciar sesión) -->
+            <section class="panel-usuario oculto" id="panelUsuario">
+                <div class="encabezado-panel">
+                    <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY" class="logo-panel">
+                    <button class="btn-cerrar" id="btnCerrarSesion">&times;</button>
+                </div>
+
+                <div class="info-usuario">
+                    <div class="avatar-usuario">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="detalles-usuario">
+                        <h4 id="nombreMostrar">Usuario Viral Ray</h4>
+                        <p id="emailMostrar">usuario@viralray.es</p>
+                    </div>
+                </div>
+
+                <nav class="menu-opciones">
+                    <button class="opcion-menu activa" data-opcion="pedidos">
+<span class="icono-opcion">📦</span>
+                        <span class="texto-opcion">Mis pedidos</span>
+                    </button>
+                    <button class="opcion-menu" data-opcion="datos">
+                        <span class="icono-opcion">👤</span>
+                        <span class="texto-opcion">Mis datos</span>
+                    </button>
+                    <button class="opcion-menu" data-opcion="direcciones">
+                        <span class="icono-opcion">📍</span>
+                        <span class="texto-opcion">Direcciones</span>
+                    </button>
+                    <button class="opcion-menu" data-opcion="deseos">
+                        <span class="icono-opcion">❤️</span>
+                        <span class="texto-opcion">Lista de deseos</span>
+                    </button>
+                </nav>
+
+                <button class="boton-cerrar-sesion" id="btnLogout">CERRAR SESIÓN</button>
+            </section>
+
+            <!-- Sección de Mis Pedidos -->
+            <section class="seccion-datos oculto" id="seccionPedidos">
+                <h2 class="titulo-seccion">MIS PEDIDOS</h2>
+                <div class="linea-divisora"></div>
+                
+                <div class="contenido-pedidos">
+                    <div class="pedido-vacio">
+                        <span class="icono-vacio">📦</span>
+                        <p>Aún no has realizado ningún pedido</p>
+                        <a href="index.html" class="boton-principal">EMPEZAR A COMPRAR</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Mis Datos -->
+            <section class="seccion-datos oculto" id="seccionMisDatos">
+                <h2 class="titulo-seccion">MIS DATOS</h2>
+                <div class="linea-divisora"></div>
+                
+                <form class="form-edicion" id="formDatosPersonales">
+                    <div class="grupo-entrada">
+                        <label for="nombreCompleto">Nombre completo</label>
+                        <input type="text" id="nombreCompleto" value="Usuario Viral Ray">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="emailPersonal">Correo electrónico</label>
+                        <input type="email" id="emailPersonal" value="usuario@viralray.es">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="telefonoPersonal">Teléfono</label>
+                        <input type="tel" id="telefonoPersonal" placeholder="+34 600 000 000">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="fechaNacimiento">
+                    </div>
+                    
+                    <h3 class="subtitulo-seccion">CAMBIAR CONTRASEÑA</h3>
+                    <div class="grupo-entrada">
+                        <label for="actualPassword">Contraseña actual</label>
+                        <input type="password" id="actualPassword" placeholder="Introduce tu contraseña actual">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="nuevaPassword">Nueva contraseña</label>
+                        <input type="password" id="nuevaPassword" placeholder="Nueva contraseña">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="confirmarNuevaPassword">Confirmar nueva contraseña</label>
+                        <input type="password" id="confirmarNuevaPassword" placeholder="Repite la nueva contraseña">
+                    </div>
+
+                    <button type="submit" class="boton-principal">GUARDAR CAMBIOS</button>
+                </form>
+            </section>
+
+            <!-- Sección de Direcciones -->
+            <section class="seccion-datos oculto" id="seccionDirecciones">
+                <h2 class="titulo-seccion">DIRECCIONES</h2>
+                <div class="linea-divisora"></div>
+                
+                <div class="contenido-direcciones">
+                    <div class="direccion-vacia">
+                        <span class="icono-vacio">📍</span>
+                        <p>No tienes direcciones guardadas</p>
+                        <button class="boton-principal" id="btnAgregarDireccion">AÑADIR DIRECCIÓN</button>
+                    </div>
+                </div>
+
+                <form class="form-edicion oculto" id="formDireccion">
+                    <h3 class="subtitulo-seccion">NUEVA DIRECCIÓN</h3>
+                    <div class="fila-doble">
+                        <div class="grupo-entrada">
+                            <label for="nombreDireccion">Nombre</label>
+                            <input type="text" id="nombreDireccion" placeholder="Nombre">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="apellidosDireccion">Apellidos</label>
+                            <input type="text" id="apellidosDireccion" placeholder="Apellidos">
+                        </div>
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="telefonoDireccion">Teléfono</label>
+                        <input type="tel" id="telefonoDireccion" placeholder="+34 600 000 000">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="direccionCompleta">Dirección</label>
+                        <input type="text" id="direccionCompleta" placeholder="Calle, número, piso, puerta...">
+                    </div>
+                    <div class="fila-doble">
+                        <div class="grupo-entrada">
+                            <label for="codigoPostal">Código postal</label>
+                            <input type="text" id="codigoPostal" placeholder="28001">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="ciudad">Ciudad</label>
+                            <input type="text" id="ciudad" placeholder="Madrid">
+                        </div>
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="provincia">Provincia</label>
+                        <input type="text" id="provincia" placeholder="Madrid">
+                    </div>
+                    <div class="fila-botones">
+                        <button type="button" class="boton-secundario" id="btnCancelarDireccion">CANCELAR</button>
+                        <button type="submit" class="boton-principal">GUARDAR DIRECCIÓN</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Sección de Lista de Deseos -->
+            <section class="seccion-datos oculto" id="seccionDeseos">
+                <h2 class="titulo-seccion">LISTA DE DESEOS</h2>
+                <div class="linea-divisora"></div>
+                
+                <div class="contenido-deseos">
+                    <div class="deseos-vacio">
+                        <span class="icono-vacio">❤️</span>
+                        <p>Tu lista de deseos está vacía</p>
+                        <a href="index.html" class="boton-principal">DESCUBRIR PRODUCTOS</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast de Notificación -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <script src="script-perfil.js"></script>
+</body>
+</html>

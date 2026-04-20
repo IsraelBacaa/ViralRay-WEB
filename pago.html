@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicon ViralRAY -->
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+</head>
+<body class="pagina-pago">
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <a href="index.html" class="logotipo">
+                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido del Pago -->
+    <main class="seccion-pago">
+        <div class="contenedor-pago">
+            <h1 class="titulo-pagina">FINALIZAR COMPRA</h1>
+            
+            <div class="contenido-pago">
+                <!-- Formulario de Pago -->
+                <div class="formulario-pago">
+                    <!-- Dirección de Envío -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">1</span>
+                            Dirección de Envío
+                        </h2>
+                        <div class="campos-formulario">
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" placeholder="Tu nombre" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input type="text" id="apellidos" placeholder="Tus apellidos" required>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" placeholder="tu@email.com" required>
+                            </div>
+                            <div class="campo">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" placeholder="+34 600 000 000" required>
+                            </div>
+                            <div class="campo">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" id="direccion" placeholder="Calle, número, piso..." required>
+                            </div>
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" id="ciudad" placeholder="Madrid" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="cp">Código Postal</label>
+                                    <input type="text" id="cp" placeholder="28001" required>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="provincia">Provincia</label>
+                                <input type="text" id="provincia" placeholder="Madrid" required>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Método de Pago -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">2</span>
+                            Método de Pago
+                        </h2>
+                        
+                        <!-- Selector de método de pago -->
+                        <div class="metodos-pago-seleccion">
+                            <label class="metodo-pago-opcion seleccionado">
+                                <input type="radio" name="metodoPago" value="tarjeta" checked>
+                                <div class="opcion-pago">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                    <span>Tarjeta de Crédito/Débito</span>
+                                </div>
+                            </label>
+                            <label class="metodo-pago-opcion">
+                                <input type="radio" name="metodoPago" value="paypal">
+                                <div class="opcion-pago">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#003087">
+                                        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .756-.638h6.623c2.295 0 3.9 1.44 3.9 3.503 0 1.67-.924 2.82-2.436 3.43-.34.138-.7.265-1.07.39l-.4.14c.73.81 1.19 1.9 1.19 3.104 0 2.4-1.77 4.19-4.19 4.19H7.076v-.01z"/>
+                                    </svg>
+                                    <span>PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Formulario de Tarjeta -->
+                        <div class="formulario-tarjeta" id="formularioTarjeta">
+                            <div class="campo">
+                                <label for="numeroTarjeta">Número de Tarjeta</label>
+                                <div class="input-con-icono">
+                                    <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    <div class="iconos-tarjeta-mini">
+                                        <svg viewBox="0 0 50 50" width="30" height="20">
+                                            <rect width="50" height="50" rx="4" fill="#1A1F71"/>
+                                            <path d="M20 25L22 18H25L23 25L26 32H23L20 25ZM18 18L15.5 27L15 32H12L15.5 18H18Z" fill="white"/>
+                                        </svg>
+                                        <svg viewBox="0 0 50 50" width="30" height="20">
+                                            <rect width="50" height="50" rx="4" fill="#333"/>
+                                            <circle cx="19" cy="25" r="8" fill="#EB001B"/>
+                                            <circle cx="31" cy="25" r="8" fill="#F79E1B"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                                <input type="text" id="nombreTarjeta" placeholder="Como aparece en la tarjeta" required>
+                            </div>
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="expiracion">Fecha de Vencimiento</label>
+                                    <input type="text" id="expiracion" placeholder="MM/AA" maxlength="5" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario PayPal (oculto por defecto) -->
+                        <div class="formulario-paypal oculto" id="formularioPaypal">
+                            <div class="info-paypal">
+                                <p>Serás redirigido a PayPal para completar tu pago de forma segura.</p>
+                                <p class="total-paypal">Total a pagar: <strong id="totalPaypal">0.00€</strong></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Resumen del Pedido -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">3</span>
+                            Resumen del Pedido
+                        </h2>
+                        <div class="resumen-pedido" id="resumenPedido">
+                            <!-- Los productos se insertarán aquí -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Resumen Lateral -->
+                <aside class="resumen-lateral">
+                    <div class="tarjeta-resumen">
+                        <h3>Tu Pedido</h3>
+                        <div class="resumen-productos" id="resumenProductos">
+                            <!-- Productos del carrito -->
+                        </div>
+                        <div class="resumen-costos">
+                            <div class="fila-resumen">
+                                <span>Subtotal</span>
+                                <span id="subtotalPago">0.00€</span>
+                            </div>
+                            <div class="fila-resumen">
+                                <span>Envío</span>
+                                <span id="envioPago">Gratis</span>
+                            </div>
+                            <div class="fila-resumen total">
+                                <span>Total</span>
+                                <span id="totalPago">0.00€</span>
+                            </div>
+                        </div>
+                        <button type="button" class="boton-confirmar" id="botonConfirmarPago">
+                            CONFIRMAR PEDIDO
+                        </button>
+                        <div class="seguridad-pago">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="#00AA00">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                            </svg>
+                            <span>Pago 100% seguro</span>
+                        </div>
+                        <div class="iconos-seguridad">
+                            <span>SSL</span>
+                            <span>PCI</span>
+                            <span>3D Secure</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast de Notificación -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <!-- Modal de Éxito -->
+    <div class="modal-exito" id="modalExito">
+        <div class="contenido-modal-exito">
+            <div class="icono-exito">
+                <svg viewBox="0 0 24 24" fill="#00AA00">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h2>¡Pedido Realizado!</h2>
+            <p>Tu pedido ha sido proces correctamente.</p>
+            <p class="numero-pedido">Número de pedido: <strong id="numeroPedido">VR-12345</strong></p>
+            <p class="correo-confirmacion">Recibirás un correo de confirmación en breve.</p>
+            <a href="index.html" class="boton-volver-inicio">VOLVER A LA TIENDA</a>
+        </div>
+    </div>
+
+    <script src="script-pago.js"></script>
+</body>
+</html>
