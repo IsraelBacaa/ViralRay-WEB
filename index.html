@@ -13,6 +13,139 @@
 <!-- Favicon ViralRAY -->
 <link href="images/VIRALRAY.png" rel="icon" type="image/png"/>
 <script src="script-busqueda.js"></script>
+<style>
+/* ===== FIXES RESPONSIVE MÓVIL ===== */
+
+/* Header: ocultar barra de búsqueda en móvil desde 768px */
+@media (max-width: 768px) {
+    .barra-busqueda-header {
+        display: none !important;
+    }
+    .contenedor-encabezado {
+        padding: 0 12px;
+        gap: 8px;
+    }
+    .imagen-logotipo {
+        height: 42px !important;
+    }
+    .iconos-encabezado {
+        gap: 6px !important;
+    }
+    .contenedor-icono {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    .icono-svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+
+/* Sección contacto: de 2 columnas a 1 en móvil */
+@media (max-width: 768px) {
+    .contacto-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    #contacto {
+        padding: 50px 20px !important;
+    }
+}
+
+/* Sección "Sobre nosotros": de fila a columna en móvil */
+@media (max-width: 768px) {
+    .contenido-confianza {
+        flex-direction: column !important;
+        gap: 30px !important;
+        text-align: center !important;
+    }
+    .texto-confianza {
+        min-width: unset !important;
+        font-size: 15px !important;
+    }
+    .texto-confianza p {
+        font-size: 15px !important;
+        line-height: 1.7 !important;
+    }
+    .logotipo-confianza {
+        display: flex;
+        justify-content: center;
+    }
+    .imagen-logotipo-confianza {
+        max-width: 200px !important;
+    }
+}
+
+/* Grid garantías contacto: de 2x2 a 2x2 compacto */
+@media (max-width: 480px) {
+    #contacto > div > div > div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Cuadricula productos: 2 columnas en vez de auto-fit que fuerza 1 */
+    .cuadricula-productos {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+    .imagen-categoria {
+        height: 130px !important;
+    }
+    .categoria-producto {
+        padding: 15px !important;
+    }
+    .categoria-producto h3 {
+        font-size: 13px !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* Pasos: más compactos */
+    .tarjeta-paso {
+        width: 100% !important;
+        max-width: 300px !important;
+    }
+
+    /* Sección héroe más compacta */
+    .heroe {
+        padding-top: 75px !important;
+        padding-bottom: 20px !important;
+    }
+    .titulo-heroe {
+        font-size: 26px !important;
+        letter-spacing: 2px !important;
+    }
+    .subtitulo-heroe {
+        font-size: 12px !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+/* Redes sociales en fila que no desborde */
+@media (max-width: 480px) {
+    #contacto .redes-wrap {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* Garantías del detalle de producto: 2 columnas en móvil */
+@media (max-width: 480px) {
+    .garantias-detalle {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Banner promocional: texto centrado y sin desborde */
+@media (max-width: 768px) {
+    .contenido-promocional h3 {
+        font-size: 20px !important;
+        letter-spacing: 1px !important;
+    }
+    .subtitulo-promocional {
+        font-size: 13px !important;
+    }
+}
+</style>
 </head>
 <body>
 <!-- Encabezado -->
@@ -281,7 +414,7 @@
 </section>
 <!-- SECCIÓN CONTACTO -->
 <section id="contacto" style="background:#0a0a0a; padding:70px 40px; border-top:1px solid rgba(255,215,0,0.15);">
-<div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;">
+<div class="contacto-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;">
 <!-- COLUMNA IZQUIERDA: Formulario -->
 <div>
 <div style="margin-bottom:28px;">
