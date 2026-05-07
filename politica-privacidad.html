@@ -5,17 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Política de Privacidad - VIRAL RAY</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-detalle-producto.css">
+    <link rel="stylesheet" href="styles-busqueda.css">
+    <link rel="stylesheet" href="styles-contacto.css">
+    <link rel="stylesheet" href="popup-bienvenida.css">
+    <script src="script-busqueda.js"></script>
     <link rel="stylesheet" href="styles-legal.css">
     <link rel="icon" type="image/png" href="images/VIRALRAY.png">
 </head>
 <body class="pagina-legal">
-    <header class="encabezado">
-        <div class="contenedor-encabezado">
-            <a href="index.html" class="logotipo">
-                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo">
-            </a>
-        </div>
-    </header>
+        <!-- Encabezado -->
+        <header class="encabezado">
+            <div class="contenedor-encabezado">
+                <div class="menu-desplegable">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logotipo">
+                    <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+                </div>
+                <nav class="menu-navegacion">
+                    <a href="index.html#productos" class="enlace-navegacion">PRODUCTOS</a>
+                    <a href="index.html#comunidad" class="enlace-navegacion">COMUNIDAD</a>
+                    <a href="index.html#contacto" class="enlace-navegacion">CONTACTO</a>
+                </nav>
+                <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                    <div class="input-busqueda-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                        <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    </div>
+                    <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+                </div>
+                <div class="iconos-encabezado">
+                    <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                        <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                    </a>
+                    <a href="index.html" class="contenedor-icono icono-carrito" title="Mi Cesta">
+                        <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                        <span class="contador-carrito">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
 
     <main class="seccion-legal">
         <div class="contenedor-legal">
@@ -73,7 +108,7 @@
                         <li><strong>Acceso:</strong> Conocer qué datos personales estamos tratando.</li>
                         <li><strong>Rectificación:</strong> Corregir datos inexactos o incompletos.</li>
                         <li><strong>Supresión:</strong> Solicitar la eliminación de sus datos.</li>
-                        <li><strong>Oposición:</strong> Opnerse al tratamiento para fines comerciales.</li>
+                        <li><strong>Oposición:</strong> Oponerse al tratamiento para fines comerciales.</li>
                         <li><strong>Limitación:</strong> Restringir el tratamiento de sus datos.</li>
                         <li><strong>Portabilidad:</strong> Recibir sus datos en formato estructurado.</li>
                     </ul>
@@ -85,14 +120,6 @@
                     <p>VIRAL RAY implementa las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo, protegiendo la confidencialidad, integridad y disponibilidad de los datos personales.</p>
                 </section>
             </div>
-
-            <div class="enlaces-legales">
-                <a href="aviso-legal.html" class="enlace-legal">Aviso Legal</a>
-                <span class="separador">|</span>
-                <a href="politica-cookies.html" class="enlace-legal">Política de Cookies</a>
-                <span class="separador">|</span>
-                <a href="envios.html" class="enlace-legal">Envíos y Entregas</a>
-            </div>
         </div>
     </main>
 
@@ -101,5 +128,21 @@
             <a href="index.html" class="boton-volver-legal">← Volver al inicio</a>
         </div>
     </footer>
+    <!-- Footer Legal -->
+    <footer style="background:#050510; border-top:1px solid rgba(255,215,0,0.12); padding:24px 40px; text-align:center;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                <a href="aviso-legal.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">AVISO LEGAL</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-privacidad.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE PRIVACIDAD</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-cookies.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE COOKIES</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="envios.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">ENVÍOS Y ENTREGAS</a>
+            </div>
+            <p style="color:rgba(255,255,255,0.25); font-size:11px; font-weight:700; letter-spacing:1px; margin:0;">© 2024 VIRAL RAY, S.L. — TODOS LOS DERECHOS RESERVADOS</p>
+        </div>
+    </footer>
+    <script src="script-busqueda-header.js"></script>
 </body>
 </html>

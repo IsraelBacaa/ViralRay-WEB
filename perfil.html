@@ -9,14 +9,120 @@
     <link rel="icon" type="image/png" href="images/VIRALRAY.png">
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+
+        /* ===== HEADER IGUAL QUE INDEX ===== */
+        .contenedor-encabezado { max-width:1400px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; }
+        .imagen-logotipo { height:70px; width:auto; object-fit:contain; transition:transform 0.3s ease, filter 0.3s ease; }
+        .imagen-logotipo:hover { transform:scale(1.05); filter:drop-shadow(0 0 15px rgba(255,215,0,0.6)); }
+        .menu-desplegable { display:flex; flex-direction:column; gap:5px; cursor:url('images/rayo-cursor.png') 19 6, pointer; padding:10px; }
+        .menu-desplegable span { width:25px; height:3px; background-color:var(--neon-yellow); transition:all 0.3s ease; }
+        .menu-navegacion { display:flex; gap:35px; }
+        .enlace-navegacion { font-family:var(--font-body); font-weight:900; color:var(--text-white); text-decoration:none; font-size:14px; letter-spacing:2px; padding:10px 0; transition:color 0.3s ease; }
+        .enlace-navegacion:hover { color:var(--neon-yellow); cursor:url('images/rayo-cursor.png') 19 6, pointer; }
+        .iconos-encabezado { display:flex; gap:15px; }
+        .contenedor-icono { width:45px; height:45px; background-color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; position:relative; text-decoration:none; }
+        .contenedor-icono .icono-svg, .contenedor-icono img { width:24px; height:24px; object-fit:contain; }
+        .contenedor-icono:hover { transform:scale(1.1); box-shadow:0 0 20px rgba(255,255,255,0.5); cursor:url('images/rayo-cursor.png') 19 6, pointer; }
+        .icono-carrito { position:relative; }
+        .contador-carrito { position:absolute; top:-5px; right:-5px; background:linear-gradient(135deg,#FF00FF,#FF1493); color:#fff; font-family:var(--font-body); font-weight:900; font-size:11px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+        .barra-busqueda-header { position:relative; flex:0 1 260px; }
+        .input-busqueda-header { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,215,0,0.35); border-radius:30px; padding:8px 14px; transition:all 0.3s ease; }
+        .input-busqueda-header:focus-within { border-color:#FFD700; background:rgba(255,215,0,0.07); box-shadow:0 0 18px rgba(255,215,0,0.2); }
+        .input-busqueda-header svg { color:#AAAAAA; flex-shrink:0; }
+        .input-busqueda-header:focus-within svg { color:#FFD700; }
+        .input-busqueda-header input { background:transparent; border:none; outline:none; color:#fff; font-family:var(--font-body); font-weight:900; font-size:13px; letter-spacing:1px; width:100%; cursor:url('images/rayo-cursor.png') 19 6, text; }
+        .input-busqueda-header input::placeholder { color:#AAAAAA; }
+        .btn-limpiar-busqueda { background:none; border:none; color:#AAAAAA; cursor:url('images/rayo-cursor.png') 19 6, pointer; display:flex; align-items:center; padding:0; }
+        .btn-limpiar-busqueda:hover { color:#FFD700; }
+        .resultados-busqueda-header { position:absolute; top:calc(100% + 10px); left:0; right:0; background:rgba(10,10,26,0.98); border:1.5px solid rgba(255,215,0,0.3); border-radius:16px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.6); z-index:2000; max-height:380px; overflow-y:auto; display:none; }
+        .resultados-busqueda-header.visible { display:block; }
+        .resultado-busqueda-item { display:flex; align-items:center; gap:12px; padding:12px 16px; cursor:url('images/rayo-cursor.png') 19 6, pointer; transition:background 0.2s; border-bottom:1px solid rgba(255,215,0,0.08); }
+        .resultado-busqueda-item:hover { background:rgba(255,215,0,0.08); }
+        .resultado-busqueda-item img { width:44px; height:44px; object-fit:cover; border-radius:8px; }
+        .resultado-busqueda-info { flex:1; }
+        .resultado-busqueda-nombre { font-family:var(--font-body); font-weight:900; font-size:13px; color:#fff; letter-spacing:1px; }
+        .resultado-busqueda-precio { font-family:var(--font-body); font-weight:900; font-size:12px; color:#FFD700; margin-top:2px; }
+        .sin-resultados-busqueda { padding:20px; text-align:center; font-size:13px; color:#AAAAAA; }
+
+        /* Iconos de menú con imágenes */
+        .icono-opcion {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .icono-opcion img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.75;
+            transition: all 0.2s ease;
+        }
+        .opcion-menu.activa .icono-opcion img,
+        .opcion-menu:hover .icono-opcion img {
+            filter: none;
+            opacity: 1;
+        }
+        .icono-vacio {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .icono-vacio img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            opacity: 0.5;
+        }
+        /* Fix badge icons in product detail */
+        .footer-badge-img,
+        .garantia-badge-img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+    </style>
 </head>
 <body class="pagina-perfil">
     <!-- Encabezado -->
     <header class="encabezado">
         <div class="contenedor-encabezado">
-            <a href="index.html" class="logotipo">
-                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo">
-            </a>
+            <div class="menu-desplegable">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="index.html#productos" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="index.html#comunidad" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="index.html#contacto" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <a href="index.html" class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -123,15 +229,11 @@
             <!-- Panel de Usuario (después de iniciar sesión) -->
             <section class="panel-usuario oculto" id="panelUsuario">
                 <div class="encabezado-panel">
-                    <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY" class="logo-panel">
-                    <button class="btn-cerrar" id="btnCerrarSesion">&times;</button>
                 </div>
 
                 <div class="info-usuario">
-                    <div class="avatar-usuario">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                    <div class="avatar-usuario" style="background: rgba(255,215,0,0.08); border: 2px solid rgba(255,215,0,0.3); border-radius: 50%; width: 60px; height: 60px; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+                        <img src="imagenes2.0/Foto_de_perfil_1.png" alt="Avatar" style="width:60px;height:60px;object-fit:cover;">
                     </div>
                     <div class="detalles-usuario">
                         <h4 id="nombreMostrar">Usuario Viral Ray</h4>
@@ -141,23 +243,32 @@
 
                 <nav class="menu-opciones">
                     <button class="opcion-menu activa" data-opcion="pedidos">
-<span class="icono-opcion">📦</span>
+                        <span class="icono-opcion">
+                            <img src="images/Cohete.png" alt="Pedidos">
+                        </span>
                         <span class="texto-opcion">Mis pedidos</span>
                     </button>
                     <button class="opcion-menu" data-opcion="datos">
-                        <span class="icono-opcion">👤</span>
+                        <span class="icono-opcion">
+                            <img src="images/icon-user.svg" alt="Datos">
+                        </span>
                         <span class="texto-opcion">Mis datos</span>
                     </button>
                     <button class="opcion-menu" data-opcion="direcciones">
-                        <span class="icono-opcion">📍</span>
+                        <span class="icono-opcion">
+                            <img src="images/icon-location.svg" alt="Direcciones">
+                        </span>
                         <span class="texto-opcion">Direcciones</span>
                     </button>
-                    <button class="opcion-menu" data-opcion="deseos">
-                        <span class="icono-opcion">❤️</span>
-                        <span class="texto-opcion">Lista de deseos</span>
-                    </button>
+
                 </nav>
 
+                <a href="index.html" class="boton-volver-inicio">
+                    <svg class="icono-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    VOLVER AL INICIO
+                </a>
                 <button class="boton-cerrar-sesion" id="btnLogout">CERRAR SESIÓN</button>
             </section>
 
@@ -168,7 +279,9 @@
                 
                 <div class="contenido-pedidos">
                     <div class="pedido-vacio">
-                        <span class="icono-vacio">📦</span>
+                        <span class="icono-vacio">
+                            <img src="images/Cohete.png" alt="Sin pedidos">
+                        </span>
                         <p>Aún no has realizado ningún pedido</p>
                         <a href="index.html" class="boton-principal">EMPEZAR A COMPRAR</a>
                     </div>
@@ -223,7 +336,9 @@
                 
                 <div class="contenido-direcciones">
                     <div class="direccion-vacia">
-                        <span class="icono-vacio">📍</span>
+                        <span class="icono-vacio">
+                            <img src="images/icon-location.svg" alt="Sin direcciones">
+                        </span>
                         <p>No tienes direcciones guardadas</p>
                         <button class="boton-principal" id="btnAgregarDireccion">AÑADIR DIRECCIÓN</button>
                     </div>
@@ -270,19 +385,7 @@
                 </form>
             </section>
 
-            <!-- Sección de Lista de Deseos -->
-            <section class="seccion-datos oculto" id="seccionDeseos">
-                <h2 class="titulo-seccion">LISTA DE DESEOS</h2>
-                <div class="linea-divisora"></div>
-                
-                <div class="contenido-deseos">
-                    <div class="deseos-vacio">
-                        <span class="icono-vacio">❤️</span>
-                        <p>Tu lista de deseos está vacía</p>
-                        <a href="index.html" class="boton-principal">DESCUBRIR PRODUCTOS</a>
-                    </div>
-                </div>
-            </section>
+
         </div>
     </main>
 
@@ -291,6 +394,7 @@
         <span class="mensaje-notificacion"></span>
     </div>
 
+    <script src="script-busqueda-header.js"></script>
     <script src="script-perfil.js"></script>
 </body>
 </html>

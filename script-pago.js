@@ -14,11 +14,8 @@ function cargarCarrito() {
     
     // Si no hay datos, redirigir al inicio
     if (articulosCarrito.length === 0) {
-        // Para demo, usamos datos de ejemplo
-        articulosCarrito = [
-            { id: '1', nombre: 'Paneles Hexagonales LED', precio: 89.99, cantidad: 1, imagen: 'images/productos/Panel hexagonal.png' },
-            { id: '2', nombre: 'Teclado RGB Gaming', precio: 149.99, cantidad: 2, imagen: 'images/productos/Teclado RGB.png' }
-        ];
+        window.location.href = 'index.html';
+        return;
     }
 
     // Calcular totales

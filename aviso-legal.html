@@ -5,16 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aviso Legal - VIRAL RAY</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-detalle-producto.css">
+    <link rel="stylesheet" href="styles-busqueda.css">
+    <link rel="stylesheet" href="styles-contacto.css">
+    <link rel="stylesheet" href="popup-bienvenida.css">
+    <script src="script-busqueda.js"></script>
     <link rel="stylesheet" href="styles-legal.css">
     <link rel="icon" type="image/png" href="images/VIRALRAY.png">
 </head>
 <body class="pagina-legal">
     <!-- Encabezado -->
+    <!-- Encabezado -->
     <header class="encabezado">
         <div class="contenedor-encabezado">
-            <a href="index.html" class="logotipo">
-                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo">
-            </a>
+            <div class="menu-desplegable">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="index.html#productos" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="index.html#comunidad" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="index.html#contacto" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <a href="index.html" class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -22,69 +57,51 @@
     <main class="seccion-legal">
         <div class="contenedor-legal">
             <h1 class="titulo-legal">AVISO LEGAL</h1>
-            <p class="fecha-legal">Última actualización: Enero 2024</p>
+            <p class="fecha-legal" style="text-align:center; color:rgba(255,215,0,0.6); font-size:12px; letter-spacing:2px;">PROYECTO ACADÉMICO · CURSO 2025/2026</p>
 
             <div class="contenido-legal">
+                <section class="seccion-contenido" style="text-align:center; padding:24px 0 28px;">
+                    <p style="font-size:15px; line-height:1.8; color:rgba(255,255,255,0.85);">Esta plataforma de comercio electrónico constituye un <strong style="color:#FFD700;">PROYECTO ACADÉMICO</strong> desarrollado por estudiantes de primer curso del Grado Superior en <strong>Desarrollo de Aplicaciones Multiplataforma</strong> y <strong>Marketing y Publicidad</strong> para el curso 2025/2026.</p>
+                </section>
+
                 <section class="seccion-contenido">
-                    <h2>1. IDENTIFICACIÓN DEL TITULAR</h2>
-                    <p>En cumplimiento con el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se exponen los siguientes datos identificativos del titular del sitio web:</p>
+                    <h2>DECLARACIÓN DE CARÁCTER FICTICIO</h2>
                     <ul class="lista-legal">
-                        <li><strong>Denominación Social:</strong> VIRAL RAY, S.L.</li>
-                        <li><strong>CIF/NIF:</strong> B-12345678</li>
-                        <li><strong>Domicilio Social:</strong> Calle Gran Vía 28, 28013 Madrid, España</li>
-                        <li><strong>Teléfono:</strong> +34 900 123 456</li>
-                        <li><strong>Correo Electrónico:</strong> info@viralray.es</li>
-                        <li><strong>Inscripción Registral:</strong> Registro Mercantil de Madrid, Tomo 12345, Libro 123, Sección 8, Hoja M-123456</li>
+                        <li>La marca, productos, servicios y entidad comercial presentados en este sitio web son completamente <strong>FICTICIOS</strong> y han sido creados con fines exclusivamente educativos.</li>
+                        <li>Esta web <strong>NO</strong> representa una empresa real ni realiza actividad comercial alguna.</li>
+                        <li>No se efectúan transacciones económicas reales ni se recopilan datos personales con fines comerciales.</li>
                     </ul>
                 </section>
 
                 <section class="seccion-contenido">
-                    <h2>2. OBJETO Y ÁMBITO DE APLICACIÓN</h2>
-                    <p>El presente Aviso Legal regula el acceso, navegación y utilización del sitio web www.viralray.es (en adelante, el "Sitio Web"), así como las responsabilidades derivadas de la utilización de sus contenidos.</p>
-                    <p>El acceso al Sitio Web implica la aceptación expresa de las presentes condiciones en la versión publicada en el momento del acceso.</p>
-                </section>
-
-                <section class="seccion-contenido">
-                    <h2>3. CONDICIONES DE ACCESO Y UTILIZACIÓN</h2>
-                    <p>El usuario se compromete a utilizar el Sitio Web de conformidad con la Ley, el presente Aviso Legal, las buenas costumbres y el orden público. Queda prohibido el uso del Sitio Web con fines ilícitos, lesivos para los derechos e intereses de terceros, o que puedan dañar, inutilizar, sobrecargar o deteriorar el Sitio Web.</p>
-                    <p>El usuario se compromete especialmente a:</p>
+                    <h2>PROPIEDAD INTELECTUAL</h2>
                     <ul class="lista-legal">
-                        <li>No utilizar el Sitio Web para fines ilegales o no autorizados.</li>
-                        <li>No reproducir, copiar, distribuir, transformar o modificar los contenidos sin autorización expresa.</li>
-                        <li>No introducir virus informáticos, troyanos o cualquier otro código malicioso.</li>
-                        <li>No obtener datos personales de otros usuarios sin su consentimiento.</li>
+                        <li>Los elementos visuales, textuales y audiovisuales utilizados en este proyecto tienen un propósito <strong>EXCLUSIVAMENTE ACADÉMICO</strong> y <strong>DIDÁCTICO</strong>, amparado bajo el derecho de cita con fines educativos.</li>
+                        <li>Este sitio web no tiene finalidad comercial y se utiliza únicamente como ejercicio práctico en un entorno educativo controlado.</li>
+                        <li>Los titulares de derechos que identifiquen contenido de su propiedad pueden contactar con <a href="mailto:uss0001@alu.medac.es" style="color:#FFD700; text-decoration:none; border-bottom:1px solid rgba(255,215,0,0.4);">uss0001@alu.medac.es</a> o <a href="mailto:ibl0011@alu.medac.es" style="color:#FFD700; text-decoration:none; border-bottom:1px solid rgba(255,215,0,0.4);">ibl0011@alu.medac.es</a> para solicitar su retirada inmediata.</li>
+                        <li>Este uso limitado y con fines estrictamente académicos se realiza sin ánimo de lucro ni de perjudicar los intereses de los titulares originales.</li>
                     </ul>
                 </section>
 
                 <section class="seccion-contenido">
-                    <h2>4. PROPIEDAD INTELECTUAL E INDUSTRIAL</h2>
-                    <p>Todos los contenidos del Sitio Web (textos, fotografías, gráficos, imágenes, iconos, tecnología, software, diseño, código fuente, etc.), así como las marcas, nombres comerciales y demás signos distintivos, están protegidos por la legislación española e internacional sobre propiedad intelectual e industrial.</p>
-                    <p>Queda expresamente prohibido reproducir, transformar, comunicar públicamente, poner a disposición, extraer, reutilizar o reenviar cualquiera de los contenidos del Sitio Web sin autorización escrita de VIRAL RAY, S.L.</p>
+                    <h2>EXENCIÓN DE RESPONSABILIDAD</h2>
+                    <p>Ni los estudiantes creadores, ni el profesorado, ni la institución educativa asumen responsabilidad alguna por el uso indebido o interpretación errónea del contenido de este sitio.</p>
                 </section>
 
-                <section class="seccion-contenido">
-                    <h2>5. EXCLUSIÓN DE RESPONSABILIDAD</h2>
-                    <p>VIRAL RAY, S.L. no se hace responsable de los daños y perjuicios que pudieran derivarse de:</p>
-                    <ul class="lista-legal">
-                        <li>Interrupciones, virus informáticos, averías, desconexiones o indisponibilidades del Sitio Web motivadas por causas ajenas a su voluntad.</li>
-                        <li>La utilización indebida que los usuarios realicen del Sitio Web.</li>
-                        <li>Los contenidos de terceros ajenos al Sitio Web.</li>
-                        <li>La impossibilidad de acceder al Sitio Web por causas imputables al usuario.</li>
-                    </ul>
+                <section class="seccion-contenido" style="border-bottom:none; background:rgba(255,215,0,0.04); border-radius:12px; padding:24px 28px; border:1px solid rgba(255,215,0,0.15);">
+                    <h2 style="margin-bottom:12px;">CONTACTO</h2>
+                    <p style="margin-bottom:12px;">En caso de duda o consulta relacionada con este proyecto académico, o para solicitar la retirada de cualquier contenido, puede contactar con:</p>
+                    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
+                        <a href="mailto:uss0001@alu.medac.es" style="display:inline-flex; align-items:center; gap:8px; color:#FFD700; text-decoration:none; font-size:13px; font-weight:900; letter-spacing:1px; padding:10px 18px; border:1px solid rgba(255,215,0,0.35); border-radius:25px; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,215,0,0.1)'" onmouseout="this.style.background='transparent'">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            uss0001@alu.medac.es
+                        </a>
+                        <a href="mailto:ibl0011@alu.medac.es" style="display:inline-flex; align-items:center; gap:8px; color:#FFD700; text-decoration:none; font-size:13px; font-weight:900; letter-spacing:1px; padding:10px 18px; border:1px solid rgba(255,215,0,0.35); border-radius:25px; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,215,0,0.1)'" onmouseout="this.style.background='transparent'">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            ibl0011@alu.medac.es
+                        </a>
+                    </div>
                 </section>
-
-                <section class="seccion-contenido">
-                    <h2>6. LEGISLACIÓN APLICABLE Y JURISDICCIÓN</h2>
-                    <p>El presente Aviso Legal se rige por la legislación española vigente. Para cualquier controversia que pudiera derivarse del acceso o utilización del Sitio Web, ambas partes se someten a los Juzgados y Tribunales de la ciudad de Madrid, renunciando expresamente a cualquier otro fuero que pudiera corresponderles.</p>
-                </section>
-            </div>
-
-            <div class="enlaces-legales">
-                <a href="politica-privacidad.html" class="enlace-legal">Política de Privacidad</a>
-                <span class="separador">|</span>
-                <a href="politica-cookies.html" class="enlace-legal">Política de Cookies</a>
-                <span class="separador">|</span>
-                <a href="envios.html" class="enlace-legal">Envíos y Entregas</a>
             </div>
         </div>
     </main>
@@ -95,6 +112,23 @@
             <a href="index.html" class="boton-volver-legal">
                 ← Volver al inicio
             </a>
+        </div>
+    </footer>
+    <script src="script-busqueda-header.js"></script>
+
+    <!-- Footer Legal -->
+    <footer style="background:#050510; border-top:1px solid rgba(255,215,0,0.12); padding:24px 40px; text-align:center;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                <a href="aviso-legal.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">AVISO LEGAL</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-privacidad.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE PRIVACIDAD</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-cookies.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE COOKIES</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="envios.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">ENVÍOS Y ENTREGAS</a>
+            </div>
+            <p style="color:rgba(255,255,255,0.25); font-size:11px; font-weight:700; letter-spacing:1px; margin:0;">© 2024 VIRAL RAY, S.L. — TODOS LOS DERECHOS RESERVADOS</p>
         </div>
     </footer>
 </body>

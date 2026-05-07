@@ -55,7 +55,7 @@ body.pagina-perfil {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
-    cursor: url('images/custom-cursor.png') 0 0, auto;
+    cursor: url('images/rayo-cursor.png') 19 6, auto;
     min-height: 100vh;
 }
 
@@ -72,9 +72,19 @@ body.pagina-perfil::before {
     z-index: -1;
 }
 
-/* Cursor personalizado para hover */
+/* Cursor personalizado para hover - tamaño ajustado */
 *:hover {
-    cursor: url('images/custom-cursor.png') 0 0, auto;
+    cursor: url('images/rayo-cursor.png') 19 6, auto;
+}
+
+/* Cursor para elementos clickeables */
+a:hover, button:hover, .opcion-menu:hover, .boton-volver-inicio:hover {
+    cursor: url('images/rayo-cursor.png') 19 6, pointer;
+}
+
+/* Cursor de pointer explícito */
+[role="button"], .clickable {
+    cursor: url('images/rayo-cursor.png') 19 6, pointer;
 }
 
 /* ==================== ENCABEZADO ==================== */
@@ -96,7 +106,7 @@ body.pagina-perfil::before {
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -119,7 +129,7 @@ body.pagina-perfil::before {
     filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
 }
 
-/* ==================== SECCIÓN CUENTA ==================== */
+/* ==================== SECCI�?N CUENTA ==================== */
 .seccion-cuenta {
     min-height: 100vh;
     padding: 120px 20px 60px;
@@ -561,7 +571,7 @@ align-items: center;
     padding: 18px;
     background: transparent;
     border: 2px solid var(--neon-red);
-    border-radius: 30px;
+    border-radius: 50px;
     color: var(--neon-red);
     font-family: var(--font-body);
     font-weight: 900;
@@ -575,6 +585,63 @@ align-items: center;
 .boton-cerrar-sesion:hover {
     background: var(--neon-red);
     color: var(--text-white);
+}
+
+/* ==================== BOT�?N VOLVER AL INICIO - ESTILO PREMIUM ==================== */
+.boton-volver-inicio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 18px 24px;
+    background: transparent;
+    border: 2px solid var(--neon-yellow);
+    border-radius: 50px;
+    color: var(--neon-yellow);
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.boton-volver-inicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.boton-volver-inicio:hover::before {
+    left: 100%;
+}
+
+.boton-volver-inicio:hover {
+    background: var(--neon-yellow);
+    color: var(--bg-black);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5),
+                0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.boton-volver-inicio:hover .icono-flecha {
+    transform: translateX(-5px);
+}
+
+.icono-flecha {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
 }
 
 /* ==================== SECCIONES DE DATOS ==================== */
@@ -670,7 +737,7 @@ align-items: center;
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* ==================== TOAST DE NOTIFICACIÓN ==================== */
+/* ==================== TOAST DE NOTIFICACI�?N ==================== */
 .notificacion-toast {
     position: fixed;
     bottom: -100px;

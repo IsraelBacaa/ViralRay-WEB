@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-catalogo.css">
+    <link rel="stylesheet" href="popup-bienvenida.css">
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+</head>
+<body class="pagina-catalogo">
+
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <div class="menu-desplegable">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="catalogo.html" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="index.html#comunidad" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="index.html#contacto" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <a href="index.html" class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero del catálogo -->
+    <section class="catalogo-hero">
+        <div class="catalogo-hero-content">
+            <p class="catalogo-hero-eyebrow">VIRAL RAY · TIENDA OFICIAL</p>
+            <h1 class="catalogo-hero-title">CATÁLOGO<br><span class="catalogo-hero-accent">COMPLETO</span></h1>
+            <p class="catalogo-hero-sub">Rótulos · Gaming · Iluminación · Figuras · Más</p>
+        </div>
+        <div class="catalogo-hero-glow"></div>
+    </section>
+
+    <!-- Navegación de categorías sticky -->
+    <nav class="catalogo-nav-categorias" id="navCategorias">
+        <div class="catalogo-nav-inner">
+            <button class="cat-btn activo" data-cat="rotulos" onclick="scrollToCategoria('rotulos', this)">
+                <span class="cat-icon">⚡</span> RÓTULOS
+            </button>
+            <button class="cat-btn" data-cat="teclados" onclick="scrollToCategoria('teclados', this)">
+                <span class="cat-icon">⌨</span> TECLADOS
+            </button>
+            <button class="cat-btn" data-cat="cascos" onclick="scrollToCategoria('cascos', this)">
+                <span class="cat-icon">🎧</span> CASCOS
+            </button>
+            <button class="cat-btn" data-cat="lamparas" onclick="scrollToCategoria('lamparas', this)">
+                <span class="cat-icon">💡</span> LÁMPARAS
+            </button>
+            <button class="cat-btn" data-cat="paneles" onclick="scrollToCategoria('paneles', this)">
+                <span class="cat-icon">◈</span> PANELES
+            </button>
+            <button class="cat-btn" data-cat="packs" onclick="scrollToCategoria('packs', this)">
+                <span class="cat-icon">📦</span> PACKS
+            </button>
+        </div>
+    </nav>
+
+    <main class="catalogo-main">
+
+        <!-- SECCIÓN: RÓTULOS -->
+        <section class="cat-seccion cat-seccion--featured" id="rotulos">
+            <div class="cat-seccion-header">
+                <div class="cat-seccion-label">
+                    <span class="cat-badge cat-badge--priority">★ PRIORIDAD</span>
+                </div>
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">01</span>
+                    RÓTULOS LED
+                </h2>
+                <p class="cat-seccion-desc">Personaliza tu espacio con neón y luz. Rótulos de texto, figuras y diseños exclusivos.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+
+            <div class="cat-grid cat-grid--3">
+                <!-- Rótulo LED 3D Personalizado -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED 3D Personalizado"
+                    data-precio="129.99"
+                    data-imagen="images/portada-3.png"
+                    data-descripcion="Rótulo LED 3D con la frase que tú elijas. Ilumina tu mundo con estilo. Control remoto incluido con 16 millones de colores RGB."
+                    data-caracteristicas="LED neón flexible|16 millones de colores|Mando a distancia incluido|Tamaño personalizable|Fácil instalación">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Panel_hexagonal.png" alt="Rótulo 3D Personalizado" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">MÁS VENDIDO</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO LED 3D</h3>
+                        <p class="tcp-sub">Personalizable · RGB · Moderno</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">129.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <!-- Rótulo LED Texto Simple -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED Texto Premium"
+                    data-precio="99.99"
+                    data-imagen="images/portada-2.png"
+                    data-descripcion="Rótulo LED con texto personalizado sobre base de metacrilato. Iluminación retroiluminada con gradiente azul-magenta. Perfecto para oficinas y setups."
+                    data-caracteristicas="Metacrilato de alta calidad|Iluminación LED RGB|Texto personalizable|Soporte mural incluido|Consumo bajo 8W">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/INNOVATE.png" alt="Rótulo Texto Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-new">NUEVO</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO TEXTO PREMIUM</h3>
+                        <p class="tcp-sub">Metacrilato · RGB · Elegante</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">99.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <!-- Rótulo LED Figura -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED Figura Anime"
+                    data-precio="149.99"
+                    data-imagen="images/portada-4.png"
+                    data-descripcion="Rótulo LED con diseño anime y figura personalizada. Luz neón multicolor con sincronización de música. Montaje simple en pared."
+                    data-caracteristicas="Diseño anime personalizable|Neón multicolor RGB|Sincronización con música|Panel metacrilato|Cable discreto">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Rotulo_led infantil.png" alt="Rótulo Anime" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO ANIME LED</h3>
+                        <p class="tcp-sub">Anime · RGB · Sincronizable</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">149.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: TECLADOS -->
+        <section class="cat-seccion cat-seccion--dark" id="teclados">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">02</span>
+                    TECLADOS MECÁNICOS
+                </h2>
+                <p class="cat-seccion-desc">Teclados mecánicos de alta precisión con iluminación RGB. El arma perfecta para tu setup gaming.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado Mecánico RGB Premium"
+                    data-precio="149.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico premium con iluminación RGB por tecla totalmente personalizable. Switches azul con respuesta táctil excepcional."
+                    data-caracteristicas="Switches mecánicos azul|Iluminación RGB por tecla|N-Key rollover anti-ghosting|Cable USB-C desmontable|Reposabrazos aluminio">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado RGB Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">TOP VENTAS</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO MECÁNICO RGB</h3>
+                        <p class="tcp-sub">Switches azul · USB-C · Gaming</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">149.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado Mecánico Red Switch"
+                    data-precio="139.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico con switches rojos de bajo ruido. Perfecto para trabajo intensivo y gaming competitivo sin fatiga auditiva."
+                    data-caracteristicas="Switches rojos lineales|Bajo ruido|Iluminación RGB individual|Ergonomía mejorada|Garantía 2 años">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado Red Switch" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO RED SWITCH</h3>
+                        <p class="tcp-sub">Switches rojo · Bajo ruido · Silencioso</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">139.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado 60% Compacto"
+                    data-precio="159.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico 60% ultra compacto con macro programables. Ideal para transportar y espacios reducidos. Batería inalámbrica incluida."
+                    data-caracteristicas="Formato 60% compacto|Inalámbrico 2.4GHz|Macros programables|Batería 30 horas|Aluminio anodizado">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado 60% Compacto" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO 60% COMPACTO</h3>
+                        <p class="tcp-sub">Inalámbrico · Compacto · Portable</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">159.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CASCOS -->
+        <section class="cat-seccion" id="cascos">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">03</span>
+                    AURICULARES GAMING
+                </h2>
+                <p class="cat-seccion-desc">Auriculares con sonido envolvente 7.1 y micrófono retráctil. Comodidad total para sesiones largas.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Gaming Pro 7.1"
+                    data-precio="79.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares gaming con sonido surround 7.1, micrófono retráctil e iluminación LED RGB personalizable."
+                    data-caracteristicas="Sonido surround 7.1|Micrófono con cancelación de ruido|Iluminación LED RGB|Compatibles PC, PS4, Xbox|Cojines memory foam">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Pro 7.1" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES PRO 7.1</h3>
+                        <p class="tcp-sub">Sonido 7.1 · Micrófono · Multiplataforma</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">79.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Inalámbricos Premium"
+                    data-precio="89.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares inalámbricos con Bluetooth 5.0, batería 20 horas y cancelación activa de ruido. Calidad de sonido cristalina."
+                    data-caracteristicas="Bluetooth 5.0 inalámbrico|Cancelación activa de ruido|Batería 20 horas|Sonido Hi-Fi|Control táctil">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Inalámbricos" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES INALÁMBRICOS</h3>
+                        <p class="tcp-sub">Bluetooth 5.0 · Cancelación · 20h</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">89.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Estudio Profesional"
+                    data-precio="129.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares estudio profesional con drivers de 40mm, respuesta plana y monitor de audio precisión estudio."
+                    data-caracteristicas="Drivers 40mm profesionales|Respuesta plana 20-20kHz|Cable removible|Almohadas premium|Certificado estudio">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Estudio" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES ESTUDIO PRO</h3>
+                        <p class="tcp-sub">40mm · Respuesta plana · Profesional</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">129.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LÁMPARAS -->
+        <section class="cat-seccion cat-seccion--dark" id="lamparas">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">04</span>
+                    LÁMPARAS LED
+                </h2>
+                <p class="cat-seccion-desc">Lámparas de diseño minimalista con luz LED regulable. Perfectas para escritorios y espacios de trabajo.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Escritorio"
+                    data-precio="59.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED de diseño minimalista con luz regulable. Tres modos de temperatura color. Pantalla LED con hora integrada."
+                    data-caracteristicas="3 modos temperatura color|Brillo ajustable 10-100%|Pantalla LED con hora|Base estable antideslizante|Consumo 12W">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara Escritorio" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA ESCRITORIO LED</h3>
+                        <p class="tcp-sub">Regulable · Reloj · 3 modos</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">59.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Ambiente RGB"
+                    data-precio="69.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED RGB inteligente con 16 millones de colores. Control remoto incluido. Sincronización con música."
+                    data-caracteristicas="RGB 16M colores|Control remoto 44 teclas|Sincronización música|Temporizador automático|APP móvil compatible">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara RGB" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA RGB INTELIGENTE</h3>
+                        <p class="tcp-sub">RGB 16M · Control remoto · Música</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">69.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Soporte Flexible"
+                    data-precio="49.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED con brazo flexible y pinza de sujeción. Perfecta para setups gaming, streams y trabajo creativo."
+                    data-caracteristicas="Brazo flexible 360°|Pinza de sujeción fuerte|LED frío blanco 6000K|Bajo consumo 8W|Apto para todos los escritorios">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara Flexible" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA FLEXIBLE</h3>
+                        <p class="tcp-sub">Brazo flexible · Pinza · Versatile</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">49.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: FIGURAS -->
+        <section class="cat-seccion" id="paneles">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">05</span>
+                    FIGURAS LED
+                </h2>
+                <p class="cat-seccion-desc">Diseña tu espacio con Figuras LED modular. Decora tu setup gaming o habitación.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel Hexagonal LED RGB"
+                    data-precio="89.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Paneles hexagonales LED con iluminación RGB 16M colores. Diseño modular conectable. Control mediante app móvil."
+                    data-caracteristicas="Iluminación RGB 16M colores|Control mediante app móvil|Soporte asistente de voz|Mounting adhesivo incluido|Diseño modular conectable">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Figura_dragon_ball.png" alt="Panel Hexagonal" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">POPULAR</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA DRAGON BALL 22CM</h3>
+                        <p class="tcp-sub">Anime · LED · Multicolor</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">89.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel RGB 60cm Panorámico"
+                    data-precio="69.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Panel LED de 60cm de longitud para crear ambientes únicos. Control remoto incluido con 16 escenas predefinidas."
+                    data-caracteristicas="60cm de longitud|Control remoto 44 teclas|16 escenas predefinidas|Compatibilidad Alexa|Sincronización con música">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/cabeza.png" alt="Panel 60cm" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA CABEZA 30CM </h3>
+                        <p class="tcp-sub">Realista · LED</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">99.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel Nanoleaf Imitación Premium"
+                    data-precio="119.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Panel LED estilo Nanoleaf con triángulos RGB de alta resolucion. Sincronización automática con música y gestos."
+                    data-caracteristicas="Forma triangular moderna|16M colores RGB|Sincronización música|Gestos automáticos|Montaje magnetico fácil">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Figura_abstracta.png" alt="Panel Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA ABSTRACTA 25CM</h3>
+                        <p class="tcp-sub">Abstracta · LED · Minimalista</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">79.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PACKS COMPLETOS -->
+        <section class="cat-seccion cat-seccion--dark" id="packs">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">06</span>
+                    PACKS COMPLETOS
+                </h2>
+                <p class="cat-seccion-desc">Ahorra más comprando packs completos. Todo lo que necesitas para tu setup gaming en un solo paquete.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--2">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Pack Gaming Completo RGB"
+                    data-precio="249.99"
+                    data-imagen="images/portada-2.png"
+                    data-descripcion="Pack completo para tu setup gaming: teclado mecánico, ratón gaming, alfombrilla y auriculares con iluminación RGB sincronizada."
+                    data-caracteristicas="Teclado mecánico RGB|Ratón 12000 DPI|Auriculares 7.1|Alfombrilla XL 90x40cm|Cable USB centralizado">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/SEOon_How_to_Create_the_Best_Gaming_Setup_e78e19bf-25c2-42aa-b210-349a89080cb7.jpg" alt="Pack Gaming" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">AHORRA 30%</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">PACK GAMING COMPLETO</h3>
+                        <p class="tcp-sub">Teclado · Ratón · Monitor</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">429.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Pack Viral-Ray"
+                    data-precio="199.99"
+                    data-imagen="images/portada-1.png"
+                    data-descripcion="Pack iluminación premium: rótulo LED personalizado + panel hexagonal + lámpara RGB. Transforma completamente tu espacio."
+                    data-caracteristicas="Rótulo LED 3D personalizado|Panel hexagonal modular|Lámpara RGB inteligente|Control centralizado app|Instalación fácil">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Pack.png" alt="Pack ViralRay" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">AHORRA 25%</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">PACK VIRAL-RAY</h3>
+                        <p class="tcp-sub">Teclado · Ratón · Cascos · Microfono</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">499.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Detalle Producto -->
+    <div class="modal-producto-cat" id="modalProductoCat">
+        <div class="modal-producto-cat-inner">
+            <button class="modal-cat-cerrar" onclick="cerrarModalCat()">✕</button>
+            <div class="modal-cat-contenido">
+                <div class="modal-cat-imagen">
+                    <img id="modalCatImg" src="" alt="Producto">
+                </div>
+                <div class="modal-cat-info">
+                    <h2 id="modalCatNombre"></h2>
+                    <div class="modal-cat-precio" id="modalCatPrecio"></div>
+                    <p class="modal-cat-desc" id="modalCatDesc"></p>
+                    <ul class="modal-cat-caract" id="modalCatCaract"></ul>
+                    <div class="modal-cat-acciones">
+                        <div class="modal-cat-cantidad">
+                            <button onclick="cambiarCantidadModal(-1)">−</button>
+                            <span id="modalCatCant">1</span>
+                            <button onclick="cambiarCantidadModal(1)">+</button>
+                        </div>
+                        <button class="modal-cat-btn-comprar" id="modalBtnComprar">COMPRAR AHORA</button>
+                        <button class="modal-cat-btn-carrito" id="modalBtnCarrito">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-cat-overlay" id="modalCatOverlay" onclick="cerrarModalCat()"></div>
+
+    <!-- Toast -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background:#050510; border-top:1px solid rgba(255,215,0,0.12); padding:24px 40px; text-align:center;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                <a href="aviso-legal.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">AVISO LEGAL</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-privacidad.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE PRIVACIDAD</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-cookies.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE COOKIES</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="envios.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">ENVÍOS Y ENTREGAS</a>
+            </div>
+            <p style="color:rgba(255,255,255,0.25); font-size:11px; font-weight:700; letter-spacing:1px; margin:0;">© 2024 VIRAL RAY, S.L. — TODOS LOS DERECHOS RESERVADOS</p>
+        </div>
+    </footer>
+
+    <script src="script-busqueda-header.js"></script>
+    <script>
+    function abrirProductoCat(card) {
+        // Guardar en sessionStorage para la página de ficha
+        sessionStorage.setItem('productoActual', JSON.stringify({
+            nombre: card.dataset.nombre,
+            precio: card.dataset.precio,
+            imagen: card.dataset.imagen,
+            descripcion: card.dataset.descripcion,
+            caracteristicas: card.dataset.caracteristicas
+        }));
+
+        // Redirigir a ficha de producto
+        window.location.href = 'ficha-producto.html';
+    }
+
+    function tcpAgregarCarrito(btn) {
+        const card = btn.closest('.tarjeta-producto-cat');
+        const datos = { nombre: card.dataset.nombre, precio: parseFloat(card.dataset.precio), imagen: card.dataset.imagen };
+        tcpAgregarCarritoData(datos, 1);
+    }
+
+    function tcpAgregarCarritoData(datos, cantidad) {
+        let carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const idx = carrito.findIndex(i => i.nombre === datos.nombre);
+        if (idx > -1) {
+            carrito[idx].cantidad += cantidad;
+        } else {
+            carrito.push({ id: Date.now().toString(), nombre: datos.nombre, precio: datos.precio, imagen: datos.imagen, cantidad });
+        }
+        localStorage.setItem('viralRayCarrito', JSON.stringify(carrito));
+        sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+        document.querySelectorAll('.contador-carrito').forEach(el => el.textContent = total);
+        mostrarToast('¡' + datos.nombre + ' añadido al carrito!');
+    }
+
+    function mostrarToast(msg) {
+        const t = document.getElementById('notificacionToast');
+        t.querySelector('.mensaje-notificacion').textContent = msg;
+        t.classList.add('mostrar');
+        setTimeout(() => t.classList.remove('mostrar'), 3000);
+    }
+
+    function scrollToCategoria(id, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
+        if (btn) btn.classList.add('activo');
+        const el = document.getElementById(id);
+        if (el) {
+            const offset = 100;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        const secciones = ['rotulos','teclados','cascos','lamparas','paneles','packs'];
+        let activa = secciones[0];
+        secciones.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.getBoundingClientRect().top < 160) activa = id;
+        });
+        document.querySelectorAll('.cat-btn').forEach(b => {
+            b.classList.toggle('activo', b.dataset.cat === activa);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+        document.querySelectorAll('.contador-carrito').forEach(el => el.textContent = total);
+    });
+    </script>
+</body>
+</html>
