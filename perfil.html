@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles-perfil.css">
+    <!-- Favicon ViralRAY -->
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+
+        /* ===== HEADER IGUAL QUE INDEX ===== */
+        .contenedor-encabezado { max-width:1400px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; }
+        .imagen-logotipo { height:70px; width:auto; object-fit:contain; transition:transform 0.3s ease, filter 0.3s ease; }
+        .imagen-logotipo:hover { transform:scale(1.05); filter:drop-shadow(0 0 15px rgba(255,215,0,0.6)); }
+        .menu-desplegable { display:flex; flex-direction:column; gap:5px; cursor:url('images/rayo-cursor.png') 19 6, pointer; padding:10px; }
+        .menu-desplegable span { width:25px; height:3px; background-color:var(--neon-yellow); transition:all 0.3s ease; }
+        .menu-desplegable.activo span:nth-child(1) { transform:rotate(45deg) translate(5px, 5px); }
+        .menu-desplegable.activo span:nth-child(2) { opacity:0; }
+        .menu-desplegable.activo span:nth-child(3) { transform:rotate(-45deg) translate(7px, -6px); }
+        .menu-navegacion { display:flex; gap:35px; }
+        .enlace-navegacion { font-family:var(--font-body); font-weight:900; color:var(--text-white); text-decoration:none; font-size:14px; letter-spacing:2px; padding:10px 0; transition:color 0.3s ease; }
+        .enlace-navegacion:hover { color:var(--neon-yellow); cursor:url('images/rayo-cursor.png') 19 6, pointer; }
+        .iconos-encabezado { display:flex; gap:15px; }
+        .contenedor-icono { width:45px; height:45px; background-color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; position:relative; text-decoration:none; }
+        .contenedor-icono .icono-svg, .contenedor-icono img { width:24px; height:24px; object-fit:contain; }
+        .contenedor-icono:hover { transform:scale(1.1); box-shadow:0 0 20px rgba(255,255,255,0.5); cursor:url('images/rayo-cursor.png') 19 6, pointer; }
+        .icono-carrito { position:relative; }
+        .contador-carrito { position:absolute; top:-5px; right:-5px; background:linear-gradient(135deg,#FF00FF,#FF1493); color:#fff; font-family:var(--font-body); font-weight:900; font-size:11px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+        .barra-busqueda-header { position:relative; flex:0 1 260px; }
+        .input-busqueda-header { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,215,0,0.35); border-radius:30px; padding:8px 14px; transition:all 0.3s ease; }
+        .input-busqueda-header:focus-within { border-color:#FFD700; background:rgba(255,215,0,0.07); box-shadow:0 0 18px rgba(255,215,0,0.2); }
+        .input-busqueda-header svg { color:#AAAAAA; flex-shrink:0; }
+        .input-busqueda-header:focus-within svg { color:#FFD700; }
+        .input-busqueda-header input { background:transparent; border:none; outline:none; color:#fff; font-family:var(--font-body); font-weight:900; font-size:13px; letter-spacing:1px; width:100%; cursor:url('images/rayo-cursor.png') 19 6, text; }
+        .input-busqueda-header input::placeholder { color:#AAAAAA; }
+        .btn-limpiar-busqueda { background:none; border:none; color:#AAAAAA; cursor:url('images/rayo-cursor.png') 19 6, pointer; display:flex; align-items:center; padding:0; }
+        .btn-limpiar-busqueda:hover { color:#FFD700; }
+        .resultados-busqueda-header { position:absolute; top:calc(100% + 10px); left:0; right:0; background:rgba(10,10,26,0.98); border:1.5px solid rgba(255,215,0,0.3); border-radius:16px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.6); z-index:2000; max-height:380px; overflow-y:auto; display:none; }
+        .resultados-busqueda-header.visible { display:block; }
+        .resultado-busqueda-item { display:flex; align-items:center; gap:12px; padding:12px 16px; cursor:url('images/rayo-cursor.png') 19 6, pointer; transition:background 0.2s; border-bottom:1px solid rgba(255,215,0,0.08); }
+        .resultado-busqueda-item:hover { background:rgba(255,215,0,0.08); }
+        .resultado-busqueda-item img { width:44px; height:44px; object-fit:cover; border-radius:8px; }
+        .resultado-busqueda-info { flex:1; }
+        .resultado-busqueda-nombre { font-family:var(--font-body); font-weight:900; font-size:13px; color:#fff; letter-spacing:1px; }
+        .resultado-busqueda-precio { font-family:var(--font-body); font-weight:900; font-size:12px; color:#FFD700; margin-top:2px; }
+        .sin-resultados-busqueda { padding:20px; text-align:center; font-size:13px; color:#AAAAAA; }
+
+        /* Iconos de menú con imágenes */
+        .icono-opcion {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .icono-opcion img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.75;
+            transition: all 0.2s ease;
+        }
+        .opcion-menu.activa .icono-opcion img,
+        .opcion-menu:hover .icono-opcion img {
+            filter: none;
+            opacity: 1;
+        }
+        .icono-vacio {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .icono-vacio img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            opacity: 0.5;
+        }
+        /* Fix badge icons in product detail */
+        .footer-badge-img,
+        .garantia-badge-img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+    </style>
+    <style>
+        *, *::before, *::after { cursor: url("images/cursor_40x40.png") 8 0, auto !important; }
+    </style>
+
+<style id="menu-fullscreen-css">
+/* ===== OVERLAY FULLSCREEN ===== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.menu-overlay.abierto {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fondo con efecto zoom/warp de entrada */
+.menu-overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: #000 url("imagenes2.0/Menú/image.png") center center / cover no-repeat;
+    transform: scale(1.15);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+.menu-overlay-bg::before { content: none; }
+.menu-overlay-bg::after  { content: none; }
+
+.menu-overlay.abierto .menu-overlay-bg {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Botón cerrar */
+.menu-cerrar {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    z-index: 10;
+    line-height: 1;
+    padding: 4px 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.menu-cerrar:hover { opacity: 1; transform: scale(1.15); }
+
+/* Nav central */
+.menu-fullscreen-nav {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 60px;
+}
+.menu-fullscreen-lista {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+}
+.menu-fullscreen-item {
+    position: relative;
+}
+.menu-fullscreen-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: var(--font-title, 'Bebas Neue', sans-serif);
+    font-size: clamp(22px, 3vw, 38px);
+    color: #d4ff00;
+    text-shadow: 0 0 18px rgba(200,255,0,0.35);
+    text-decoration: none;
+    letter-spacing: 5px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    transition: color 0.25s, text-shadow 0.25s, letter-spacing 0.25s;
+    background: none; border: none; padding: 0;
+    line-height: 1.2;
+}
+.menu-fullscreen-item:hover > .menu-fullscreen-link,
+.menu-fullscreen-item.activo > .menu-fullscreen-link {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(200,255,0,0.9), 0 0 60px rgba(200,255,0,0.5), 0 0 100px rgba(200,255,0,0.3);
+    letter-spacing: 7px;
+}
+.menu-rotulo {
+    color: #d4ff00 !important;
+    text-shadow: 0 0 20px rgba(200,255,0,0.5) !important;
+}
+.menu-rotulo:hover {
+    color: #fff !important;
+    text-shadow: 0 0 30px rgba(200,255,0,0.8) !important;
+}
+.menu-arrow {
+    font-size: 36px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    color: #d4ff00;
+}
+.menu-fullscreen-item:hover .menu-arrow,
+.menu-fullscreen-item.activo .menu-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Submenú */
+.menu-submenu {
+    display: none;
+    position: absolute;
+    left: calc(100% + 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 20px 0 20px 30px;
+    min-width: 380px;
+    flex-direction: column;
+    gap: 4px;
+    /* Padding invisible para que el ratón no salga del área al pasar entre columnas */
+    border-left: 40px solid transparent;
+    margin-left: -40px;
+}
+.menu-fullscreen-item.activo .menu-submenu,
+.menu-fullscreen-item:hover .menu-submenu {
+    display: flex;
+}
+.menu-submenu li a {
+    font-family: var(--font-body, sans-serif);
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 7px 12px;
+    display: block;
+    transition: color 0.2s, padding-left 0.2s;
+    pointer-events: all;
+    border-radius: 4px;
+}
+.menu-submenu li a:hover {
+    color: #d4ff00;
+    padding-left: 20px;
+}
+.menu-submenu li a.submenu-destacado { color: #cc44ff; }
+.menu-submenu li a.submenu-destacado:hover { color: #e080ff; padding-left: 20px; }
+
+/* Animación entrada items — zoom + fade desde el centro */
+.menu-fullscreen-item {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.abierto .menu-fullscreen-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(1) { transition-delay: 0.15s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(2) { transition-delay: 0.22s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(3) { transition-delay: 0.29s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(4) { transition-delay: 0.36s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(5) { transition-delay: 0.43s; }
+
+/* Al cerrar: animación inversa rápida */
+.menu-overlay.cerrando .menu-fullscreen-item {
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(-20px) !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+.menu-overlay.cerrando .menu-overlay-bg {
+    transform: scale(1.1) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s ease, opacity 0.25s ease !important;
+}
+
+/* Responsive móvil */
+@media (max-width: 700px) {
+    .menu-fullscreen-nav { padding: 0 28px; }
+    .menu-submenu {
+        position: static;
+        transform: none;
+        margin-top: 8px;
+        padding-left: 16px;
+        border-left: 2px solid rgba(200,255,0,0.3);
+    }
+}
+</style>
+
+</head>
+<body class="pagina-perfil">
+
+<!-- ===== MENÚ FULLSCREEN ===== -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-overlay-bg"></div>
+    <button class="menu-cerrar" id="menuCerrar" aria-label="Cerrar menú">✕</button>
+    <nav class="menu-fullscreen-nav">
+        <ul class="menu-fullscreen-lista">
+            <li class="menu-fullscreen-item"><a href="crea-tu-rotulo.html" class="menu-fullscreen-link menu-rotulo">CREA TU RÓTULO</a></li>
+            <li class="menu-fullscreen-item" data-submenu="productos">
+                <span class="menu-fullscreen-link">PRODUCTOS <span class="menu-arrow">›</span></span>
+                <ul class="menu-submenu">
+                    <li><a href="catalogo.html">Aros de Luz Inteligentes</a></li>
+                    <li><a href="catalogo.html">Rótulos LED (Por Defecto)</a></li>
+                    <li><a href="catalogo.html">Luces de Ambiente RGB</a></li>
+                    <li><a href="catalogo.html" class="submenu-destacado">Neones por Temática (Neon Gamer, Neon Streamer)</a></li>
+                    <li><a href="catalogo.html">Packs &amp; Setups Completos</a></li>
+                    <li><a href="catalogo.html">Cámaras y Webcams</a></li>
+                    <li><a href="catalogo.html">Micrófonos Profesionales</a></li>
+                    <li><a href="catalogo.html">Accesorios Gamer</a></li>
+                    <li><a href="catalogo.html">Ofertas TOP -40%</a></li>
+                </ul>
+            </li>
+            <li class="menu-fullscreen-item"><a href="comunidad.html" class="menu-fullscreen-link">COMUNIDAD</a></li>
+            <li class="menu-fullscreen-item"><a href="contacto.html" class="menu-fullscreen-link">AYUDA Y SOPORTE</a></li>
+            <li class="menu-fullscreen-item"><a href="index.html#comunidad" class="menu-fullscreen-link">SOBRE NOSOTROS</a></li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <div class="menu-desplegable">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="catalogo.html" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="comunidad.html" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="contacto.html" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <div class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Cuenta -->
+    <main class="seccion-cuenta">
+        <div class="contenido-cuenta">
+            <!-- Logo en la cuenta -->
+            <div class="logo-cuenta">
+                <img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY">
+            </div>
+
+            <div class="linea-divisora"></div>
+
+            <!-- Formulario de Inicio de Sesión -->
+            <section class="formulario-cuenta" id="seccionIniciarSesion">
+                <h2 class="titulo-cuenta">INICIAR SESIÓN</h2>
+                
+                <div class="inicio-social">
+                    <button type="button" class="boton-google" id="btnGoogleLogin">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Iniciar sesión con Google
+                    </button>
+                </div>
+
+                <div class="recaptcha-contenedor">
+                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                </div>
+
+                <div class="divisor-texto">
+                    <span>o bien</span>
+                </div>
+
+                <form class="form-login" id="formLogin">
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailLogin" placeholder="e-mail *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="passwordLogin" placeholder="contraseña *" required>
+                    </div>
+                    
+                    <a href="#" class="enlace-olvido" id="btnOlvidoContrasena">He olvidado mi contraseña</a>
+                    
+                    <button type="submit" class="boton-principal">INICIAR SESIÓN</button>
+                </form>
+
+                <div class="linea-mini"></div>
+
+                <div class="enlace-nuevo-cliente">
+                    <span>¿Eres nuevo cliente?</span>
+                    <button type="button" class="boton-secundario" id="btnCrearCuenta">CREAR CUENTA</button>
+                </div>
+            </section>
+
+            <!-- Formulario de Registro -->
+            <section class="formulario-cuenta oculto" id="seccionRegistro">
+                <h2 class="titulo-cuenta">CREAR CUENTA</h2>
+
+                <form class="form-registro" id="formRegistro">
+                    <div class="grupo-entrada">
+                        <input type="text" id="nombreRegistro" placeholder="nombre completo *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailRegistro" placeholder="e-mail *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="passwordRegistro" placeholder="contraseña *" required>
+                    </div>
+                    <div class="grupo-entrada">
+                        <input type="password" id="confirmarPassword" placeholder="repetir contraseña *" required>
+                    </div>
+                    
+                    <div class="terminos-aceptacion">
+                        <input type="checkbox" id="checkTerminos" required>
+                        <label for="checkTerminos">Acepto los <a href="aviso-legal.html" target="_blank">términos y condiciones</a></label>
+                    </div>
+
+                    <button type="submit" class="boton-principal">CREAR CUENTA</button>
+                </form>
+
+                <button type="button" class="boton-volver" id="btnVolverLogin">&larr; Volver</button>
+            </section>
+
+            <!-- Formulario de Recuperación de Contraseña -->
+            <section class="formulario-cuenta oculto" id="seccionRecuperar">
+                <h2 class="titulo-cuenta">RECUPERAR CONTRASEÑA</h2>
+                <p class="descripcion-recuperacion">Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+
+                <form class="form-recuperacion" id="formRecuperar">
+                    <div class="grupo-entrada">
+                        <input type="email" id="emailRecuperar" placeholder="e-mail *" required>
+                    </div>
+
+                    <button type="submit" class="boton-principal">ENVIAR ENLACE</button>
+                </form>
+
+                <button type="button" class="boton-volver" id="btnVolverLoginRecuperar">&larr; Volver al inicio de sesión</button>
+            </section>
+
+            <!-- Panel de Usuario (después de iniciar sesión) -->
+            <section class="panel-usuario oculto" id="panelUsuario">
+                <div class="encabezado-panel">
+                </div>
+
+                <div class="info-usuario">
+                    <div class="avatar-usuario" style="background: rgba(255,215,0,0.08); border: 2px solid rgba(255,215,0,0.3); border-radius: 50%; width: 60px; height: 60px; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+                        <img src="imagenes2.0/Foto_de_perfil_1.png" alt="Avatar" style="width:60px;height:60px;object-fit:cover;">
+                    </div>
+                    <div class="detalles-usuario">
+                        <h4 id="nombreMostrar">Usuario Viral Ray</h4>
+                        <p id="emailMostrar">usuario@viralray.es</p>
+                    </div>
+                </div>
+
+                <nav class="menu-opciones">
+                    <button class="opcion-menu activa" data-opcion="pedidos">
+                        <span class="icono-opcion">
+                            <img src="images/Cohete.png" alt="Pedidos">
+                        </span>
+                        <span class="texto-opcion">Mis pedidos</span>
+                    </button>
+                    <button class="opcion-menu" data-opcion="datos">
+                        <span class="icono-opcion">
+                            <img src="images/icon-user.svg" alt="Datos">
+                        </span>
+                        <span class="texto-opcion">Mis datos</span>
+                    </button>
+                    <button class="opcion-menu" data-opcion="direcciones">
+                        <span class="icono-opcion">
+                            <img src="images/icon-location.svg" alt="Direcciones">
+                        </span>
+                        <span class="texto-opcion">Direcciones</span>
+                    </button>
+
+                </nav>
+
+                <a href="index.html" class="boton-volver-inicio">
+                    <svg class="icono-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    VOLVER AL INICIO
+                </a>
+                <button class="boton-cerrar-sesion" id="btnLogout">CERRAR SESIÓN</button>
+            </section>
+
+            <!-- Sección de Mis Pedidos -->
+            <section class="seccion-datos oculto" id="seccionPedidos">
+                <h2 class="titulo-seccion">MIS PEDIDOS</h2>
+                <div class="linea-divisora"></div>
+                
+                <div class="contenido-pedidos">
+                    <div class="pedido-vacio">
+                        <span class="icono-vacio">
+                            <img src="images/Cohete.png" alt="Sin pedidos">
+                        </span>
+                        <p>Aún no has realizado ningún pedido</p>
+                        <a href="index.html" class="boton-principal">EMPEZAR A COMPRAR</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Mis Datos -->
+            <section class="seccion-datos oculto" id="seccionMisDatos">
+                <h2 class="titulo-seccion">MIS DATOS</h2>
+                <div class="linea-divisora"></div>
+                
+                <form class="form-edicion" id="formDatosPersonales">
+                    <div class="grupo-entrada">
+                        <label for="nombreCompleto">Nombre completo</label>
+                        <input type="text" id="nombreCompleto" value="Usuario Viral Ray">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="emailPersonal">Correo electrónico</label>
+                        <input type="email" id="emailPersonal" value="usuario@viralray.es">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="telefonoPersonal">Teléfono</label>
+                        <input type="tel" id="telefonoPersonal" placeholder="+34 600 000 000">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="fechaNacimiento">
+                    </div>
+                    
+                    <h3 class="subtitulo-seccion">CAMBIAR CONTRASEÑA</h3>
+                    <div class="grupo-entrada">
+                        <label for="actualPassword">Contraseña actual</label>
+                        <input type="password" id="actualPassword" placeholder="Introduce tu contraseña actual">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="nuevaPassword">Nueva contraseña</label>
+                        <input type="password" id="nuevaPassword" placeholder="Nueva contraseña">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="confirmarNuevaPassword">Confirmar nueva contraseña</label>
+                        <input type="password" id="confirmarNuevaPassword" placeholder="Repite la nueva contraseña">
+                    </div>
+
+                    <button type="submit" class="boton-principal">GUARDAR CAMBIOS</button>
+                </form>
+            </section>
+
+            <!-- Sección de Direcciones -->
+            <section class="seccion-datos oculto" id="seccionDirecciones">
+                <h2 class="titulo-seccion">DIRECCIONES</h2>
+                <div class="linea-divisora"></div>
+                
+                <div class="contenido-direcciones">
+                    <div class="direccion-vacia">
+                        <span class="icono-vacio">
+                            <img src="images/icon-location.svg" alt="Sin direcciones">
+                        </span>
+                        <p>No tienes direcciones guardadas</p>
+                        <button class="boton-principal" id="btnAgregarDireccion">AÑADIR DIRECCIÓN</button>
+                    </div>
+                </div>
+
+                <form class="form-edicion oculto" id="formDireccion">
+                    <h3 class="subtitulo-seccion">NUEVA DIRECCIÓN</h3>
+                    <div class="fila-doble">
+                        <div class="grupo-entrada">
+                            <label for="nombreDireccion">Nombre</label>
+                            <input type="text" id="nombreDireccion" placeholder="Nombre">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="apellidosDireccion">Apellidos</label>
+                            <input type="text" id="apellidosDireccion" placeholder="Apellidos">
+                        </div>
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="telefonoDireccion">Teléfono</label>
+                        <input type="tel" id="telefonoDireccion" placeholder="+34 600 000 000">
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="direccionCompleta">Dirección</label>
+                        <input type="text" id="direccionCompleta" placeholder="Calle, número, piso, puerta...">
+                    </div>
+                    <div class="fila-doble">
+                        <div class="grupo-entrada">
+                            <label for="codigoPostal">Código postal</label>
+                            <input type="text" id="codigoPostal" placeholder="28001">
+                        </div>
+                        <div class="grupo-entrada">
+                            <label for="ciudad">Ciudad</label>
+                            <input type="text" id="ciudad" placeholder="Madrid">
+                        </div>
+                    </div>
+                    <div class="grupo-entrada">
+                        <label for="provincia">Provincia</label>
+                        <input type="text" id="provincia" placeholder="Madrid">
+                    </div>
+                    <div class="fila-botones">
+                        <button type="button" class="boton-secundario" id="btnCancelarDireccion">CANCELAR</button>
+                        <button type="submit" class="boton-principal">GUARDAR DIRECCIÓN</button>
+                    </div>
+                </form>
+            </section>
+
+
+        </div>
+    </main>
+
+    <!-- Toast de Notificación -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <script src="script-busqueda-header.js"></script>
+    <script src="script-perfil.js"></script>
+
+<script id="menu-fullscreen-js">
+(function() {
+    function initMenu() {
+        var overlay   = document.getElementById('menu-overlay');
+        var cerrar    = document.getElementById('menuCerrar');
+        var hamburger = document.querySelector('.menu-desplegable');
+        if (!overlay || !hamburger) return;
+
+        function abrirMenu() {
+            overlay.classList.remove('cerrando');
+            overlay.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+            hamburger.classList.add('activo');
+        }
+        function cerrarMenu() {
+            overlay.classList.add('cerrando');
+            overlay.classList.remove('abierto');
+            hamburger.classList.remove('activo');
+            setTimeout(function() {
+                overlay.classList.remove('cerrando');
+                document.body.style.overflow = '';
+            }, 320);
+        }
+
+        hamburger.addEventListener('click', function() {
+            overlay.classList.contains('abierto') ? cerrarMenu() : abrirMenu();
+        });
+        cerrar.addEventListener('click', cerrarMenu);
+
+        // Cerrar al pulsar Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarMenu();
+        });
+
+        // Submenú hover en escritorio / click en móvil
+        var items = document.querySelectorAll('.menu-fullscreen-item[data-submenu]');
+        items.forEach(function(item) {
+            item.addEventListener('mouseenter', function() { item.classList.add('activo'); });
+            item.addEventListener('mouseleave', function() { item.classList.remove('activo'); });
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 700) {
+                    e.stopPropagation();
+                    item.classList.toggle('activo');
+                }
+            });
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+        initMenu();
+    }
+})();
+</script>
+
+</body>
+</html>

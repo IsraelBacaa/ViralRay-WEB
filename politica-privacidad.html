@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-detalle-producto.css">
+    <link rel="stylesheet" href="styles-busqueda.css">
+    <link rel="stylesheet" href="styles-contacto.css">
+    <link rel="stylesheet" href="popup-bienvenida.css">
+    <script src="script-busqueda.js"></script>
+    <link rel="stylesheet" href="styles-legal.css">
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+    <style>
+        *, *::before, *::after { cursor: url("images/cursor_40x40.png") 8 0, auto !important; }
+    </style>
+
+<style id="menu-fullscreen-css">
+/* ===== OVERLAY FULLSCREEN ===== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.menu-overlay.abierto {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fondo con efecto zoom/warp de entrada */
+.menu-overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: #000 url("imagenes2.0/Menú/image.png") center center / cover no-repeat;
+    transform: scale(1.15);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+.menu-overlay-bg::before { content: none; }
+.menu-overlay-bg::after  { content: none; }
+
+.menu-overlay.abierto .menu-overlay-bg {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Botón cerrar */
+.menu-cerrar {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    z-index: 10;
+    line-height: 1;
+    padding: 4px 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.menu-cerrar:hover { opacity: 1; transform: scale(1.15); }
+
+/* Nav central */
+.menu-fullscreen-nav {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 60px;
+}
+.menu-fullscreen-lista {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+}
+.menu-fullscreen-item {
+    position: relative;
+}
+.menu-fullscreen-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: var(--font-title, 'Bebas Neue', sans-serif);
+    font-size: clamp(22px, 3vw, 38px);
+    color: #d4ff00;
+    text-shadow: 0 0 18px rgba(200,255,0,0.35);
+    text-decoration: none;
+    letter-spacing: 5px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    transition: color 0.25s, text-shadow 0.25s, letter-spacing 0.25s;
+    background: none; border: none; padding: 0;
+    line-height: 1.2;
+}
+.menu-fullscreen-item:hover > .menu-fullscreen-link,
+.menu-fullscreen-item.activo > .menu-fullscreen-link {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(200,255,0,0.9), 0 0 60px rgba(200,255,0,0.5), 0 0 100px rgba(200,255,0,0.3);
+    letter-spacing: 7px;
+}
+.menu-rotulo {
+    color: #d4ff00 !important;
+    text-shadow: 0 0 20px rgba(200,255,0,0.5) !important;
+}
+.menu-rotulo:hover {
+    color: #fff !important;
+    text-shadow: 0 0 30px rgba(200,255,0,0.8) !important;
+}
+.menu-arrow {
+    font-size: 36px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    color: #d4ff00;
+}
+.menu-fullscreen-item:hover .menu-arrow,
+.menu-fullscreen-item.activo .menu-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Submenú */
+.menu-submenu {
+    display: none;
+    position: absolute;
+    left: calc(100% + 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 20px 0 20px 30px;
+    min-width: 380px;
+    flex-direction: column;
+    gap: 4px;
+    /* Padding invisible para que el ratón no salga del área al pasar entre columnas */
+    border-left: 40px solid transparent;
+    margin-left: -40px;
+}
+.menu-fullscreen-item.activo .menu-submenu,
+.menu-fullscreen-item:hover .menu-submenu {
+    display: flex;
+}
+.menu-submenu li a {
+    font-family: var(--font-body, sans-serif);
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 7px 12px;
+    display: block;
+    transition: color 0.2s, padding-left 0.2s;
+    pointer-events: all;
+    border-radius: 4px;
+}
+.menu-submenu li a:hover {
+    color: #d4ff00;
+    padding-left: 20px;
+}
+.menu-submenu li a.submenu-destacado { color: #cc44ff; }
+.menu-submenu li a.submenu-destacado:hover { color: #e080ff; padding-left: 20px; }
+
+/* Animación entrada items — zoom + fade desde el centro */
+.menu-fullscreen-item {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.abierto .menu-fullscreen-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(1) { transition-delay: 0.15s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(2) { transition-delay: 0.22s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(3) { transition-delay: 0.29s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(4) { transition-delay: 0.36s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(5) { transition-delay: 0.43s; }
+
+/* Al cerrar: animación inversa rápida */
+.menu-overlay.cerrando .menu-fullscreen-item {
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(-20px) !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+.menu-overlay.cerrando .menu-overlay-bg {
+    transform: scale(1.1) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s ease, opacity 0.25s ease !important;
+}
+
+/* Responsive móvil */
+@media (max-width: 700px) {
+    .menu-fullscreen-nav { padding: 0 28px; }
+    .menu-submenu {
+        position: static;
+        transform: none;
+        margin-top: 8px;
+        padding-left: 16px;
+        border-left: 2px solid rgba(200,255,0,0.3);
+    }
+}
+</style>
+
+</head>
+<body class="pagina-legal">
+
+<!-- ===== MENÚ FULLSCREEN ===== -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-overlay-bg"></div>
+    <button class="menu-cerrar" id="menuCerrar" aria-label="Cerrar menú">✕</button>
+    <nav class="menu-fullscreen-nav">
+        <ul class="menu-fullscreen-lista">
+            <li class="menu-fullscreen-item"><a href="crea-tu-rotulo.html" class="menu-fullscreen-link menu-rotulo">CREA TU RÓTULO</a></li>
+            <li class="menu-fullscreen-item" data-submenu="productos">
+                <span class="menu-fullscreen-link">PRODUCTOS <span class="menu-arrow">›</span></span>
+                <ul class="menu-submenu">
+                    <li><a href="catalogo.html">Aros de Luz Inteligentes</a></li>
+                    <li><a href="catalogo.html">Rótulos LED (Por Defecto)</a></li>
+                    <li><a href="catalogo.html">Luces de Ambiente RGB</a></li>
+                    <li><a href="catalogo.html" class="submenu-destacado">Neones por Temática (Neon Gamer, Neon Streamer)</a></li>
+                    <li><a href="catalogo.html">Packs &amp; Setups Completos</a></li>
+                    <li><a href="catalogo.html">Cámaras y Webcams</a></li>
+                    <li><a href="catalogo.html">Micrófonos Profesionales</a></li>
+                    <li><a href="catalogo.html">Accesorios Gamer</a></li>
+                    <li><a href="catalogo.html">Ofertas TOP -40%</a></li>
+                </ul>
+            </li>
+            <li class="menu-fullscreen-item"><a href="comunidad.html" class="menu-fullscreen-link">COMUNIDAD</a></li>
+            <li class="menu-fullscreen-item"><a href="contacto.html" class="menu-fullscreen-link">AYUDA Y SOPORTE</a></li>
+            <li class="menu-fullscreen-item"><a href="index.html#comunidad" class="menu-fullscreen-link">SOBRE NOSOTROS</a></li>
+        </ul>
+    </nav>
+</div>
+
+        <!-- Encabezado -->
+        <header class="encabezado">
+            <div class="contenedor-encabezado">
+                <div class="menu-desplegable">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logotipo">
+                    <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+                </div>
+                <nav class="menu-navegacion">
+                    <a href="catalogo.html" class="enlace-navegacion">PRODUCTOS</a>
+                    <a href="comunidad.html" class="enlace-navegacion">COMUNIDAD</a>
+                    <a href="contacto.html" class="enlace-navegacion">CONTACTO</a>
+                </nav>
+                <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                    <div class="input-busqueda-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                        <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    </div>
+                    <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+                </div>
+                <div class="iconos-encabezado">
+                    <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                        <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                    </a>
+                    <div class="contenedor-icono icono-carrito" title="Mi Cesta">
+                        <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                        <span class="contador-carrito">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <main class="seccion-legal">
+        <div class="contenedor-legal">
+            <h1 class="titulo-legal">POLÍTICA DE PRIVACIDAD</h1>
+            <p class="fecha-legal">Última actualización: Enero 2024</p>
+
+            <div class="contenido-legal">
+                <section class="seccion-contenido">
+                    <h2>1. INFORMACIÓN AL USUARIO</h2>
+                    <p>VIRAL RAY, S.L. (en adelante, VIRAL RAY), con domicilio en Calle Gran Vía 28, 28013 Madrid, y correo electrónico info@viralray.es, es el responsable del tratamiento de los datos personales del Usuario y le informa que estos datos serán tratados de conformidad con lo dispuesto en el Reglamento (UE) 2016/679 (GDPR) y la Ley Orgánica 3/2018 (LOPDGDD).</p>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>2. FINALIDAD DEL TRATAMIENTO</h2>
+                    <p>Sus datos personales serán utilizados con las siguientes finalidades:</p>
+                    <ul class="lista-legal">
+                        <li>Gestionar la compra de productos y servicios ofrecidos en nuestra tienda online.</li>
+                        <li>Enviar comunicaciones comerciales sobre productos, ofertas y novedades (solo con su consentimiento).</li>
+                        <li>Gestionar su cuenta de usuario y pedidos.</li>
+                        <li>Atención al cliente y soporte técnico.</li>
+                        <li>Cumplir con las obligaciones legales aplicables.</li>
+                    </ul>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>3. LEGITIMACIÓN</h2>
+                    <p>El tratamiento de sus datos está legitimado por:</p>
+                    <ul class="lista-legal">
+                        <li><strong>Ejecución del contrato:</strong> Para la gestión de compras y pedidos.</li>
+                        <li><strong>Consentimiento del usuario:</strong> Para el envío de comunicaciones comerciales.</li>
+                        <li><strong>Interés legítimo:</strong> Para el mantenimiento de la relación comercial y mejora del servicio.</li>
+                        <li><strong>Cumplimiento de obligaciones legales:</strong> Para el cumplimiento de obligaciones fiscales y contables.</li>
+                    </ul>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>4. CONSERVACIÓN DE LOS DATOS</h2>
+                    <p>Los datos proporcionados se conservarán mientras se mantenga la relación comercial o durante los años necesarios para cumplir con las obligaciones legales aplicables (normalmente 5 años según la normativa fiscal).</p>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>5. DESTINATARIOS</h2>
+                    <p>Sus datos no serán cedidos a terceros, excepto:</p>
+                    <ul class="lista-legal">
+                        <li>Empresas de logística y transporte para la entrega de pedidos.</li>
+                        <li>Bancos y pasarelas de pago para el procesamiento de pagos.</li>
+                        <li>Administraciones públicas cuando así lo exija la legislación vigente.</li>
+                    </ul>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>6. DERECHOS DEL USUARIO</h2>
+                    <p>El usuario tiene derecho a:</p>
+                    <ul class="lista-legal">
+                        <li><strong>Acceso:</strong> Conocer qué datos personales estamos tratando.</li>
+                        <li><strong>Rectificación:</strong> Corregir datos inexactos o incompletos.</li>
+                        <li><strong>Supresión:</strong> Solicitar la eliminación de sus datos.</li>
+                        <li><strong>Oposición:</strong> Oponerse al tratamiento para fines comerciales.</li>
+                        <li><strong>Limitación:</strong> Restringir el tratamiento de sus datos.</li>
+                        <li><strong>Portabilidad:</strong> Recibir sus datos en formato estructurado.</li>
+                    </ul>
+                    <p>Para ejercer estos derechos, puede enviar un correo a info@viralray.es indicando "Ejercicio de derechos" y adjuntando copia de su DNI.</p>
+                </section>
+
+                <section class="seccion-contenido">
+                    <h2>7. MEDIDAS DE SEGURIDAD</h2>
+                    <p>VIRAL RAY implementa las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo, protegiendo la confidencialidad, integridad y disponibilidad de los datos personales.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="pie-pagina-legal">
+        <div class="contenedor">
+            <a href="index.html" class="boton-volver-legal">← Volver al inicio</a>
+        </div>
+    </footer>
+    <!-- Footer Legal -->
+    <footer style="background:#050510; border-top:1px solid rgba(255,215,0,0.12); padding:24px 40px; text-align:center;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                <a href="aviso-legal.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">AVISO LEGAL</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-privacidad.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE PRIVACIDAD</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-cookies.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE COOKIES</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="envios.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">ENVÍOS Y ENTREGAS</a>
+            </div>
+            <p style="color:rgba(255,255,255,0.25); font-size:11px; font-weight:700; letter-spacing:1px; margin:0;">© 2024 VIRAL RAY, S.L. — TODOS LOS DERECHOS RESERVADOS</p>
+        </div>
+    </footer>
+    <script src="script-busqueda-header.js"></script>
+
+<script id="menu-fullscreen-js">
+(function() {
+    function initMenu() {
+        var overlay   = document.getElementById('menu-overlay');
+        var cerrar    = document.getElementById('menuCerrar');
+        var hamburger = document.querySelector('.menu-desplegable');
+        if (!overlay || !hamburger) return;
+
+        function abrirMenu() {
+            overlay.classList.remove('cerrando');
+            overlay.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+            hamburger.classList.add('activo');
+        }
+        function cerrarMenu() {
+            overlay.classList.add('cerrando');
+            overlay.classList.remove('abierto');
+            hamburger.classList.remove('activo');
+            setTimeout(function() {
+                overlay.classList.remove('cerrando');
+                document.body.style.overflow = '';
+            }, 320);
+        }
+
+        hamburger.addEventListener('click', function() {
+            overlay.classList.contains('abierto') ? cerrarMenu() : abrirMenu();
+        });
+        cerrar.addEventListener('click', cerrarMenu);
+
+        // Cerrar al pulsar Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarMenu();
+        });
+
+        // Submenú hover en escritorio / click en móvil
+        var items = document.querySelectorAll('.menu-fullscreen-item[data-submenu]');
+        items.forEach(function(item) {
+            item.addEventListener('mouseenter', function() { item.classList.add('activo'); });
+            item.addEventListener('mouseleave', function() { item.classList.remove('activo'); });
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 700) {
+                    e.stopPropagation();
+                    item.classList.toggle('activo');
+                }
+            });
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+        initMenu();
+    }
+})();
+</script>
+
+</body>
+</html>

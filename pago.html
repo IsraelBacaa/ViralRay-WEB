@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicon ViralRAY -->
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+    <style>
+        *, *::before, *::after { cursor: url("images/cursor_40x40.png") 8 0, auto !important; }
+    </style>
+
+<style id="menu-fullscreen-css">
+/* ===== OVERLAY FULLSCREEN ===== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.menu-overlay.abierto {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fondo con efecto zoom/warp de entrada */
+.menu-overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: #000 url("imagenes2.0/Menú/image.png") center center / cover no-repeat;
+    transform: scale(1.15);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+.menu-overlay-bg::before { content: none; }
+.menu-overlay-bg::after  { content: none; }
+
+.menu-overlay.abierto .menu-overlay-bg {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Botón cerrar */
+.menu-cerrar {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    z-index: 10;
+    line-height: 1;
+    padding: 4px 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.menu-cerrar:hover { opacity: 1; transform: scale(1.15); }
+
+/* Nav central */
+.menu-fullscreen-nav {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 60px;
+}
+.menu-fullscreen-lista {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+}
+.menu-fullscreen-item {
+    position: relative;
+}
+.menu-fullscreen-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: var(--font-title, 'Bebas Neue', sans-serif);
+    font-size: clamp(22px, 3vw, 38px);
+    color: #d4ff00;
+    text-shadow: 0 0 18px rgba(200,255,0,0.35);
+    text-decoration: none;
+    letter-spacing: 5px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    transition: color 0.25s, text-shadow 0.25s, letter-spacing 0.25s;
+    background: none; border: none; padding: 0;
+    line-height: 1.2;
+}
+.menu-fullscreen-item:hover > .menu-fullscreen-link,
+.menu-fullscreen-item.activo > .menu-fullscreen-link {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(200,255,0,0.9), 0 0 60px rgba(200,255,0,0.5), 0 0 100px rgba(200,255,0,0.3);
+    letter-spacing: 7px;
+}
+.menu-rotulo {
+    color: #d4ff00 !important;
+    text-shadow: 0 0 20px rgba(200,255,0,0.5) !important;
+}
+.menu-rotulo:hover {
+    color: #fff !important;
+    text-shadow: 0 0 30px rgba(200,255,0,0.8) !important;
+}
+.menu-arrow {
+    font-size: 36px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    color: #d4ff00;
+}
+.menu-fullscreen-item:hover .menu-arrow,
+.menu-fullscreen-item.activo .menu-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Submenú */
+.menu-submenu {
+    display: none;
+    position: absolute;
+    left: calc(100% + 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 20px 0 20px 30px;
+    min-width: 380px;
+    flex-direction: column;
+    gap: 4px;
+    /* Padding invisible para que el ratón no salga del área al pasar entre columnas */
+    border-left: 40px solid transparent;
+    margin-left: -40px;
+}
+.menu-fullscreen-item.activo .menu-submenu,
+.menu-fullscreen-item:hover .menu-submenu {
+    display: flex;
+}
+.menu-submenu li a {
+    font-family: var(--font-body, sans-serif);
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 7px 12px;
+    display: block;
+    transition: color 0.2s, padding-left 0.2s;
+    pointer-events: all;
+    border-radius: 4px;
+}
+.menu-submenu li a:hover {
+    color: #d4ff00;
+    padding-left: 20px;
+}
+.menu-submenu li a.submenu-destacado { color: #cc44ff; }
+.menu-submenu li a.submenu-destacado:hover { color: #e080ff; padding-left: 20px; }
+
+/* Animación entrada items — zoom + fade desde el centro */
+.menu-fullscreen-item {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.abierto .menu-fullscreen-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(1) { transition-delay: 0.15s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(2) { transition-delay: 0.22s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(3) { transition-delay: 0.29s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(4) { transition-delay: 0.36s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(5) { transition-delay: 0.43s; }
+
+/* Al cerrar: animación inversa rápida */
+.menu-overlay.cerrando .menu-fullscreen-item {
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(-20px) !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+.menu-overlay.cerrando .menu-overlay-bg {
+    transform: scale(1.1) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s ease, opacity 0.25s ease !important;
+}
+
+/* Responsive móvil */
+@media (max-width: 700px) {
+    .menu-fullscreen-nav { padding: 0 28px; }
+    .menu-submenu {
+        position: static;
+        transform: none;
+        margin-top: 8px;
+        padding-left: 16px;
+        border-left: 2px solid rgba(200,255,0,0.3);
+    }
+}
+</style>
+
+</head>
+<body class="pagina-pago">
+
+<!-- ===== MENÚ FULLSCREEN ===== -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-overlay-bg"></div>
+    <button class="menu-cerrar" id="menuCerrar" aria-label="Cerrar menú">✕</button>
+    <nav class="menu-fullscreen-nav">
+        <ul class="menu-fullscreen-lista">
+            <li class="menu-fullscreen-item"><a href="crea-tu-rotulo.html" class="menu-fullscreen-link menu-rotulo">CREA TU RÓTULO</a></li>
+            <li class="menu-fullscreen-item" data-submenu="productos">
+                <span class="menu-fullscreen-link">PRODUCTOS <span class="menu-arrow">›</span></span>
+                <ul class="menu-submenu">
+                    <li><a href="catalogo.html">Aros de Luz Inteligentes</a></li>
+                    <li><a href="catalogo.html">Rótulos LED (Por Defecto)</a></li>
+                    <li><a href="catalogo.html">Luces de Ambiente RGB</a></li>
+                    <li><a href="catalogo.html" class="submenu-destacado">Neones por Temática (Neon Gamer, Neon Streamer)</a></li>
+                    <li><a href="catalogo.html">Packs &amp; Setups Completos</a></li>
+                    <li><a href="catalogo.html">Cámaras y Webcams</a></li>
+                    <li><a href="catalogo.html">Micrófonos Profesionales</a></li>
+                    <li><a href="catalogo.html">Accesorios Gamer</a></li>
+                    <li><a href="catalogo.html">Ofertas TOP -40%</a></li>
+                </ul>
+            </li>
+            <li class="menu-fullscreen-item"><a href="comunidad.html" class="menu-fullscreen-link">COMUNIDAD</a></li>
+            <li class="menu-fullscreen-item"><a href="contacto.html" class="menu-fullscreen-link">AYUDA Y SOPORTE</a></li>
+            <li class="menu-fullscreen-item"><a href="index.html#comunidad" class="menu-fullscreen-link">SOBRE NOSOTROS</a></li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <div class="menu-desplegable">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="catalogo.html" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="comunidad.html" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="contacto.html" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <div class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido del Pago -->
+    <main class="seccion-pago">
+        <div class="contenedor-pago">
+            <h1 class="titulo-pagina">FINALIZAR COMPRA</h1>
+            
+            <div class="contenido-pago">
+                <!-- Formulario de Pago -->
+                <div class="formulario-pago">
+                    <!-- Dirección de Envío -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">1</span>
+                            Dirección de Envío
+                        </h2>
+                        <div class="campos-formulario">
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" placeholder="Tu nombre" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input type="text" id="apellidos" placeholder="Tus apellidos" required>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" placeholder="tu@email.com" required>
+                            </div>
+                            <div class="campo">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" placeholder="+34 600 000 000" required>
+                            </div>
+                            <div class="campo">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" id="direccion" placeholder="Calle, número, piso..." required>
+                            </div>
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" id="ciudad" placeholder="Madrid" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="cp">Código Postal</label>
+                                    <input type="text" id="cp" placeholder="28001" required>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="provincia">Provincia</label>
+                                <input type="text" id="provincia" placeholder="Madrid" required>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Método de Pago -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">2</span>
+                            Método de Pago
+                        </h2>
+                        
+                        <!-- Selector de método de pago -->
+                        <div class="metodos-pago-seleccion">
+                            <label class="metodo-pago-opcion seleccionado">
+                                <input type="radio" name="metodoPago" value="tarjeta" checked>
+                                <div class="opcion-pago">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                    <span>Tarjeta de Crédito/Débito</span>
+                                </div>
+                            </label>
+                            <label class="metodo-pago-opcion">
+                                <input type="radio" name="metodoPago" value="paypal">
+                                <div class="opcion-pago">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#003087">
+                                        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .756-.638h6.623c2.295 0 3.9 1.44 3.9 3.503 0 1.67-.924 2.82-2.436 3.43-.34.138-.7.265-1.07.39l-.4.14c.73.81 1.19 1.9 1.19 3.104 0 2.4-1.77 4.19-4.19 4.19H7.076v-.01z"/>
+                                    </svg>
+                                    <span>PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Formulario de Tarjeta -->
+                        <div class="formulario-tarjeta" id="formularioTarjeta">
+                            <div class="campo">
+                                <label for="numeroTarjeta">Número de Tarjeta</label>
+                                <div class="input-con-icono">
+                                    <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    <div class="iconos-tarjeta-mini">
+                                        <svg viewBox="0 0 50 50" width="30" height="20">
+                                            <rect width="50" height="50" rx="4" fill="#1A1F71"/>
+                                            <path d="M20 25L22 18H25L23 25L26 32H23L20 25ZM18 18L15.5 27L15 32H12L15.5 18H18Z" fill="white"/>
+                                        </svg>
+                                        <svg viewBox="0 0 50 50" width="30" height="20">
+                                            <rect width="50" height="50" rx="4" fill="#333"/>
+                                            <circle cx="19" cy="25" r="8" fill="#EB001B"/>
+                                            <circle cx="31" cy="25" r="8" fill="#F79E1B"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                                <input type="text" id="nombreTarjeta" placeholder="Como aparece en la tarjeta" required>
+                            </div>
+                            <div class="campo-row">
+                                <div class="campo">
+                                    <label for="expiracion">Fecha de Vencimiento</label>
+                                    <input type="text" id="expiracion" placeholder="MM/AA" maxlength="5" required>
+                                </div>
+                                <div class="campo">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario PayPal (oculto por defecto) -->
+                        <div class="formulario-paypal oculto" id="formularioPaypal">
+                            <div class="info-paypal">
+                                <p>Serás redirigido a PayPal para completar tu pago de forma segura.</p>
+                                <p class="total-paypal">Total a pagar: <strong id="totalPaypal">0.00€</strong></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Resumen del Pedido -->
+                    <section class="seccion-formulario">
+                        <h2 class="titulo-seccion-pago">
+                            <span class="numero-seccion">3</span>
+                            Resumen del Pedido
+                        </h2>
+                        <div class="resumen-pedido" id="resumenPedido">
+                            <!-- Los productos se insertarán aquí -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Resumen Lateral -->
+                <aside class="resumen-lateral">
+                    <div class="tarjeta-resumen">
+                        <h3>Tu Pedido</h3>
+                        <div class="resumen-productos" id="resumenProductos">
+                            <!-- Productos del carrito -->
+                        </div>
+                        <div class="resumen-costos">
+                            <div class="fila-resumen">
+                                <span>Subtotal</span>
+                                <span id="subtotalPago">0.00€</span>
+                            </div>
+                            <div class="fila-resumen">
+                                <span>Envío</span>
+                                <span id="envioPago">Gratis</span>
+                            </div>
+                            <div class="fila-resumen total">
+                                <span>Total</span>
+                                <span id="totalPago">0.00€</span>
+                            </div>
+                        </div>
+                        <button type="button" class="boton-confirmar" id="botonConfirmarPago">
+                            CONFIRMAR PEDIDO
+                        </button>
+                        <div class="seguridad-pago">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="#00AA00">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                            </svg>
+                            <span>Pago 100% seguro</span>
+                        </div>
+                        <div class="iconos-seguridad">
+                            <span>SSL</span>
+                            <span>PCI</span>
+                            <span>3D Secure</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast de Notificación -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <!-- Modal de Éxito -->
+    <div class="modal-exito" id="modalExito">
+        <div class="contenido-modal-exito">
+            <div class="icono-exito">
+                <svg viewBox="0 0 24 24" fill="#00AA00">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h2>¡Pedido Realizado!</h2>
+            <p>Tu pedido ha sido procesado correctamente.</p>
+            <p class="numero-pedido">Número de pedido: <strong id="numeroPedido">VR-12345</strong></p>
+            <p class="correo-confirmacion">Recibirás un correo de confirmación en breve.</p>
+            <a href="index.html" class="boton-volver-inicio">VOLVER A LA TIENDA</a>
+        </div>
+    </div>
+
+    <script src="script-pago.js"></script>
+    <script src="script-busqueda-header.js"></script>
+
+<script id="menu-fullscreen-js">
+(function() {
+    function initMenu() {
+        var overlay   = document.getElementById('menu-overlay');
+        var cerrar    = document.getElementById('menuCerrar');
+        var hamburger = document.querySelector('.menu-desplegable');
+        if (!overlay || !hamburger) return;
+
+        function abrirMenu() {
+            overlay.classList.remove('cerrando');
+            overlay.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+            hamburger.classList.add('activo');
+        }
+        function cerrarMenu() {
+            overlay.classList.add('cerrando');
+            overlay.classList.remove('abierto');
+            hamburger.classList.remove('activo');
+            setTimeout(function() {
+                overlay.classList.remove('cerrando');
+                document.body.style.overflow = '';
+            }, 320);
+        }
+
+        hamburger.addEventListener('click', function() {
+            overlay.classList.contains('abierto') ? cerrarMenu() : abrirMenu();
+        });
+        cerrar.addEventListener('click', cerrarMenu);
+
+        // Cerrar al pulsar Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarMenu();
+        });
+
+        // Submenú hover en escritorio / click en móvil
+        var items = document.querySelectorAll('.menu-fullscreen-item[data-submenu]');
+        items.forEach(function(item) {
+            item.addEventListener('mouseenter', function() { item.classList.add('activo'); });
+            item.addEventListener('mouseleave', function() { item.classList.remove('activo'); });
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 700) {
+                    e.stopPropagation();
+                    item.classList.toggle('activo');
+                }
+            });
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+        initMenu();
+    }
+})();
+</script>
+
+</body>
+</html>

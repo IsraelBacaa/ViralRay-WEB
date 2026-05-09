@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - VIRAL RAY</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-catalogo.css">
+    <link rel="stylesheet" href="styles-detalle-producto.css">
+    <link rel="stylesheet" href="popup-bienvenida.css">
+    <link rel="icon" type="image/png" href="images/VIRALRAY.png">
+    <style>
+        *, *::before, *::after { cursor: url("images/cursor_40x40.png") 8 0, auto !important; }
+    </style>
+
+<style id="menu-fullscreen-css">
+/* ===== OVERLAY FULLSCREEN ===== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.menu-overlay.abierto {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fondo con efecto zoom/warp de entrada */
+.menu-overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: #000 url("imagenes2.0/Menú/image.png") center center / cover no-repeat;
+    transform: scale(1.15);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+.menu-overlay-bg::before { content: none; }
+.menu-overlay-bg::after  { content: none; }
+
+.menu-overlay.abierto .menu-overlay-bg {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Botón cerrar */
+.menu-cerrar {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    z-index: 10;
+    line-height: 1;
+    padding: 4px 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.menu-cerrar:hover { opacity: 1; transform: scale(1.15); }
+
+/* Nav central */
+.menu-fullscreen-nav {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 60px;
+}
+.menu-fullscreen-lista {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+}
+.menu-fullscreen-item {
+    position: relative;
+}
+.menu-fullscreen-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: var(--font-title, 'Bebas Neue', sans-serif);
+    font-size: clamp(22px, 3vw, 38px);
+    color: #d4ff00;
+    text-shadow: 0 0 18px rgba(200,255,0,0.35);
+    text-decoration: none;
+    letter-spacing: 5px;
+    cursor: url("images/cursor_40x40.png") 8 0, auto;
+    transition: color 0.25s, text-shadow 0.25s, letter-spacing 0.25s;
+    background: none; border: none; padding: 0;
+    line-height: 1.2;
+}
+.menu-fullscreen-item:hover > .menu-fullscreen-link,
+.menu-fullscreen-item.activo > .menu-fullscreen-link {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(200,255,0,0.9), 0 0 60px rgba(200,255,0,0.5), 0 0 100px rgba(200,255,0,0.3);
+    letter-spacing: 7px;
+}
+.menu-rotulo {
+    color: #d4ff00 !important;
+    text-shadow: 0 0 20px rgba(200,255,0,0.5) !important;
+}
+.menu-rotulo:hover {
+    color: #fff !important;
+    text-shadow: 0 0 30px rgba(200,255,0,0.8) !important;
+}
+.menu-arrow {
+    font-size: 36px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    color: #d4ff00;
+}
+.menu-fullscreen-item:hover .menu-arrow,
+.menu-fullscreen-item.activo .menu-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Submenú */
+.menu-submenu {
+    display: none;
+    position: absolute;
+    left: calc(100% + 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 20px 0 20px 30px;
+    min-width: 380px;
+    flex-direction: column;
+    gap: 4px;
+    /* Padding invisible para que el ratón no salga del área al pasar entre columnas */
+    border-left: 40px solid transparent;
+    margin-left: -40px;
+}
+.menu-fullscreen-item.activo .menu-submenu,
+.menu-fullscreen-item:hover .menu-submenu {
+    display: flex;
+}
+.menu-submenu li a {
+    font-family: var(--font-body, sans-serif);
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 7px 12px;
+    display: block;
+    transition: color 0.2s, padding-left 0.2s;
+    pointer-events: all;
+    border-radius: 4px;
+}
+.menu-submenu li a:hover {
+    color: #d4ff00;
+    padding-left: 20px;
+}
+.menu-submenu li a.submenu-destacado { color: #cc44ff; }
+.menu-submenu li a.submenu-destacado:hover { color: #e080ff; padding-left: 20px; }
+
+/* Animación entrada items — zoom + fade desde el centro */
+.menu-fullscreen-item {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.abierto .menu-fullscreen-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(1) { transition-delay: 0.15s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(2) { transition-delay: 0.22s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(3) { transition-delay: 0.29s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(4) { transition-delay: 0.36s; }
+.menu-overlay.abierto .menu-fullscreen-item:nth-child(5) { transition-delay: 0.43s; }
+
+/* Al cerrar: animación inversa rápida */
+.menu-overlay.cerrando .menu-fullscreen-item {
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(-20px) !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+.menu-overlay.cerrando .menu-overlay-bg {
+    transform: scale(1.1) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s ease, opacity 0.25s ease !important;
+}
+
+/* Responsive móvil */
+@media (max-width: 700px) {
+    .menu-fullscreen-nav { padding: 0 28px; }
+    .menu-submenu {
+        position: static;
+        transform: none;
+        margin-top: 8px;
+        padding-left: 16px;
+        border-left: 2px solid rgba(200,255,0,0.3);
+    }
+}
+</style>
+
+</head>
+<body class="pagina-catalogo">
+
+<!-- ===== MENÚ FULLSCREEN ===== -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-overlay-bg"></div>
+    <button class="menu-cerrar" id="menuCerrar" aria-label="Cerrar menú">✕</button>
+    <nav class="menu-fullscreen-nav">
+        <ul class="menu-fullscreen-lista">
+            <li class="menu-fullscreen-item"><a href="crea-tu-rotulo.html" class="menu-fullscreen-link menu-rotulo">CREA TU RÓTULO</a></li>
+            <li class="menu-fullscreen-item activo" data-submenu="productos">
+                <span class="menu-fullscreen-link">PRODUCTOS <span class="menu-arrow">›</span></span>
+                <ul class="menu-submenu">
+                    <li><a href="catalogo.html">Aros de Luz Inteligentes</a></li>
+                    <li><a href="catalogo.html">Rótulos LED (Por Defecto)</a></li>
+                    <li><a href="catalogo.html">Luces de Ambiente RGB</a></li>
+                    <li><a href="catalogo.html" class="submenu-destacado">Neones por Temática (Neon Gamer, Neon Streamer)</a></li>
+                    <li><a href="catalogo.html">Packs &amp; Setups Completos</a></li>
+                    <li><a href="catalogo.html">Cámaras y Webcams</a></li>
+                    <li><a href="catalogo.html">Micrófonos Profesionales</a></li>
+                    <li><a href="catalogo.html">Accesorios Gamer</a></li>
+                    <li><a href="catalogo.html">Ofertas TOP -40%</a></li>
+                </ul>
+            </li>
+            <li class="menu-fullscreen-item"><a href="comunidad.html" class="menu-fullscreen-link">COMUNIDAD</a></li>
+            <li class="menu-fullscreen-item"><a href="contacto.html" class="menu-fullscreen-link">AYUDA Y SOPORTE</a></li>
+            <li class="menu-fullscreen-item"><a href="index.html#comunidad" class="menu-fullscreen-link">SOBRE NOSOTROS</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <div class="menu-desplegable">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="logotipo">
+                <a href="index.html"><img src="images/logo-grande-sinfondo.png" alt="VIRAL RAY Logo" class="imagen-logotipo"></a>
+            </div>
+            <nav class="menu-navegacion">
+                <a href="catalogo.html" class="enlace-navegacion">PRODUCTOS</a>
+                <a href="comunidad.html" class="enlace-navegacion">COMUNIDAD</a>
+                <a href="contacto.html" class="enlace-navegacion">CONTACTO</a>
+            </nav>
+            <div class="barra-busqueda-header" id="barraBusquedaHeader">
+                <div class="input-busqueda-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="inputBusquedaHeader" placeholder="Buscar productos..." autocomplete="off">
+                    <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="resultados-busqueda-header" id="resultadosBusquedaHeader"></div>
+            </div>
+            <div class="iconos-encabezado">
+                <a href="perfil.html" class="contenedor-icono icono-usuario" title="Mi Cuenta">
+                    <img src="images/icon-user.svg" alt="Mi Cuenta" class="icono-svg">
+                </a>
+                <div class="contenedor-icono icono-carrito" title="Mi Cesta">
+                    <img src="images/icon-cart.svg" alt="Mi Cesta" class="icono-svg">
+                    <span class="contador-carrito">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero del catálogo -->
+    <section class="catalogo-hero">
+        <div class="catalogo-hero-content">
+            <p class="catalogo-hero-eyebrow">VIRAL RAY · TIENDA OFICIAL</p>
+            <h1 class="catalogo-hero-title">CATÁLOGO<br><span class="catalogo-hero-accent">COMPLETO</span></h1>
+            <p class="catalogo-hero-sub">Rótulos · Gaming · Iluminación · Figuras · Más</p>
+        </div>
+        <div class="catalogo-hero-glow"></div>
+    </section>
+
+    <!-- Navegación de categorías sticky -->
+    <nav class="catalogo-nav-categorias" id="navCategorias">
+        <div class="catalogo-nav-inner">
+            <button class="cat-btn activo" data-cat="rotulos" onclick="scrollToCategoria('rotulos', this)">
+                <span class="cat-icon">⚡</span> RÓTULOS
+            </button>
+            <button class="cat-btn" data-cat="teclados" onclick="scrollToCategoria('teclados', this)">
+                <span class="cat-icon">⌨</span> TECLADOS
+            </button>
+            <button class="cat-btn" data-cat="cascos" onclick="scrollToCategoria('cascos', this)">
+                <span class="cat-icon">🎧</span> CASCOS
+            </button>
+            <button class="cat-btn" data-cat="lamparas" onclick="scrollToCategoria('lamparas', this)">
+                <span class="cat-icon">💡</span> LÁMPARAS
+            </button>
+            <button class="cat-btn" data-cat="paneles" onclick="scrollToCategoria('paneles', this)">
+                <span class="cat-icon">◈</span> PANELES
+            </button>
+            <button class="cat-btn" data-cat="packs" onclick="scrollToCategoria('packs', this)">
+                <span class="cat-icon">📦</span> PACKS
+            </button>
+        </div>
+    </nav>
+
+    <main class="catalogo-main">
+
+        <!-- SECCIÓN: RÓTULOS -->
+        <section class="cat-seccion cat-seccion--featured" id="rotulos">
+            <div class="cat-seccion-header">
+                <div class="cat-seccion-label">
+                    <span class="cat-badge cat-badge--priority">★ PRIORIDAD</span>
+                </div>
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">01</span>
+                    RÓTULOS LED
+                </h2>
+                <p class="cat-seccion-desc">Personaliza tu espacio con neón y luz. Rótulos de texto, figuras y diseños exclusivos.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+
+            <div class="cat-grid cat-grid--3">
+                <!-- Rótulo LED 3D Personalizado -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED 3D Personalizado"
+                    data-precio="419.99"
+                    data-imagen="images/portada-3.png"
+                    data-descripcion="Rótulo LED 3D con la frase que tú elijas. Ilumina tu mundo con estilo. Control remoto incluido con 16 millones de colores RGB."
+                    data-caracteristicas="LED neón flexible|16 millones de colores|Mando a distancia incluido|Tamaño personalizable|Fácil instalación">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Panel_hexagonal.png" alt="Rótulo 3D Personalizado" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">MÁS VENDIDO</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO LED 3D</h3>
+                        <p class="tcp-sub">Personalizable · RGB · Moderno</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">419.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <!-- Rótulo LED Texto Simple -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED Texto Premium"
+                    data-precio="329.99"
+                    data-imagen="images/portada-2.png"
+                    data-descripcion="Rótulo LED con texto personalizado sobre base de metacrilato. Iluminación retroiluminada con gradiente azul-magenta. Perfecto para oficinas y setups."
+                    data-caracteristicas="Metacrilato de alta calidad|Iluminación LED RGB|Texto personalizable|Soporte mural incluido|Consumo bajo 8W">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/INNOVATE.png" alt="Rótulo Texto Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-new">NUEVO</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO TEXTO PREMIUM</h3>
+                        <p class="tcp-sub">Metacrilato · RGB · Elegante</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">329.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <!-- Rótulo LED Figura -->
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Rótulo LED Figura Anime"
+                    data-precio="349.99"
+                    data-imagen="images/portada-4.png"
+                    data-descripcion="Rótulo LED con diseño anime y figura personalizada. Luz neón multicolor con sincronización de música. Montaje simple en pared."
+                    data-caracteristicas="Diseño anime personalizable|Neón multicolor RGB|Sincronización con música|Panel metacrilato|Cable discreto">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Rotulo_led infantil.png" alt="Rótulo Anime" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">RÓTULO ANIME LED</h3>
+                        <p class="tcp-sub">Anime · RGB · Sincronizable</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">349.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: TECLADOS -->
+        <section class="cat-seccion cat-seccion--dark" id="teclados">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">02</span>
+                    TECLADOS MECÁNICOS
+                </h2>
+                <p class="cat-seccion-desc">Teclados mecánicos de alta precisión con iluminación RGB. El arma perfecta para tu setup gaming.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado Mecánico RGB Premium"
+                    data-precio="349.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico premium con iluminación RGB por tecla totalmente personalizable. Switches azul con respuesta táctil excepcional."
+                    data-caracteristicas="Switches mecánicos azul|Iluminación RGB por tecla|N-Key rollover anti-ghosting|Cable USB-C desmontable|Reposabrazos aluminio">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado RGB Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">TOP VENTAS</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO MECÁNICO RGB</h3>
+                        <p class="tcp-sub">Switches azul · USB-C · Gaming</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">349.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado Mecánico Red Switch"
+                    data-precio="419.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico con switches rojos de bajo ruido. Perfecto para trabajo intensivo y gaming competitivo sin fatiga auditiva."
+                    data-caracteristicas="Switches rojos lineales|Bajo ruido|Iluminación RGB individual|Ergonomía mejorada|Garantía 2 años">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado Red Switch" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO RED SWITCH</h3>
+                        <p class="tcp-sub">Switches rojo · Bajo ruido · Silencioso</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">419.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Teclado 60% Compacto"
+                    data-precio="369.99"
+                    data-imagen="images/productos/Teclado RGB.png"
+                    data-descripcion="Teclado mecánico 60% ultra compacto con macro programables. Ideal para transportar y espacios reducidos. Batería inalámbrica incluida."
+                    data-caracteristicas="Formato 60% compacto|Inalámbrico 2.4GHz|Macros programables|Batería 30 horas|Aluminio anodizado">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Teclado RGB.png" alt="Teclado 60% Compacto" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">TECLADO 60% COMPACTO</h3>
+                        <p class="tcp-sub">Inalámbrico · Compacto · Portable</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">369.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CASCOS -->
+        <section class="cat-seccion" id="cascos">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">03</span>
+                    AURICULARES GAMING
+                </h2>
+                <p class="cat-seccion-desc">Auriculares con sonido envolvente 7.1 y micrófono retráctil. Comodidad total para sesiones largas.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Gaming Pro 7.1"
+                    data-precio="239.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares gaming con sonido surround 7.1, micrófono retráctil e iluminación LED RGB personalizable."
+                    data-caracteristicas="Sonido surround 7.1|Micrófono con cancelación de ruido|Iluminación LED RGB|Compatibles PC, PS4, Xbox|Cojines memory foam">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Pro 7.1" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES PRO 7.1</h3>
+                        <p class="tcp-sub">Sonido 7.1 · Micrófono · Multiplataforma</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">239.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Inalámbricos Premium"
+                    data-precio="189.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares inalámbricos con Bluetooth 5.0, batería 20 horas y cancelación activa de ruido. Calidad de sonido cristalina."
+                    data-caracteristicas="Bluetooth 5.0 inalámbrico|Cancelación activa de ruido|Batería 20 horas|Sonido Hi-Fi|Control táctil">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Inalámbricos" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES INALÁMBRICOS</h3>
+                        <p class="tcp-sub">Bluetooth 5.0 · Cancelación · 20h</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">189.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Auriculares Estudio Profesional"
+                    data-precio="419.99"
+                    data-imagen="images/productos/Cascos.png"
+                    data-descripcion="Auriculares estudio profesional con drivers de 40mm, respuesta plana y monitor de audio precisión estudio."
+                    data-caracteristicas="Drivers 40mm profesionales|Respuesta plana 20-20kHz|Cable removible|Almohadas premium|Certificado estudio">
+                    <div class="tcp-imagen">
+                        <img src="images/productos/Cascos.png" alt="Auriculares Estudio" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">AURICULARES ESTUDIO PRO</h3>
+                        <p class="tcp-sub">40mm · Respuesta plana · Profesional</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">419.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LÁMPARAS -->
+        <section class="cat-seccion cat-seccion--dark" id="lamparas">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">04</span>
+                    LÁMPARAS LED
+                </h2>
+                <p class="cat-seccion-desc">Lámparas de diseño minimalista con luz LED regulable. Perfectas para escritorios y espacios de trabajo.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Escritorio"
+                    data-precio="649.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED de diseño minimalista con luz regulable. Tres modos de temperatura color. Pantalla LED con hora integrada."
+                    data-caracteristicas="3 modos temperatura color|Brillo ajustable 10-100%|Pantalla LED con hora|Base estable antideslizante|Consumo 12W">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara Escritorio" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA ESCRITORIO LED</h3>
+                        <p class="tcp-sub">Regulable · Reloj · 3 modos</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">599.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Ambiente RGB"
+                    data-precio="369.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED RGB inteligente con 16 millones de colores. Control remoto incluido. Sincronización con música."
+                    data-caracteristicas="RGB 16M colores|Control remoto 44 teclas|Sincronización música|Temporizador automático|APP móvil compatible">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara RGB" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA RGB INTELIGENTE</h3>
+                        <p class="tcp-sub">RGB 16M · Control remoto · Música</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">369.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Lámpara LED Soporte Flexible"
+                    data-precio="349.99"
+                    data-imagen="images/productos/Lámpara_de_diseño.png"
+                    data-descripcion="Lámpara LED con brazo flexible y pinza de sujeción. Perfecta para setups gaming, streams y trabajo creativo."
+                    data-caracteristicas="Brazo flexible 360°|Pinza de sujeción fuerte|LED frío blanco 6000K|Bajo consumo 8W|Apto para todos los escritorios">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png" alt="Lámpara Flexible" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">LÁMPARA FLEXIBLE</h3>
+                        <p class="tcp-sub">Brazo flexible · Pinza · Versatile</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">369.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: FIGURAS -->
+        <section class="cat-seccion" id="paneles">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">05</span>
+                    FIGURAS LED
+                </h2>
+                <p class="cat-seccion-desc">Diseña tu espacio con Figuras LED modular. Decora tu setup gaming o habitación.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--3">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel Hexagonal LED RGB"
+                    data-precio="189.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Paneles hexagonales LED con iluminación RGB 16M colores. Diseño modular conectable. Control mediante app móvil."
+                    data-caracteristicas="Iluminación RGB 16M colores|Control mediante app móvil|Soporte asistente de voz|Mounting adhesivo incluido|Diseño modular conectable">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Figura_dragon_ball.png" alt="Panel Hexagonal" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">POPULAR</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA DRAGON BALL 22CM</h3>
+                        <p class="tcp-sub">Anime · LED · Multicolor</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">189.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel RGB 60cm Panorámico"
+                    data-precio="369.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Panel LED de 60cm de longitud para crear ambientes únicos. Control remoto incluido con 16 escenas predefinidas."
+                    data-caracteristicas="60cm de longitud|Control remoto 44 teclas|16 escenas predefinidas|Compatibilidad Alexa|Sincronización con música">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/cabeza.png" alt="Panel 60cm" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA CABEZA 30CM </h3>
+                        <p class="tcp-sub">Realista · LED</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">329.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Panel Nanoleaf Imitación Premium"
+                    data-precio="419.99"
+                    data-imagen="images/productos/Panel hexagonal.png"
+                    data-descripcion="Panel LED estilo Nanoleaf con triángulos RGB de alta resolucion. Sincronización automática con música y gestos."
+                    data-caracteristicas="Forma triangular moderna|16M colores RGB|Sincronización música|Gestos automáticos|Montaje magnetico fácil">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Figura_abstracta.png" alt="Panel Premium" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">FIGURA ABSTRACTA 25CM</h3>
+                        <p class="tcp-sub">Abstracta · LED · Minimalista</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">239.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PACKS COMPLETOS -->
+        <section class="cat-seccion cat-seccion--dark" id="packs">
+            <div class="cat-seccion-header">
+                <h2 class="cat-seccion-titulo">
+                    <span class="cat-titulo-num">06</span>
+                    PACKS COMPLETOS
+                </h2>
+                <p class="cat-seccion-desc">Ahorra más comprando packs completos. Todo lo que necesitas para tu setup gaming en un solo paquete.</p>
+                <div class="cat-seccion-line"></div>
+            </div>
+            <div class="cat-grid cat-grid--2">
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Pack Gaming Completo RGB"
+                    data-precio="599.99"
+                    data-imagen="images/portada-2.png"
+                    data-descripcion="Pack completo para tu setup gaming: teclado mecánico, ratón gaming, alfombrilla y auriculares con iluminación RGB sincronizada."
+                    data-caracteristicas="Teclado mecánico RGB|Ratón 12000 DPI|Auriculares 7.1|Alfombrilla XL 90x40cm|Cable USB centralizado">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/SEOon_How_to_Create_the_Best_Gaming_Setup_e78e19bf-25c2-42aa-b210-349a89080cb7.jpg" alt="Pack Gaming" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">AHORRA 30%</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">PACK GAMING COMPLETO</h3>
+                        <p class="tcp-sub">Teclado · Ratón · Monitor</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">429.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-producto-cat" onclick="abrirProductoCat(this)"
+                    data-nombre="Pack Viral-Ray"
+                    data-precio="649.99"
+                    data-imagen="images/portada-1.png"
+                    data-descripcion="Pack iluminación premium: rótulo LED personalizado + panel hexagonal + lámpara RGB. Transforma completamente tu espacio."
+                    data-caracteristicas="Rótulo LED 3D personalizado|Panel hexagonal modular|Lámpara RGB inteligente|Control centralizado app|Instalación fácil">
+                    <div class="tcp-imagen">
+                        <img src="imagenes_web/imageneswebb/Productos/rotulos/Pack.png" alt="Pack ViralRay" loading="lazy">
+                        <div class="tcp-overlay"><span class="tcp-overlay-text">VER PRODUCTO</span></div>
+                        <span class="tcp-badge-featured">AHORRA 25%</span>
+                    </div>
+                    <div class="tcp-info">
+                        <h3 class="tcp-nombre">PACK VIRAL-RAY</h3>
+                        <p class="tcp-sub">Teclado · Ratón · Cascos · Microfono</p>
+                        <div class="tcp-precio-row">
+                            <span class="tcp-precio">499.99€</span>
+                        </div>
+                        <button class="tcp-btn-carrito" onclick="event.stopPropagation(); tcpAgregarCarrito(this)">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Detalle Producto -->
+    <div class="modal-producto-cat" id="modalProductoCat">
+        <div class="modal-producto-cat-inner">
+            <button class="modal-cat-cerrar" onclick="cerrarModalCat()">✕</button>
+            <div class="modal-cat-contenido">
+                <div class="modal-cat-imagen">
+                    <img id="modalCatImg" src="" alt="Producto">
+                </div>
+                <div class="modal-cat-info">
+                    <h2 id="modalCatNombre"></h2>
+                    <div class="modal-cat-precio" id="modalCatPrecio"></div>
+                    <p class="modal-cat-desc" id="modalCatDesc"></p>
+                    <ul class="modal-cat-caract" id="modalCatCaract"></ul>
+                    <div class="modal-cat-acciones">
+                        <div class="modal-cat-cantidad">
+                            <button onclick="cambiarCantidadModal(-1)">−</button>
+                            <span id="modalCatCant">1</span>
+                            <button onclick="cambiarCantidadModal(1)">+</button>
+                        </div>
+                        <button class="modal-cat-btn-comprar" id="modalBtnComprar">COMPRAR AHORA</button>
+                        <button class="modal-cat-btn-carrito" id="modalBtnCarrito">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-cat-overlay" id="modalCatOverlay" onclick="cerrarModalCat()"></div>
+
+    <!-- Toast -->
+    <div class="notificacion-toast" id="notificacionToast">
+        <span class="mensaje-notificacion"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background:#050510; border-top:1px solid rgba(255,215,0,0.12); padding:24px 40px; text-align:center;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                <a href="aviso-legal.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">AVISO LEGAL</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-privacidad.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE PRIVACIDAD</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="politica-cookies.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">POLÍTICA DE COOKIES</a>
+                <span style="color:rgba(255,215,0,0.2);">|</span>
+                <a href="envios.html" style="color:rgba(255,215,0,0.7); font-size:11px; font-weight:700; letter-spacing:1.5px; text-decoration:none; padding:6px 14px; border-radius:20px;" onmouseover="this.style.background='rgba(255,215,0,0.1)';this.style.color='#FFD700'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,215,0,0.7)'">ENVÍOS Y ENTREGAS</a>
+            </div>
+            <p style="color:rgba(255,255,255,0.25); font-size:11px; font-weight:700; letter-spacing:1px; margin:0;">© 2024 VIRAL RAY, S.L. — TODOS LOS DERECHOS RESERVADOS</p>
+        </div>
+    </footer>
+
+    <!-- ==================== PANEL FICHA DE PRODUCTO ==================== -->
+    <div class="pagina-producto-detalle" id="paginaProductoDetalle">
+
+        <!-- Header sticky -->
+        <div class="header-producto-detalle">
+            <button class="btn-volver-detalle" onclick="cerrarPaginaProducto()">
+                <svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                VOLVER
+            </button>
+            <div class="breadcrumb-producto">CATÁLOGO / PRODUCTOS / <span id="breadcrumbNombre">PRODUCTO</span></div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="layout-producto-detalle">
+
+            <!-- Columna izquierda: Galería -->
+            <div class="galeria-producto-detalle">
+                <div class="imagen-hero-producto" id="imagenHeroProducto">
+                    <img alt="" id="imgHeroDetalle" src=""/>
+                    <button class="btn-galeria-accion btn-favorito" id="btnFavoritoDetalle" onclick="toggleFavoritoDetalle()" title="Guardar en favoritos">
+                        <svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                </div>
+                <div class="descripcion-box-detalle">
+                    <p class="descripcion-producto-detalle" id="descripcionPaginaDetalle">Descripción del producto...</p>
+                </div>
+                <ul class="lista-caracteristicas-detalle" id="caracteristicasPaginaDetalle"></ul>
+                <div class="bundle-detalle">
+                    <p class="bundle-titulo">COMPRADOS JUNTOS HABITUALMENTE</p>
+                    <div class="bundle-inner">
+                        <img class="bundle-img" src="images/portada-2.png" alt="Pack" onerror="this.style.display='none'"/>
+                        <div class="bundle-info">
+                            <span class="bundle-nombre">Pack Gaming Completo</span>
+                            <span class="bundle-precio" id="bundlePrecio">249.98€</span>
+                        </div>
+                        <button class="bundle-btn" id="btnAnadirPack" onclick="anadirPackCat()">AÑADIR PACK</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Info y acciones -->
+            <div class="info-producto-detalle">
+                <span class="etiqueta-producto-detalle">NUEVO</span>
+                <h1 class="nombre-producto-detalle" id="nombrePaginaDetalle">NOMBRE PRODUCTO</h1>
+                <div class="rating-detalle">
+                    <span class="estrellas-detalle">★★★★★</span>
+                    <span class="puntuacion-detalle">4.8 / 5 · (247 valoraciones)</span>
+                </div>
+                <div class="precio-grande-detalle" id="precioPaginaDetalle">0.00€</div>
+                <div class="envio-gratis-badge">
+                    <svg fill="currentColor" height="13" viewBox="0 0 24 24" width="13"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"></path></svg>
+                    ENVÍO GRATIS EN PEDIDOS +50€
+                </div>
+                <div class="seccion-opcion-detalle">
+                    <div class="label-opcion-detalle">
+                        <svg fill="none" height="14" stroke="#FFD700" stroke-width="2" viewBox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                        COLOR
+                    </div>
+                    <div class="colores-detalle" id="coloresDetalle">
+                        <button class="color-dot-detalle activo" data-color="#9B59B6" style="background:#9B59B6" onclick="seleccionarColorDetalle(this)"></button>
+                        <button class="color-dot-detalle" data-color="#E74C3C" style="background:#E74C3C" onclick="seleccionarColorDetalle(this)"></button>
+                        <button class="color-dot-detalle" data-color="#3498DB" style="background:#3498DB" onclick="seleccionarColorDetalle(this)"></button>
+                        <button class="color-dot-detalle" data-color="#E67E22" style="background:#E67E22" onclick="seleccionarColorDetalle(this)"></button>
+                        <button class="color-dot-detalle color-plus" onclick="seleccionarColorDetalle(this)">+</button>
+                    </div>
+                    <span class="color-custom-nota">⬥ COLOR PERSONALIZADO (+10€)</span>
+                </div>
+                <div class="seccion-opcion-detalle">
+                    <div class="label-opcion-detalle">
+                        <img src="imagenes2.0/Ficha de producto/Ficha/Elemento_tamaño.png" alt="Tamaño" class="label-icon-img"/>
+                        TAMAÑO EN CENTÍMETROS
+                    </div>
+                    <div class="tallas-detalle" id="tallasDetalle">
+                        <button class="talla-opcion-detalle activo" data-precio-extra="0" onclick="seleccionarTallaDetalle(this)">
+                            <span class="talla-radio-detalle"></span>
+                            <span class="talla-nombre-detalle">40 CM ALTO x 30 CM ANCHO</span>
+                            <span class="talla-precio-detalle">(<span class="precio-base-talla">0.00</span>€)</span>
+                        </button>
+                        <button class="talla-opcion-detalle" data-precio-extra="100" onclick="seleccionarTallaDetalle(this)">
+                            <span class="talla-radio-detalle"></span>
+                            <span class="talla-nombre-detalle">60 CM ALTO x 45 CM ANCHO</span>
+                            <span class="talla-precio-detalle">(<span class="precio-base-talla">0.00</span>€)</span>
+                        </button>
+                        <button class="talla-opcion-detalle" data-precio-extra="300" onclick="seleccionarTallaDetalle(this)">
+                            <span class="talla-radio-detalle"></span>
+                            <span class="talla-nombre-detalle">80 CM ALTO x 60 CM ANCHO</span>
+                            <span class="talla-precio-detalle">(<span class="precio-base-talla">0.00</span>€)</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mini-seccion-detalle">
+                    <div class="label-opcion-detalle">
+                        <img src="imagenes2.0/Ficha de producto/Ficha/extensiondegarantia.png" alt="Garantía" class="label-icon-img"/>
+                        EXTENSIÓN DE GARANTÍA
+                    </div>
+                    <button class="garantia-extra-btn">ADQUIRIR GARANTÍA ANUAL (15€)</button>
+                </div>
+                <div class="seccion-opcion-detalle">
+                    <div class="label-opcion-detalle">
+                        <img src="imagenes2.0/Ficha de producto/Ficha/tipodeenvio.png" alt="Envío" class="label-icon-img"/>
+                        TIPO DE ENVÍO
+                    </div>
+                    <div class="envios-detalle">
+                        <div class="envio-opcion-detalle">
+                            <img src="imagenes2.0/Ficha de producto/Ficha/enviogratis.png" alt="Envío gratis" class="envio-img-icon"/>
+                            <span class="envio-texto-detalle">ENTREGA GRATIS EN PEDIDOS +50€</span>
+                            <span class="envio-precio-detalle gratis">GRATIS</span>
+                        </div>
+                        <div class="envio-opcion-detalle">
+                            <img src="imagenes2.0/Ficha de producto/Ficha/envioexpress.png" alt="Envío express" class="envio-img-icon"/>
+                            <span class="envio-texto-detalle">ENTREGA EXPRÉS 5 DÍAS LABORALES</span>
+                            <span class="envio-precio-detalle">15€</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisor-detalle"></div>
+                <div class="acciones-detalle-nueva">
+                    <div class="selector-cantidad-detalle">
+                        <button class="btn-cant" onclick="cambiarCantidadPagina(-1)">−</button>
+                        <span class="valor-cantidad" id="cantidadPagina">1</span>
+                        <button class="btn-cant" onclick="cambiarCantidadPagina(1)">+</button>
+                    </div>
+                    <button class="btn-carrito-detalle-nuevo" id="btnCarritoPagina">
+                        <svg fill="currentColor" height="18" viewBox="0 0 24 24" width="18"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.5 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+                        AÑADIR AL CARRITO
+                    </button>
+                    <button class="btn-comprar-detalle-nuevo" id="btnComprarPagina">COMPRAR AHORA</button>
+                </div>
+                <div class="metodos-pago-iconos-detalle">
+                    <span class="pay-icon-detalle">VISA</span>
+                    <span class="pay-icon-detalle">MC</span>
+                    <span class="pay-icon-detalle">AMEX</span>
+                    <span class="pay-icon-detalle">PayPal</span>
+                    <span class="pay-icon-detalle">Apple Pay</span>
+                    <span class="pay-icon-detalle">Bizum</span>
+                </div>
+                <div class="garantias-detalle">
+                    <div class="garantia-item">
+                        <img alt="Garantía" class="garantia-icon" src="images/Garantía.png" onerror="this.style.display='none'"/>
+                        <span>GARANTÍA 2 AÑOS</span>
+                    </div>
+                    <div class="garantia-item">
+                        <img alt="Envío" class="garantia-icon" src="images/Camión.png" onerror="this.style.display='none'"/>
+                        <span>ENVÍO 24-48H</span>
+                    </div>
+                    <div class="garantia-item">
+                        <img alt="Envío" class="garantia-icon" src="images/Pagar a palzos.png" onerror="this.style.display='none'"/>
+                        <span>PAGO A PLAZOS</span>
+                    </div>
+                    <div class="garantia-item">
+                        <img alt="Soporte" class="garantia-icon" src="images/Atencion_24_7.png" onerror="this.style.display='none'"/>
+                        <span>SOPORTE 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección valoraciones -->
+        <div class="seccion-valoraciones-detalle">
+            <h2 class="titulo-valoraciones-detalle">VALORACIONES DEL PRODUCTO</h2>
+            <div class="rating-global-detalle">
+                <div class="rating-numero-detalle">
+                    <span class="estrella-grande-detalle">★</span>
+                    <span class="numero-rating-detalle">4.8</span>
+                    <span class="de-cinco-detalle">/ 5 ESTRELLAS</span>
+                </div>
+                <button class="btn-resena-detalle">REFLEJA TU EXPERIENCIA</button>
+            </div>
+            <div class="filtros-resenas-detalle">
+                <button class="filtro-resena activo" onclick="filtrarResenas(this)">RESEÑAS CON FOTO</button>
+                <button class="filtro-resena" onclick="filtrarResenas(this)">5 ESTRELLAS</button>
+                <button class="filtro-resena" onclick="filtrarResenas(this)">4 ESTRELLAS</button>
+                <button class="filtro-resena" onclick="filtrarResenas(this)">3 ESTRELLAS</button>
+                <button class="filtro-resena" onclick="filtrarResenas(this)">2 ESTRELLAS</button>
+                <button class="filtro-resena" onclick="filtrarResenas(this)">1 ESTRELLA</button>
+            </div>
+            <div class="lista-resenas-detalle">
+                <div class="resena-item-detalle">
+                    <div class="resena-header-detalle">
+                        <img class="resena-avatar-foto" src="imagenes2.0/Foto_de_perfil_1.png" alt="Aitor132" onerror="this.outerHTML='<div class=\'resena-avatar-detalle\'>A</div>'"/>
+                        <div>
+                            <div class="resena-usuario-detalle">Aitor132</div>
+                            <div class="resena-fecha-detalle">Reseñado en España el 27 de septiembre de 2025</div>
+                        </div>
+                    </div>
+                    <div class="resena-estrellas-detalle">★★★★★</div>
+                    <p class="resena-texto-detalle"><strong>Producto perfecto, 10/10.</strong> Llegó antes de lo esperado y la calidad es increíble.</p>
+                    <div class="resena-fotos-detalle">
+                        <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido.png" alt="Producto recibido" class="resena-foto-producto"/>
+                        <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido1.png" alt="Producto recibido 2" class="resena-foto-producto"/>
+                    </div>
+                </div>
+                <div class="resena-item-detalle">
+                    <div class="resena-header-detalle">
+                        <img class="resena-avatar-foto" src="imagenes2.0/Ficha de producto/Reseñas/fotodeperfil2.png" alt="Giorigiiana423" onerror="this.outerHTML='<div class=\'resena-avatar-detalle\' style=\'background:linear-gradient(135deg,#44aaff,#0066cc)\'>G</div>'"/>
+                        <div>
+                            <div class="resena-usuario-detalle">Giorigiiana423</div>
+                            <div class="resena-fecha-detalle">Reseñado en España el 14 de abril de 2025</div>
+                        </div>
+                    </div>
+                    <div class="resena-estrellas-detalle">★★★★<span style="color:#333">★</span></div>
+                    <p class="resena-texto-detalle">El producto está muy bien, el problema es que el paquete me llegó dañado. El servicio de atención al cliente lo resolvió rápidamente.</p>
+                    <div class="resena-fotos-detalle">
+                        <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido2.png" alt="Producto recibido 3" class="resena-foto-producto"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script-busqueda-header.js"></script>
+    <script>
+    function anadirPackCat() {
+        const precio = 249.99;
+        tcpAgregarCarritoData({ nombre: 'Pack Gaming Completo', precio, imagen: 'images/portada-2.png' }, 1);
+    }
+
+    function abrirProductoCat(card) {
+        const imgEl = card.querySelector('.tcp-imagen img');
+        const imagen = imgEl ? imgEl.src : card.dataset.imagen;
+        abrirPaginaProducto(
+            imagen,
+            card.dataset.nombre,
+            card.dataset.precio,
+            card.dataset.descripcion,
+            card.dataset.caracteristicas
+        );
+    }
+
+    function tcpAgregarCarrito(btn) {
+        const card = btn.closest(".tarjeta-producto-cat");
+        const imgEl = card.querySelector(".tcp-imagen img");
+        const imagen = imgEl ? imgEl.src : card.dataset.imagen;
+        const datos = { nombre: card.dataset.nombre, precio: parseFloat(card.dataset.precio), imagen };
+        tcpAgregarCarritoData(datos, 1);
+    }
+
+
+
+
+
+
+    function tcpAgregarCarritoData(datos, cantidad) {
+        let carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const idx = carrito.findIndex(i => i.nombre === datos.nombre);
+        if (idx > -1) {
+            carrito[idx].cantidad += cantidad;
+        } else {
+            carrito.push({ id: Date.now().toString(), nombre: datos.nombre, precio: datos.precio, imagen: datos.imagen, cantidad });
+        }
+        localStorage.setItem('viralRayCarrito', JSON.stringify(carrito));
+        sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+        document.querySelectorAll('.contador-carrito').forEach(el => el.textContent = total);
+        mostrarToast('¡' + datos.nombre + ' añadido al carrito!');
+    }
+
+    function mostrarToast(msg) {
+        const t = document.getElementById('notificacionToast');
+        t.querySelector('.mensaje-notificacion').textContent = msg;
+        t.classList.add('mostrar');
+        setTimeout(() => t.classList.remove('mostrar'), 3000);
+    }
+
+    function scrollToCategoria(id, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
+        if (btn) btn.classList.add('activo');
+        const el = document.getElementById(id);
+        if (el) {
+            const offset = 100;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        const secciones = ['rotulos','teclados','cascos','lamparas','paneles','packs'];
+        let activa = secciones[0];
+        secciones.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.getBoundingClientRect().top < 160) activa = id;
+        });
+        document.querySelectorAll('.cat-btn').forEach(b => {
+            b.classList.toggle('activo', b.dataset.cat === activa);
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Cargar contador
+        const carritoInicial = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        document.querySelectorAll('.contador-carrito').forEach(el =>
+            el.textContent = carritoInicial.reduce((s,i) => s+i.cantidad, 0));
+
+        // Abrir modal carrito
+        document.querySelector('.icono-carrito').addEventListener('click', () => {
+            renderizarCarritoModal();
+            document.getElementById('modalCarrito').classList.add('activo');
+        });
+
+        // Cerrar modal
+        document.getElementById('cerrarModalCarrito').addEventListener('click', () => {
+            document.getElementById('modalCarrito').classList.remove('activo');
+        });
+        document.getElementById('modalCarrito').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modalCarrito'))
+                document.getElementById('modalCarrito').classList.remove('activo');
+        });
+
+        // Botón IR AL PAGO
+        document.getElementById('botonPagar').addEventListener('click', () => {
+            const carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+            if (carrito.length > 0) {
+                sessionStorage.setItem('carrito', JSON.stringify(carrito));
+                window.location.href = 'pago.html';
+            } else {
+                mostrarToast('Tu carrito está vacío');
+            }
+        });
+    });
+
+    function renderizarCarritoModal() {
+        const carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const cuerpo = document.getElementById('cuerpoModalCarrito');
+        const totalEl = document.getElementById('totalCarrito');
+        document.querySelectorAll('.contador-carrito').forEach(el =>
+            el.textContent = carrito.reduce((s,i) => s+i.cantidad, 0));
+
+        if (carrito.length === 0) {
+            cuerpo.innerHTML = `
+                <div class="carrito-vacio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="opacity:0.4;margin-bottom:12px">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <p>Tu carrito está vacío</p>
+                    <p style="margin-top:8px;font-size:12px;color:rgba(255,215,0,0.6)">¡Añade productos para comenzar!</p>
+                </div>`;
+            if (totalEl) totalEl.textContent = '0.00€';
+        } else {
+            cuerpo.innerHTML = carrito.map(a => `
+                <div class="articulo-carrito" data-id="${a.id}">
+                    <div class="imagen-articulo-carrito">
+                        <img src="${a.imagen}" alt="${a.nombre}">
+                    </div>
+                    <div class="detalles-articulo-carrito">
+                        <h4>${a.nombre}</h4>
+                        <div class="cantidad-container">
+                            <button class="boton-cantidad menos" onclick="cambiarCantidadCat('${a.id}',-1)">&#8722;</button>
+                            <span class="cantidad-valor">${a.cantidad}</span>
+                            <button class="boton-cantidad mas" onclick="cambiarCantidadCat('${a.id}',1)">+</button>
+                        </div>
+                        <p class="precio">${(a.precio * a.cantidad).toFixed(2)}&euro;</p>
+                    </div>
+                    <button class="boton-eliminar-articulo" onclick="eliminarArticuloCat('${a.id}')">&times;</button>
+                </div>
+            `).join('');
+            const tot = carrito.reduce((s,i) => s + i.precio * i.cantidad, 0);
+            if (totalEl) totalEl.textContent = tot.toFixed(2) + '€';
+        }
+    }
+
+    function tcpAgregarCarritoData(datos, cantidad) {
+        let carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const id = datos.nombre.toLowerCase().replace(/\s+/g, '-');
+        const idx = carrito.findIndex(i => i.id === id);
+        if (idx > -1) {
+            carrito[idx].cantidad += cantidad;
+        } else {
+            carrito.push({ id, nombre: datos.nombre, precio: datos.precio, imagen: datos.imagen, cantidad });
+        }
+        localStorage.setItem('viralRayCarrito', JSON.stringify(carrito));
+        sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarCarritoModal();
+        mostrarToast('¡' + datos.nombre + ' añadido al carrito!');
+    }
+
+    function cambiarCantidadCat(id, delta) {
+        let carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        const idx = carrito.findIndex(i => i.id === id);
+        if (idx > -1) {
+            carrito[idx].cantidad += delta;
+            if (carrito[idx].cantidad <= 0) carrito.splice(idx, 1);
+        }
+        localStorage.setItem('viralRayCarrito', JSON.stringify(carrito));
+        sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarCarritoModal();
+    }
+
+    function eliminarArticuloCat(id) {
+        let carrito = JSON.parse(localStorage.getItem('viralRayCarrito') || '[]');
+        carrito = carrito.filter(i => i.id !== id);
+        localStorage.setItem('viralRayCarrito', JSON.stringify(carrito));
+        sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarCarritoModal();
+    }
+    </script>
+
+    <!-- Modal Carrito (idéntico al de index.html) -->
+    <div class="modal-carrito" id="modalCarrito">
+        <div class="contenido-modal-carrito">
+            <div class="encabezado-modal-carrito">
+                <h3>MI CESTA</h3>
+                <button class="cerrar-modal" id="cerrarModalCarrito">×</button>
+            </div>
+            <div class="cuerpo-modal-carrito" id="cuerpoModalCarrito">
+            </div>
+            <div class="pie-modal-carrito">
+                <div class="total-carrito">
+                    <span>Total:</span>
+                    <span id="totalCarrito">0.00€</span>
+                </div>
+                <button class="boton-pagar" id="botonPagar">IR AL PAGO</button>
+                <div class="metodos-pago">
+                    <p class="texto-metodos-pago">Pagos 100% seguros</p>
+                    <div class="iconos-metodos-pago">
+                        <div class="metodo-pago" title="Visa">
+                            <svg fill="none" viewBox="0 0 50 50"><rect fill="#1A1F71" height="50" rx="6" width="50"/><path d="M20.5 25.5L22 18H25L23.5 25.5L26 32H23L20.5 25.5ZM18 18L15.5 27L15 32H12L15.5 18H18ZM29.5 18L27.5 25.5L27 28H26.5L26 25.5L29.5 18ZM32 18L34.5 23.5L35 18H38L35 32H32L32 18ZM25 18L22.5 27L22 32H19L21.5 18H25Z" fill="white"/></svg>
+                        </div>
+                        <div class="metodo-pago" title="Mastercard">
+                            <svg fill="none" viewBox="0 0 50 50"><rect fill="#333" height="50" rx="6" width="50"/><circle cx="19" cy="25" fill="#EB001B" r="10"/><circle cx="31" cy="25" fill="#F79E1B" r="10"/><path d="M25 17.5C26.8 19.3 28 21.5 28 25C28 28.5 26.8 30.7 25 32.5C23.2 30.7 22 28.5 22 25C22 21.5 23.2 19.3 25 17.5Z" fill="#FF5F00"/></svg>
+                        </div>
+                        <div class="metodo-pago" title="PayPal">
+                            <svg fill="none" viewBox="0 0 50 50"><rect fill="#003087" height="50" rx="6" width="50"/><path d="M22 15H33C35.5 15 37.5 17 37.5 19.5C37.5 23 33 24 29 24H28V26.5C28 28 27.5 30 25 30H22V15ZM28 21H29.5C30.5 21 31.5 20.5 31.5 19.5C31.5 18.5 30.5 18 29.5 18H28V21Z" fill="white"/></svg>
+                        </div>
+                        <div class="metodo-pago" title="Apple Pay">
+                            <svg fill="none" viewBox="0 0 50 50"><rect fill="#000" height="50" rx="6" width="50"/><path d="M15 20C16 18 18 17 20 17C21 17 22.5 17.5 23.5 18.5C24.3 19.3 25 20.5 25 22C25 24.5 23.5 26 21.5 26H20V29C20 29.5 19.5 30 19 30C18.5 30 18 29.5 18 29V20C17.5 20 16.5 20 15 20Z" fill="white"/><path d="M28 17C29 17 30.5 17.5 31.5 18.5C32.3 19.3 33 20.5 33 22C33 24.5 31.5 26 29.5 26C28.5 26 27 25.5 26 24.5V30C26 30.5 25.5 31 25 31C24.5 31 24 30.5 24 30V18C24.5 17.5 26 17 28 17Z" fill="white"/></svg>
+                        </div>
+                        <div class="metodo-pago" title="Bizum">
+                            <svg fill="none" viewBox="0 0 50 50"><rect fill="#FF5722" height="50" rx="6" width="50"/><text fill="white" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" x="25" y="32">B</text></svg>
+                        </div>
+                    </div>
+                    <div class="certificado-seguridad">
+                        <svg fill="#00AA00" height="14" viewBox="0 0 24 24" width="14"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        <span>SSL seguro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script id="menu-fullscreen-js">
+(function() {
+    function initMenu() {
+        var overlay   = document.getElementById('menu-overlay');
+        var cerrar    = document.getElementById('menuCerrar');
+        var hamburger = document.querySelector('.menu-desplegable');
+        if (!overlay || !hamburger) return;
+
+        function abrirMenu() {
+            overlay.classList.remove('cerrando');
+            overlay.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+            hamburger.classList.add('activo');
+        }
+        function cerrarMenu() {
+            overlay.classList.add('cerrando');
+            overlay.classList.remove('abierto');
+            hamburger.classList.remove('activo');
+            setTimeout(function() {
+                overlay.classList.remove('cerrando');
+                document.body.style.overflow = '';
+            }, 320);
+        }
+
+        hamburger.addEventListener('click', function() {
+            overlay.classList.contains('abierto') ? cerrarMenu() : abrirMenu();
+        });
+        cerrar.addEventListener('click', cerrarMenu);
+
+        // Cerrar al pulsar Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarMenu();
+        });
+
+        // Submenú hover en escritorio / click en móvil
+        var items = document.querySelectorAll('.menu-fullscreen-item[data-submenu]');
+        items.forEach(function(item) {
+            item.addEventListener('mouseenter', function() { item.classList.add('activo'); });
+            item.addEventListener('mouseleave', function() { item.classList.remove('activo'); });
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 700) {
+                    e.stopPropagation();
+                    item.classList.toggle('activo');
+                }
+            });
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+        initMenu();
+    }
+})();
+</script>
+
+</body>
+</html>
