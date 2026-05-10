@@ -15,6 +15,19 @@
 <script src="script-busqueda.js"></script>
     <style>
         *, *::before, *::after { cursor: url("images/cursor_40x40.png") 8 0, auto !important; }
+        .subtitulo-heroe-secundario {
+            display: block;
+            text-align: center;
+            font-size: clamp(12px, 1.5vw, 16px);
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: rgba(255, 255, 255, 0.75);
+            text-transform: uppercase;
+            padding: 10px 20px 8px;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+        }
     </style>
 
 <style id="menu-fullscreen-css">
@@ -294,11 +307,17 @@
 <p class="subtitulo-heroe">LA MEJOR INVERSIÓN PARA EL MEJOR CONTENIDO</p>
 <!-- Galería Dinámica con Video -->
 <div class="galeria-heroe" id="galeriaHeroe">
-<div class="elemento-galeria" data-indice="0">
-<img alt="Contenido Viral 1" src="images/portada-1.png"/>
+<div class="elemento-galeria elemento-galeria--link" data-indice="0">
+<a href="crea-tu-rotulo.html" class="enlace-galeria">
+<img alt="Crea tu Rótulo" src="images/creaturotulohome.png"/>
+<div class="etiqueta-galeria">CREA TU RÓTULO →</div>
+</a>
 </div>
-<div class="elemento-galeria" data-indice="1">
-<img alt="Contenido Viral 2" src="images/portada-2.png"/>
+<div class="elemento-galeria elemento-galeria--link" data-indice="1">
+<a href="catalogo.html#rotulos" class="enlace-galeria">
+<img alt="Rótulos LED" src="imagenes_web/imageneswebb/Productos/rotulos/INNOVATE.png"/>
+<div class="etiqueta-galeria">VER RÓTULOS →</div>
+</a>
 </div>
 <div class="elemento-galeria elemento-video" data-indice="2">
 <video autoplay="" loop="" muted="" playsinline="">
@@ -308,14 +327,21 @@
 <span class="icono-reproduccion">▶</span>
 </div>
 </div>
-<div class="elemento-galeria" data-indice="3">
-<img alt="Contenido Viral 3" src="images/portada-3.png"/>
+<div class="elemento-galeria elemento-galeria--link" data-indice="3">
+<a href="catalogo.html#packs" class="enlace-galeria">
+<img alt="Packs Completos" src="imagenes_web/imageneswebb/Productos/rotulos/Pack.png"/>
+<div class="etiqueta-galeria">VER PACKS COMPLETOS →</div>
+</a>
 </div>
-<div class="elemento-galeria" data-indice="4">
-<img alt="Contenido Viral 4" src="images/portada-4.png"/>
+<div class="elemento-galeria elemento-galeria--link" data-indice="4">
+<a href="comunidad.html" class="enlace-galeria">
+<img alt="Comunidad ViralRay" src="images/comunidadhome.png"/>
+<div class="etiqueta-galeria">ÚNETE A LA COMUNIDAD →</div>
+</a>
 </div>
 </div>
 </div>
+<p class="subtitulo-heroe-secundario">Expertos en iluminación para creadores de contenido con un servicio de 5 estrellas</p>
 <!-- Barra de Contacto Flotante -->
 
 </section>
@@ -327,32 +353,31 @@
 <div class="cuadricula-productos">
 <div class="categoria-producto">
 <div class="imagen-categoria">
-<img alt="Paneles Hexagonales" src="images/productos/Panel hexagonal.png"/>
+<img alt="Rótulos LED" src="imagenes_web/imageneswebb/Productos/rotulos/INNOVATE.png"/>
 </div>
-<h3>PANELES HEXAGONALES</h3>
-<p>Diseño modular y personalizable</p>
-</div>
-<div class="categoria-producto">
-<div class="imagen-categoria">
-<img alt="Teclados RGB" src="images/productos/Teclado RGB.png"/>
-</div>
-<h3>TECLADOS RGB</h3>
-<p>Iluminación para tu setup gaming</p>
+<h3>RÓTULOS LED</h3>
+<p>Personalizados para tu espacio</p>
 </div>
 <div class="categoria-producto">
 <div class="imagen-categoria">
-<img alt="Auriculares Gaming" src="images/productos/Cascos.png"/>
+<img alt="Ratones Gaming" src="images/raton1.png"/>
 </div>
-<h3>AURICULARES</h3>
-<p>Audio inmersivo con LED</p>
+<h3>RATONES GAMING</h3>
+<p>Precisión y RGB en cada movimiento</p>
 </div>
 <div class="categoria-producto">
 <div class="imagen-categoria">
-<!-- Imagen lámpara de diseño actualizada -->
-<img alt="Lámpara LED de Diseño" src="images/productos/Lámpara de diseño.png"/>
+<img alt="Lámparas LED" src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png"/>
 </div>
 <h3>LÁMPARAS LED</h3>
 <p>Iluminación decorativa moderna</p>
+</div>
+<div class="categoria-producto">
+<div class="imagen-categoria">
+<img alt="Figuras LED" src="imagenes_web/imageneswebb/Productos/rotulos/Figura_dragon_ball.png"/>
+</div>
+<h3>FIGURAS LED</h3>
+<p>Personajes únicos para tu setup</p>
 </div>
 </div>
 </div>
@@ -412,81 +437,80 @@
 <div class="carrusel-productos">
 <button class="flecha-carrusel izq" onclick="moverCarrusel(-1)"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="22"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <div class="pista-productos" id="pistaProductos">
-<div class="tarjeta-producto" data-caracteristicas="Iluminación RGB 16M colores|Control mediante app móvil|Soporte asistente de voz|Mounting adhesivo incluido|Diseño modular conectable" data-descripcion="Diseña tu espacio con nuestros paneles hexagonales LED. Perfectos para crear efectos de luz únicos en tu setup gaming o habitación." data-nombre="Paneles Hexagonales LED" data-precio="189.99" data-producto="1" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Switches mecánicos azul|Iluminación RGB por tecla|N-Key rollover anti-ghosting|Cable USB-C rizado desmontable|Knob de volumen integrado" data-descripcion="Teclado mecánico premium Aether MK1 con iluminación RGB azul-violeta por tecla. Cable rizado USB-C y knob de volumen." data-nombre="Teclado Aether MK1" data-precio="349.99" data-producto="1" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<img alt="Paneles Hexagonales" src="images/productos/Panel hexagonal.png"/>
+<img alt="Teclado Aether MK1" src="images/teclado1.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">PANELES HEXAGONALES</h4>
-<p class="subtitulo-producto">Diseño Modular LED</p>
-<p class="precio-producto">189.99€</p>
-<button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
-</div>
-</div>
-<div class="tarjeta-producto" data-caracteristicas="Switches mecánicos azul|Iluminación RGB por tecla|N-Key rollover anti-ghosting|Cable USB-C desmontable|Reposabrazos aluminio antideslizante" data-descripcion="Teclado mecánico premium con iluminación RGB personalizable. Switches azul para una experiencia táctil excepcional." data-nombre="Teclado Mecánico RGB" data-precio="249.99" data-producto="2" onclick="abrirDetalleProducto(this)">
-<div class="imagen-producto">
-<img alt="Teclado RGB" src="images/productos/Teclado RGB.png"/>
-</div>
-<div class="informacion-producto">
-<h4 class="titulo-producto">TECLADO RGB GAMING</h4>
-<p class="subtitulo-producto">Iluminación RGB Personalizable</p>
+<h4 class="titulo-producto">TECLADO AETHER MK1</h4>
+<p class="subtitulo-producto">RGB Azul-Violeta · Gaming</p>
 <p class="precio-producto">349.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
-<div class="tarjeta-producto" data-caracteristicas="Sonido surround 7.1|Micrófono con cancelación de ruido|Iluminación LED RGB|Compatibles PC, PS4, Xbox|Cojines memory foam" data-descripcion="Auriculares gaming con sonido envolvente 7.1, micrófono retráctil e iluminación LED." data-nombre="Auriculares Gaming Pro" data-precio="249.99" data-producto="3" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Diseño personalizado|Luz LED neón|Montaje en pared|Control remoto RGB|Garantía 2 años" data-descripcion="Rótulo LED 3D INNOVATE con iluminación neón personalizada. Perfecto para setups y streamers." data-nombre="Rótulo LED INNOVATE" data-precio="729.99" data-producto="2" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<img alt="Auriculares" src="images/productos/Cascos.png"/>
+<img alt="Rótulo LED INNOVATE" src="imagenes_web/imageneswebb/Productos/rotulos/INNOVATE.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">AURICULARES GAMING</h4>
-<p class="subtitulo-producto">Audio Inmersivo con LED</p>
-<p class="precio-producto">249.99€</p>
+<h4 class="titulo-producto">RÓTULO LED INNOVATE</h4>
+<p class="subtitulo-producto">Metacrilato · RGB · Elegante</p>
+<p class="precio-producto">729.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
-<div class="tarjeta-producto" data-caracteristicas="3 modos temperatura color|Brillo ajustable 10-100%|Pantalla LED con hora|Base estable antideslizante|Consumo 12W" data-descripcion="Lámpara de diseño minimalista con luz LED regulable. Perfecta para escritorios y espacios de trabajo." data-nombre="Lámpara LED de Diseño" data-precio="349.99" data-producto="4" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Sensor óptico de alta precisión|Iluminación RGB multicolor|Botones laterales programables|Cable trenzado premium|Adaptador USB-A/USB-C incluido" data-descripcion="Ratón gaming de alta precisión con iluminación RGB dinámica y diseño ergonómico." data-nombre="Ratón Aegis Pro RGB" data-precio="349.99" data-producto="3" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<!-- Imagen lámpara actualizada -->
-<img alt="Lámpara LED de Diseño" src="images/productos/Lámpara de diseño.png"/>
+<img alt="Ratón Aegis Pro RGB" src="images/raton1.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">LÁMPARA DE DISEÑO</h4>
-<p class="subtitulo-producto">Moderno y Elegante</p>
-<p class="precio-producto">249.99€</p>
+<h4 class="titulo-producto">RATÓN AEGIS PRO RGB</h4>
+<p class="subtitulo-producto">RGB · Ergonómico · Pro</p>
+<p class="precio-producto">349.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
-<div class="tarjeta-producto" data-caracteristicas="Teclado mecánico RGB|Ratón 12000 DPI|Auriculares 7.1|Alfombrilla XL 90x40cm|Cable USB centralizado" data-descripcion="Pack completo para tu setup gaming: teclado, ratón, alfombrilla y auriculares con iluminación RGB sincronizada." data-nombre="Pack Completo Gaming" data-precio="599.99" data-producto="5" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Panel LED hexagonal|Luz ambiental RGB|Sincronización música|App de control|Fácil instalación" data-descripcion="Panel LED hexagonal con luz ambiental RGB y sincronización musical. Transforma tu habitación." data-nombre="Panel Hexagonal LED" data-precio="419.99" data-producto="4" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<img alt="Pack Gaming" src="images/portada-2.png"/>
+<img alt="Panel Hexagonal LED" src="imagenes_web/imageneswebb/Productos/rotulos/Panel_hexagonal.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">PACK GAMING SETUP</h4>
-<p class="subtitulo-producto">Todo lo que necesitas</p>
-<p class="precio-producto">599.99€</p>
+<h4 class="titulo-producto">PANEL HEXAGONAL LED</h4>
+<p class="subtitulo-producto">RGB · Ambiental · Setup</p>
+<p class="precio-producto">419.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
-<div class="tarjeta-producto" data-caracteristicas="Led de neón flexible|16 millones de colores|Mando a distancia incluido|Tamaño personalizable|Fácil instalación" data-descripcion="Rótulo LED 3D personalizado con la frase que tú elijas. Ilumina tu mundo con estilo." data-nombre="Rótulo LED 3D" data-precio="479.99" data-producto="6" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Conexión inalámbrica 2.4GHz|Acabado holográfico premium|Iluminación RGB espectacular|Batería de larga duración|Cable carga USB-C incluido" data-descripcion="Ratón gaming inalámbrico con acabado holográfico y RGB espectacular." data-nombre="Ratón Aegis Pro Wireless" data-precio="419.99" data-producto="5" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<img alt="Rótulo LED" src="images/portada-3.png"/>
+<img alt="Ratón Aegis Pro Wireless" src="images/raton.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">RÓTULO LED 3D</h4>
-<p class="subtitulo-producto">Personaliza tu espacio</p>
-<p class="precio-producto">479.99€</p>
+<h4 class="titulo-producto">RATÓN AEGIS PRO WIRELESS</h4>
+<p class="subtitulo-producto">Inalámbrico · Holográfico</p>
+<p class="precio-producto">419.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
-<div class="tarjeta-producto" data-caracteristicas="60cm de longitud|Control remoto 44 teclas|16 escenas predefinidas|Compatibilidad Alexa|Sincronización con música" data-descripcion="Panel LED de grandes dimensiones para crear ambientes únicos. Control remoto incluido." data-nombre="Panel RGB 60cm" data-precio="219.99" data-producto="7" onclick="abrirDetalleProducto(this)">
+<div class="tarjeta-producto" data-caracteristicas="Diseño artístico único|Luz LED neón|Figura decorativa|Colores personalizables|Envío protegido" data-descripcion="Figura LED Dragon Ball con iluminación neón. Decoración premium para fans y gamers." data-nombre="Figura LED Dragon Ball" data-precio="900.00" data-producto="6" onclick="abrirDetalleProducto(this)">
 <div class="imagen-producto">
-<img alt="Panel RGB" src="images/portada-4.png"/>
+<img alt="Figura LED Dragon Ball" src="imagenes_web/imageneswebb/Productos/rotulos/Figura_dragon_ball.png"/>
 </div>
 <div class="informacion-producto">
-<h4 class="titulo-producto">PANEL RGB 60CM</h4>
-<p class="subtitulo-producto">Iluminación ambiental</p>
-<p class="precio-producto">219.99€</p>
+<h4 class="titulo-producto">FIGURA LED DRAGON BALL</h4>
+<p class="subtitulo-producto">Neón · Decorativa · Fan Art</p>
+<p class="precio-producto">900.00€</p>
+<button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
+</div>
+</div>
+<div class="tarjeta-producto" data-caracteristicas="Diseño moderno|Luz LED cálida/fría|Control táctil|Sin reflejos|Cuello flexible" data-descripcion="Lámpara de diseño con luz LED regulable. Elegante y funcional para cualquier espacio." data-nombre="Lámpara LED Diseño" data-precio="389.99" data-producto="7" onclick="abrirDetalleProducto(this)">
+<div class="imagen-producto">
+<img alt="Lámpara LED Diseño" src="imagenes_web/imageneswebb/Productos/rotulos/Lámpara_de_diseño.png"/>
+</div>
+<div class="informacion-producto">
+<h4 class="titulo-producto">LÁMPARA LED DISEÑO</h4>
+<p class="subtitulo-producto">LED · Moderna · Regulable</p>
+<p class="precio-producto">389.99€</p>
 <button class="boton-agregar-carrito" onclick="event.stopPropagation(); agregarAlCarritoDesdeBoton(this)" type="button">AÑADIR AL CARRITO</button>
 </div>
 </div>
@@ -501,11 +525,7 @@
 <h2 class="titulo-seccion purpura">SOBRE NOSOTROS</h2>
 <div class="contenido-confianza">
 <div class="texto-confianza">
-<p>ViralRay no vende solo luces, vende la clave para la profesionalización y el estatus que tu contenido merece. Somos la marca de tecnología e iluminación diseñada exclusivamente para el creador de contenido que, como tú, se siente presionado a destacar en un sector altamente competitivo.</p>
-<br/>
-<p>Ofrecemos una combinación inigualable de funcionalidad técnica y diseño estético. Cada producto está cuidadosamente seleccionado para garantizar la mejor relación calidad del mercado, con enfoque en durabilidad, diseño innovador y rendimiento excepcional. Nuestro diferenciador es la personalización total de rótulos de neón, permitiéndote moldear tu espacio personal de una forma que te represente.</p>
-<br/>
-<p>Deja de usar iluminación genérica y da el paso: ViralRay es la mejor inversión para el mejor contenido, garantizándote la elegancia y las herramientas que realmente impulsan el crecimiento de tu audiencia.</p>
+<p>ViralRay es la marca de tecnología e iluminación para creadores de contenido que quieren destacar. Productos seleccionados por su calidad, diseño y rendimiento — más personalización total con nuestros rótulos de neón. La mejor inversión para el mejor contenido.</p>
 </div>
 <div class="logotipo-confianza">
 <img alt="VIRAL RAY Logo" class="imagen-logotipo-confianza" src="images/logo-grande-sinfondo.png"/>
@@ -1158,8 +1178,7 @@
                 <div class="resena-estrellas-detalle">★★★★★</div>
                 <p class="resena-texto-detalle"><strong>Producto perfecto, 10/10.</strong> Llegó antes de lo esperado y la calidad es increíble. Lo recomiendo totalmente a cualquier creador de contenido.</p>
                 <div class="resena-fotos-detalle">
-                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido.png" alt="Producto recibido" class="resena-foto-producto"/>
-                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido1.png" alt="Producto recibido 2" class="resena-foto-producto"/>
+                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido2.png" alt="Producto recibido" class="resena-foto-producto"/>
                 </div>
             </div>
             <div class="resena-item-detalle">
@@ -1173,7 +1192,8 @@
                 <div class="resena-estrellas-detalle">★★★★<span style="color:#333">★</span></div>
                 <p class="resena-texto-detalle">El producto está muy bien, el problema es que el paquete me llegó dañado. El servicio de atención al cliente lo resolvió rápidamente.</p>
                 <div class="resena-fotos-detalle">
-                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido2.png" alt="Producto recibido 3" class="resena-foto-producto"/>
+                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido.png" alt="Caja dañada" class="resena-foto-producto"/>
+                    <img src="imagenes2.0/Ficha de producto/Reseñas/productorecibido1.png" alt="Producto" class="resena-foto-producto"/>
                 </div>
             </div>
         </div>
@@ -1185,6 +1205,32 @@
 <script src="script-busqueda.js"></script>
 <script src="script-newsletter.js"></script>
 <script src="script-busqueda-header.js"></script>
+<script>
+// Cerrar ficha de producto al pulsar "Añadir al carrito" dentro del modal de detalle
+document.addEventListener('DOMContentLoaded', function() {
+    // Modal detalle (index)
+    var btnDetalle = document.getElementById('btnAgregarCarritoDetalle');
+    if (btnDetalle) {
+        btnDetalle.addEventListener('click', function() {
+            setTimeout(function() {
+                var modal = document.getElementById('modalDetalleProducto');
+                if (modal) modal.style.display = 'none';
+                var pagina = document.getElementById('paginaProductoDetalle');
+                if (pagina && typeof cerrarPaginaProducto === 'function') cerrarPaginaProducto();
+            }, 300);
+        });
+    }
+    // Ficha fullscreen (index, mismo script que catálogo)
+    var btnPagina = document.getElementById('btnCarritoPagina');
+    if (btnPagina) {
+        btnPagina.addEventListener('click', function() {
+            setTimeout(function() {
+                if (typeof cerrarPaginaProducto === 'function') cerrarPaginaProducto();
+            }, 300);
+        });
+    }
+});
+</script>
 <script>
 function anadirPack() {
     const btn = document.getElementById('btnAnadirPack');

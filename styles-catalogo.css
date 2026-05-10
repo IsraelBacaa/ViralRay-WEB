@@ -171,7 +171,27 @@
 }
 
 .cat-icon {
-    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s, filter 0.2s;
+}
+
+.cat-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+    transition: stroke 0.2s;
+}
+
+.cat-btn:hover .cat-icon,
+.cat-btn.activo .cat-icon {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(255,215,0,0.5));
 }
 
 /* ══════════════════════════════════════════════
